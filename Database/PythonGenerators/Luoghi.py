@@ -59,7 +59,7 @@ NOMI = [
 
 def luoghi():
     nome = random.choice(NOMI)
-    print(f'insert into Luogo values ("{codice()}","{capienza()}", "{nome}");')
+    print(f'insert into Luogo values ({codice()},{capienza()}, "{nome}");')
 
 for _ in range(15):
     luoghi()

@@ -147,7 +147,7 @@ def indirizzo():
     numero_civico = random.randint(1, 150)
     provincia, sigla, citta = random.choice(CITTA)
     nome = random.choice(NOMI)
-    print(f'insert into Indirizzo values ("{provincia}","{sigla}", "{numero_civico}", "{via}", "{nome}");')
+    print(f'insert into Indirizzo values ("{provincia}","{sigla}", {numero_civico}, "{via}", "{nome}");')
 
 for _ in range(15):
     indirizzo()

@@ -1,34 +1,34 @@
-Indirizzo = [ ("CA","CA", "41", "Strada", "Centrale"),
-("VE","JE", "110", "Viale", "Alto"),
-("AP","AP", "45", "Vicolo", "Giacomo Leopardi"),
-("TN","AL", "108", "Contrada", "Moderno"),
-("TP","SN", "142", "Galleria", "Cesare Battisti"),
-("AN","FO", "50", "Calle", "Università"),
-("GE","ZO", "146", "Via", "della Libertà"),
-("FR","CM", "131", "Largo", "San Giuseppe"),
-("RC","RC", "116", "Salita", "Ferrovia"),
-("BT","AN", "84", "Viale", "del Mare"),
-("CA","CA", "117", "Strada", "Marco Polo"),
-("MI","MI", "18", "Via", "San Francesco"),
-("VE","VE", "54", "Piazzale", "della Chiesa"),
-("CN","CA", "129", "Calle", "della Resistenza"),
-("FR","CM", "12", "Galleria", "Centrale")]
+Indirizzo = [("RI","RI", 76, "Galleria", "del Mulino"),
+("BA","BA", 6, "Piazzale", "Porto"),
+("CO","CO", 142, "Lungomare", "Italia"),
+("VR","ER", 121, "Viale", "Università"),
+("TO","TO", 83, "Corso", "Università"),
+("AN","AN", 79, "Calle", "dei Pini"),
+("TN","AL", 60, "Piazzale", "Michelangelo Buonarroti"),
+("AQ","SC", 37, "Piazzale", "Antico"),
+("VE","JE", 91, "Borgo", "Roma"),
+("BZ","CH", 71, "Piazza", "degli Artigiani"),
+("SS","SS", 58, "Largo", "delle Vigne"),
+("SS","MO", 109, "Ponte", "San Francesco"),
+("KR","VE", 60, "Contrada", "Marco Polo"),
+("SA","SA", 80, "Ponte", "San Michele"),
+("CA","CP", 83, "Piazzale", "Vecchio")]
 
-Luogo = [("0","75", "Spazio Cultura"),
-("1","100", "Anfiteatro"),
-("2","1960", "Spazio Cultura"),
-("3","115", "Palazzo della Cultura"),
-("4","90", "Campo Sportivo"),
-("5","43465", "Spazio Cultura"),
-("6","605", "Teatro Goldoni"),
-("7","530", "Cinema Moderno"),
-("8","3080", "Spazio Cultura"),
-("9","60", "Arena Comunale"),
-("10","95", "Palazzetto dello Sport"),
-("11","105", "Stadio Olimpico"),
-("12","3265", "Stadio Municipale"),
-("13","745", "Arena Estiva"),
-("14","65", "Centro Sportivo")]
+Luogo = [(0,115, "Campo Sportivo"),
+(1,95, "Spazio Cultura"),
+(2,4220, "Anfiteatro"),
+(3,450, "Palazzetto Polifunzionale"),
+(4,90, "Palasport"),
+(5,3150, "Arena Concerti"),
+(6,60, "Teatro all'Aperto"),
+(7,120, "Palasport"),
+(8,335, "Campo Sportivo"),
+(9,44150, "Sala Consiliare"),
+(10,325, "Cinema Moderno"),
+(11,540, "Arena Comunale"),
+(12,210, "Palazzo della Cultura"),
+(13,115, "Palazzetto dello Sport"),
+(14,130, "Sala Conferenze")]
 
 codice_corrente = 0
 
@@ -43,6 +43,6 @@ def esterno():
         provincia, citta, n_civico, tipo, nome = indirizzo
         cod_luogo, capienza, nome_luogo = luogo
 
-        print(f'insert into Esterno values ("{codice()}","{provincia}", "{citta}", "{n_civico}", "{cod_luogo}");')
+        print(f'insert into Esterno values ({codice()},"{provincia}", "{citta}", {n_civico}, {cod_luogo});')
 
 esterno()

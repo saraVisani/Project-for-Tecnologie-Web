@@ -85,7 +85,7 @@ create table Corso (
      Codice numeric(10) not null,
      Nome varchar(30) not null,
      Descrizione varchar(510) not null,
-     Colore varchar(10) not null,
+     Colore varchar(10),
      Ambito varchar(30) not null,
      constraint ID_Corso_ID primary key (Codice));
 
@@ -93,8 +93,8 @@ create table Elemento (
      Codice numeric(10) not null,
      Nome varchar(20) not null,
      Voto numeric(10) not null,
-     Cod_Unico_Thread varchar(10),
-     Cod_Unico_Messaggio varchar(10),
+     Cod_Unico_Thread numeric(60),
+     Cod_Unico_Messaggio numeric(60),
      constraint ID_Elemento_ID primary key (Codice));
 
 create table Elim_Collaboratore (
@@ -155,12 +155,12 @@ create table Indirizzo (
      constraint ID_Indirizzo_ID primary key (Codice_Prov, Codice_Citta, N_Civico));
 
 create table Inoltrare_Messaggio (
-     Cod_Unico varchar(10) not null,
+     Cod_Unico numeric(60) not null,
      `Path` varchar(255) not null,
      constraint ID_Inoltrare_Messaggio_ID primary key (`Path`, Cod_Unico));
 
 create table Inoltrare_Thread (
-     Cod_Unico varchar(10) not null,
+     Cod_Unico numeric(60) not null,
      `Path` varchar(255) not null,
      constraint ID_Inoltrare_Thread_ID primary key (Cod_Unico, `Path`));
 
@@ -189,17 +189,17 @@ create table Materia_Anno (
      constraint ID_Materia_Anno_ID primary key (Cod_Mat_Anno));
 
 create table Messaggio (
-     Cod_Unico varchar(10) not null,
+     Cod_Unico numeric(60) not null,
      Codice numeric(10) not null,
-     Cod_Unico_Thread varchar(10) not null,
+     Cod_Unico_Thread numeric(60) not null,
      Testo varchar(60000) not null,
      Data datetime not null,
      Likes numeric(10) not null,
      Dislike numeric(10) not null,
      Pin TINYINT(1) not null,
      Pin_Speciale TINYINT(1) not null,
-     Messaggio_Puntato varchar(10),
-     Matricola numeric(10) not null,
+     Messaggio_Puntato numeric(60),
+     Matricola numeric(60) not null,
      constraint ID_Messaggio_ID primary key (Cod_Unico),
      constraint SID_Messaggio_ID unique (Cod_Unico_Thread, Codice));
 
@@ -374,7 +374,7 @@ create table Studente (
      constraint ID_Stude_Siste_ID primary key (Matricola));
 
 create table Thread (
-     Cod_Unico varchar(10) not null,
+     Cod_Unico numeric(60) not null,
      Cod_Forum numeric(1) not null,
      Cod_Canale numeric(10) not null,
      Codice numeric(10) not null,
@@ -386,7 +386,7 @@ create table Thread (
      Pin TINYINT(1) not null,
      Chiuso TINYINT(1) not null,
      No_Reply TINYINT(1) not null,
-     Thread_Puntato varchar(10),
+     Thread_Puntato numeric(60),
      Matricola numeric(10) not null,
      constraint SID_Thread_ID unique (Cod_Forum, Cod_Canale, Codice),
      constraint ID_Thread_ID primary key (Cod_Unico));
@@ -415,15 +415,29 @@ create table Universitario (
 
 truncate table Canale;
 
+insert into Canale values (0, 0, "Comunicazioni Interne Docenti", 3, false, false);
+insert into Canale values (0, 1, "Coordinamento Docenti–Rappresentanti", 2, false, false);
+insert into Canale values (0, 2, "Avvisi Docenti e Rappresentanti", 2, true, true);
+insert into Canale values (0, 3, "Avvisi Ufficiali ai Rappresentanti e Studenti", 3, true, true);
+
+insert into Canale values (1, 0, "Chat Rappresentanti Studenti", 2, false, false);
+insert into Canale values (1, 1, "Comunicazioni dei Rappresentanti", 2, true, true);
+insert into Canale values (1, 2, "Discussioni Studentesche", 1, false, false);
+
+insert into Canale values (2, 0, "Comunicazioni Interne Segreteria", 4, false, false);
+insert into Canale values (2, 1, "Avvisi Segreteria ai Docenti", 4, true, false);
+insert into Canale values (2, 2, "Coordinamento Segreteria–Docenti", 3, true, false);
+insert into Canale values (2, 3, "Comunicazioni Ufficiali Generali", 3, true, true);
+
 # ---------------------------------------------------------------------- #
 # Add info into "Forum"                                                  #
 # ---------------------------------------------------------------------- #
 
 truncate table Forum;
 
-insert into Forum values ("0", "Forum Professori");
-insert into Forum values ("1", "Forum Studenti");
-insert into Forum values ("2", "Forum Generale");
+insert into Forum values (0, "Forum Professori");
+insert into Forum values (1, "Forum Studenti");
+insert into Forum values (2, "Forum Generale");
 
 # ---------------------------------------------------------------------- #
 # Add info into "Esterno"                                                #
@@ -431,21 +445,21 @@ insert into Forum values ("2", "Forum Generale");
 
 truncate table Esterno;
 
-insert into Esterno values ("0","CA", "CA", "41", "0");
-insert into Esterno values ("1","VE", "JE", "110", "1");
-insert into Esterno values ("2","AP", "AP", "45", "2");
-insert into Esterno values ("3","TN", "AL", "108", "3");
-insert into Esterno values ("4","TP", "SN", "142", "4");
-insert into Esterno values ("5","AN", "FO", "50", "5");
-insert into Esterno values ("6","GE", "ZO", "146", "6");
-insert into Esterno values ("7","FR", "CM", "131", "7");
-insert into Esterno values ("8","RC", "RC", "116", "8");
-insert into Esterno values ("9","BT", "AN", "84", "9");
-insert into Esterno values ("10","CA", "CA", "117", "10");
-insert into Esterno values ("11","MI", "MI", "18", "11");
-insert into Esterno values ("12","VE", "VE", "54", "12");
-insert into Esterno values ("13","CN", "CA", "129", "13");
-insert into Esterno values ("14","FR", "CM", "12", "14");
+insert into Esterno values (0,"RI", "RI", 76, 0);
+insert into Esterno values (1,"BA", "BA", 6, 1);
+insert into Esterno values (2,"CO", "CO", 142, 2);
+insert into Esterno values (3,"VR", "ER", 121, 3);
+insert into Esterno values (4,"TO", "TO", 83, 4);
+insert into Esterno values (5,"AN", "AN", 79, 5);
+insert into Esterno values (6,"TN", "AL", 60, 6);
+insert into Esterno values (7,"AQ", "SC", 37, 7);
+insert into Esterno values (8,"VE", "JE", 91, 8);
+insert into Esterno values (9,"BZ", "CH", 71, 9);
+insert into Esterno values (10,"SS", "SS", 58, 10);
+insert into Esterno values (11,"SS", "MO", 109, 11);
+insert into Esterno values (12,"KR", "VE", 60, 12);
+insert into Esterno values (13,"SA", "SA", 80, 13);
+insert into Esterno values (14,"CA", "CP", 83, 14);
 
 # ---------------------------------------------------------------------- #
 # Add info into "Indirizzo"                                              #
@@ -453,21 +467,21 @@ insert into Esterno values ("14","FR", "CM", "12", "14");
 
 truncate table indirizzo;
 
-insert into Indirizzo values ("CA","CA", "41", "Strada", "Centrale");
-insert into Indirizzo values ("VE","JE", "110", "Viale", "Alto");
-insert into Indirizzo values ("AP","AP", "45", "Vicolo", "Giacomo Leopardi");
-insert into Indirizzo values ("TN","AL", "108", "Contrada", "Moderno");
-insert into Indirizzo values ("TP","SN", "142", "Galleria", "Cesare Battisti");
-insert into Indirizzo values ("AN","FO", "50", "Calle", "Università");
-insert into Indirizzo values ("GE","ZO", "146", "Via", "della Libertà");
-insert into Indirizzo values ("FR","CM", "131", "Largo", "San Giuseppe");
-insert into Indirizzo values ("RC","RC", "116", "Salita", "Ferrovia");
-insert into Indirizzo values ("BT","AN", "84", "Viale", "del Mare");
-insert into Indirizzo values ("CA","CA", "117", "Strada", "Marco Polo");
-insert into Indirizzo values ("MI","MI", "18", "Via", "San Francesco");
-insert into Indirizzo values ("VE","VE", "54", "Piazzale", "della Chiesa");
-insert into Indirizzo values ("CN","CA", "129", "Calle", "della Resistenza");
-insert into Indirizzo values ("FR","CM", "12", "Galleria", "Centrale");
+insert into Indirizzo values ("RI","RI", 76, "Galleria", "del Mulino");
+insert into Indirizzo values ("BA","BA", 6, "Piazzale", "Porto");
+insert into Indirizzo values ("CO","CO", 142, "Lungomare", "Italia");
+insert into Indirizzo values ("VR","ER", 121, "Viale", "Università");
+insert into Indirizzo values ("TO","TO", 83, "Corso", "Università");
+insert into Indirizzo values ("AN","AN", 79, "Calle", "dei Pini");
+insert into Indirizzo values ("TN","AL", 60, "Piazzale", "Michelangelo Buonarroti");
+insert into Indirizzo values ("AQ","SC", 37, "Piazzale", "Antico");
+insert into Indirizzo values ("VE","JE", 91, "Borgo", "Roma");
+insert into Indirizzo values ("BZ","CH", 71, "Piazza", "degli Artigiani");
+insert into Indirizzo values ("SS","SS", 58, "Largo", "delle Vigne");
+insert into Indirizzo values ("SS","MO", 109, "Ponte", "San Francesco");
+insert into Indirizzo values ("KR","VE", 60, "Contrada", "Marco Polo");
+insert into Indirizzo values ("SA","SA", 80, "Ponte", "San Michele");
+insert into Indirizzo values ("CA","CP", 83, "Piazzale", "Vecchio");
 
 # ---------------------------------------------------------------------- #
 # Add info into "Citta"                                                  #
@@ -582,21 +596,149 @@ insert into Citta values ("SS","MO","Mores");
 
 truncate table Luogo;
 
-insert into Luogo values ("0","75", "Spazio Cultura");
-insert into Luogo values ("1","100", "Anfiteatro");
-insert into Luogo values ("2","1960", "Spazio Cultura");
-insert into Luogo values ("3","115", "Palazzo della Cultura");
-insert into Luogo values ("4","90", "Campo Sportivo");
-insert into Luogo values ("5","43465", "Spazio Cultura");
-insert into Luogo values ("6","605", "Teatro Goldoni");
-insert into Luogo values ("7","530", "Cinema Moderno");
-insert into Luogo values ("8","3080", "Spazio Cultura");
-insert into Luogo values ("9","60", "Arena Comunale");
-insert into Luogo values ("10","95", "Palazzetto dello Sport");
-insert into Luogo values ("11","105", "Stadio Olimpico");
-insert into Luogo values ("12","3265", "Stadio Municipale");
-insert into Luogo values ("13","745", "Arena Estiva");
-insert into Luogo values ("14","65", "Centro Sportivo");
+insert into Luogo values (0,115, "Campo Sportivo");
+insert into Luogo values (1,95, "Spazio Cultura");
+insert into Luogo values (2,4220, "Anfiteatro");
+insert into Luogo values (3,450, "Palazzetto Polifunzionale");
+insert into Luogo values (4,90, "Palasport");
+insert into Luogo values (5,3150, "Arena Concerti");
+insert into Luogo values (6,60, "Teatro all'Aperto");
+insert into Luogo values (7,120, "Palasport");
+insert into Luogo values (8,335, "Campo Sportivo");
+insert into Luogo values (9,44150, "Sala Consiliare");
+insert into Luogo values (10,325, "Cinema Moderno");
+insert into Luogo values (11,540, "Arena Comunale");
+insert into Luogo values (12,210, "Palazzo della Cultura");
+insert into Luogo values (13,115, "Palazzetto dello Sport");
+insert into Luogo values (14,130, "Sala Conferenze");
+
+# ---------------------------------------------------------------------- #
+# Add info into "Persona"                                                #
+# ---------------------------------------------------------------------- #
+
+insert into Persona values ("DMCSRN57B50F875R","Serena","D'Amico","1957-02-10","serena.d'amico36@yahoo.it",1);
+insert into Persona values ("PRSGNN08R52D491D","Giovanna","Piras","2008-10-12","giovanna.piras42@gmail.com",4);
+insert into Persona values ("CNITMS99C09H703L","Tommaso","Iacono","1999-03-09","tommaso.iacono94@libero.it",1);
+insert into Persona values ("CNIFNC83E19D394D","Francesco","Iacono","1983-05-19","francesco.iacono36@gmail.com",3);
+insert into Persona values ("CLMCSR80B23H224A","Cesare","Colombo","1980-02-23","cesare.colombo77@yahoo.it",0);
+insert into Persona values ("VTLMRC92H28D491V","Marco","Vitale","1992-06-28","marco.vitale4@yahoo.it",0);
+insert into Persona values ("PLLNRC56S08I134V","Enrico","Pellegrini","1956-11-08","enrico.pellegrini75@yahoo.it",1);
+insert into Persona values ("SLANCL68P11G484W","Nicolò","Sala","1968-09-11","nicolò.sala70@hotmail.com",0);
+insert into Persona values ("LMBMSM92P04B861X","Massimo","Lombardi","1992-09-04","massimo.lombardi5@yahoo.it",3);
+insert into Persona values ("ZNTNCL93P13G273X","Nicolò","Zanetti","1993-09-13","nicolò.zanetti43@gmail.com",1);
+insert into Persona values ("NPLFNC59M04H703E","Francesco","Napolitano","1959-08-04","francesco.napolitano88@hotmail.com",4);
+insert into Persona values ("VNTGLI96C70C724J","Giulia","Ventura","1996-03-30","giulia.ventura66@gmail.com",3);
+insert into Persona values ("NPLFPP91C21G915Q","Filippo","Napolitano","1991-03-21","filippo.napolitano13@gmail.com",3);
+insert into Persona values ("SRRLSN74H26L219Y","Alessandro","Sorrentino","1974-06-26","alessandro.sorrentino64@hotmail.com",4);
+insert into Persona values ("CNTMRC71D08B207F","Marco","Conti","1971-04-08","marco.conti13@libero.it",1);
+insert into Persona values ("SPSNCL77L10G224E","Nicola","Esposito","1977-07-10","nicola.esposito18@gmail.com",1);
+insert into Persona values ("PRSSSH07M28G484G","Sasha","Piras","2007-08-28","sasha.piras55@libero.it",4);
+insert into Persona values ("CNISMN85T28L424I","Simone","Iacono","1985-12-28","simone.iacono62@yahoo.it",1);
+insert into Persona values ("NRENNA64B49F776Z","Anna","Neri","1964-02-09","anna.neri98@hotmail.com",1);
+insert into Persona values ("ZCCCLL58B61F205H","Camilla","Zuccaro","1958-02-21","camilla.zuccaro25@gmail.com",1);
+insert into Persona values ("CNICRL85T10I239T","Carlo","Iacono","1985-12-10","carlo.iacono28@yahoo.it",0);
+insert into Persona values ("FZADNC77B24D949G","Domenico","Fazio","1977-02-24","domenico.fazio0@yahoo.it",0);
+insert into Persona values ("MRNGRG71M12E376I","Giorgio","Moroni","1971-08-12","giorgio.moroni87@libero.it",1);
+insert into Persona values ("CRSDGI57H28A913F","Diego","Crespi","1957-06-28","diego.crespi18@gmail.com",1);
+insert into Persona values ("CNIMNL04B27F205L","Emanuele","Iacono","2004-02-27","emanuele.iacono97@gmail.com",1);
+insert into Persona values ("FRRCST02E13H223W","Celeste","Ferretti","2002-05-13","celeste.ferretti20@hotmail.com",3);
+insert into Persona values ("DMCLCU91S70F205J","Lucia","D'Amico","1991-11-30","lucia.d'amico99@hotmail.com",0);
+insert into Persona values ("VLNDVD69E21A310L","Davide","Valentini","1969-05-21","davide.valentini77@yahoo.it",1);
+insert into Persona values ("VRDGRL07R29A662I","Gabriele","Verdi","2007-10-29","gabriele.verdi90@gmail.com",3);
+insert into Persona values ("BRMDVD84P02A587E","Davide","Brambilla","1984-09-02","davide.brambilla26@libero.it",0);
+insert into Persona values ("GRSLND08C59C724G","Linda","Grassi","2008-03-19","linda.grassi10@yahoo.it",2);
+insert into Persona values ("NRECRL80D05D949N","Carlo","Neri","1980-04-05","carlo.neri55@hotmail.com",1);
+insert into Persona values ("NREDNL98P01A913Z","Daniele","Neri","1998-09-01","daniele.neri54@libero.it",0);
+insert into Persona values ("VRDLRA89B52A037W","Laura","Verdi","1989-02-12","laura.verdi25@yahoo.it",4);
+insert into Persona values ("NNCPRZ61M68H266K","Patrizia","Innocenti","1961-08-28","patrizia.innocenti47@libero.it",0);
+insert into Persona values ("RMNFPP01R05F572A","Filippo","Armani","2001-10-05","filippo.armani36@hotmail.com",0);
+insert into Persona values ("LCCGRL98H12G930D","Gabriel","Lucchesi","1998-06-12","gabriel.lucchesi59@hotmail.com",1);
+insert into Persona values ("ZCCNTN64M06A662G","Antonio","Zuccaro","1964-08-06","antonio.zuccaro70@yahoo.it",1);
+insert into Persona values ("TSTCLD63L54D491W","Claudia","Testa","1963-07-14","claudia.testa44@libero.it",0);
+insert into Persona values ("VNTWTR86L13I134F","Walter","Ventura","1986-07-13","walter.ventura89@yahoo.it",3);
+insert into Persona values ("GLLLCU94E63L424C","Lucia","Gallo","1994-05-23","lucia.gallo5@gmail.com",0);
+insert into Persona values ("ZCCRNI79S64G715X","Irene","Zuccaro","1979-11-24","irene.zuccaro85@libero.it",1);
+insert into Persona values ("DNTSLV76H58I309J","Silvia","Donati","1976-06-18","silvia.donati62@gmail.com",1);
+insert into Persona values ("SPSGNN04S61C724P","Giovanna","Esposito","2004-11-21","giovanna.esposito6@libero.it",2);
+insert into Persona values ("MNTGLI00H45G915X","Giulia","Monti","2000-06-05","giulia.monti76@gmail.com",1);
+insert into Persona values ("CNIDNS80M17D433N","Denis","Iacono","1980-08-17","denis.iacono91@gmail.com",0);
+insert into Persona values ("CRSLCU67P42A587A","Lucia","Caruso","1967-09-02","lucia.caruso52@hotmail.com",0);
+insert into Persona values ("CPTGLI63R70A794F","Giulia","Caputo","1963-10-30","giulia.caputo69@hotmail.com",1);
+insert into Persona values ("FRRRRT95E07G715D","Roberto","Ferretti","1995-05-07","roberto.ferretti58@yahoo.it",0);
+insert into Persona values ("MRCPTR72S20D969D","Pietro","Marchetti","1972-11-20","pietro.marchetti0@libero.it",1);
+insert into Persona values ("FRRNGL56T42H266K","Angela","Ferrari","1956-12-02","angela.ferrari0@libero.it",3);
+insert into Persona values ("NREMTT85L17C792C","Matteo","Neri","1985-07-17","matteo.neri76@libero.it",1);
+insert into Persona values ("FRNCRL07M03C365Q","Carlo","Franco","2007-08-03","carlo.franco47@libero.it",0);
+insert into Persona values ("PRSCRS01H22L402V","Christian","Piras","2001-06-22","christian.piras73@yahoo.it",1);
+insert into Persona values ("BRBLCA78E65A662W","Alice","Barbieri","1978-05-25","alice.barbieri75@hotmail.com",0);
+insert into Persona values ("VTLGNN69P68B440X","Giovanna","Vitale","1969-09-28","giovanna.vitale63@gmail.com",3);
+insert into Persona values ("FRRLNE61M50A037S","Elena","Ferretti","1961-08-10","elena.ferretti77@hotmail.com",1);
+insert into Persona values ("PGLRFL03M08B354B","Raffaele","Puglisi","2003-08-08","raffaele.puglisi50@libero.it",0);
+insert into Persona values ("GNTNNL66C57D276W","Antonella","Gentile","1966-03-17","antonella.gentile88@hotmail.com",1);
+insert into Persona values ("FRRNNL89S58D969D","Antonella","Ferrari","1989-11-18","antonella.ferrari42@libero.it",3);
+insert into Persona values ("DMCRTI59S62A662S","Rita","D'Amico","1959-11-22","rita.d'amico41@gmail.com",1);
+insert into Persona values ("BNVPLA56B42C365I","Paola","Bonaventura","1956-02-02","paola.bonaventura18@yahoo.it",1);
+insert into Persona values ("LNGVCN91R10G859M","Vincenzo","Longo","1991-10-10","vincenzo.longo41@gmail.com",3);
+insert into Persona values ("VRDRCR64R09D433B","Riccardo","Verdi","1964-10-09","riccardo.verdi81@gmail.com",0);
+insert into Persona values ("CNIMRO69B15B861T","Omar","Iacono","1969-02-15","omar.iacono48@libero.it",1);
+insert into Persona values ("BRNLSN67E29C724P","Alessandro","Bernardi","1967-05-29","alessandro.bernardi75@gmail.com",3);
+insert into Persona values ("BTASRA95L53C724C","Sara","Abate","1995-07-13","sara.abate30@libero.it",4);
+insert into Persona values ("VLNLNZ03D24C118Z","Lorenzo","Valentini","2003-04-24","lorenzo.valentini40@libero.it",1);
+insert into Persona values ("VRDGRG06T30C986J","Giorgio","Verdi","2006-12-30","giorgio.verdi54@yahoo.it",4);
+insert into Persona values ("RMNCST61H60D433T","Celeste","Romano","1961-06-20","celeste.romano97@yahoo.it",1);
+insert into Persona values ("CNTMNL00H03C351Y","Emanuele","Conti","2000-06-03","emanuele.conti58@yahoo.it",1);
+insert into Persona values ("CNIRCR60P07H501P","Riccardo","Iacono","1960-09-07","riccardo.iacono13@hotmail.com",0);
+insert into Persona values ("LNGFNC77S46A587K","Francesca","Longo","1977-11-06","francesca.longo99@libero.it",0);
+insert into Persona values ("CNILGU97R15C792Y","Luigi","Iacono","1997-10-15","luigi.iacono99@gmail.com",1);
+insert into Persona values ("BSSNDR63C48C986R","Andrea","Basso","1963-03-08","andrea.basso54@hotmail.com",1);
+insert into Persona values ("ZNTDNC84L11B858F","Domenico","Zanetti","1984-07-11","domenico.zanetti84@libero.it",1);
+insert into Persona values ("SLARTI80L65A643P","Rita","Sala","1980-07-25","rita.sala17@hotmail.com",4);
+insert into Persona values ("TSCLRT73M13H223A","Alberto","Toscano","1973-08-13","alberto.toscano59@gmail.com",2);
+insert into Persona values ("TSTMHL97M20B882A","Michele","Testa","1997-08-20","michele.testa86@yahoo.it",1);
+insert into Persona values ("RNASSH06C01A643H","Sasha","Arena","2006-03-01","sasha.arena7@yahoo.it",3);
+insert into Persona values ("FRNNNL02T62L378Y","Antonella","Franco","2002-12-22","antonella.franco84@gmail.com",1);
+insert into Persona values ("MZZMTT94C19B861V","Matteo","Mazza","1994-03-19","matteo.mazza76@gmail.com",3);
+insert into Persona values ("CSTSLV06H65L219T","Silvia","Costa","2006-06-25","silvia.costa33@yahoo.it",1);
+insert into Persona values ("DBNVLR95L29D276L","Valerio","Di Benedetto","1995-07-29","valerio.di benedetto32@gmail.com",3);
+insert into Persona values ("NGLSFO75C52D230I","Sofia","Angelini","1975-03-12","sofia.angelini39@gmail.com",1);
+insert into Persona values ("NRELXA93E42D525N","Alex","Neri","1993-05-02","alex.neri2@gmail.com",1);
+insert into Persona values ("BNCNTN57S24C792S","Antonio","Bianchi","1957-11-24","antonio.bianchi70@libero.it",3);
+insert into Persona values ("VTLMSM83B20I386Q","Massimo","Vitale","1983-02-20","massimo.vitale31@gmail.com",0);
+insert into Persona values ("RNLNGL87A67C986S","Angela","Rinaldi","1987-01-27","angela.rinaldi27@yahoo.it",1);
+insert into Persona values ("FRRMTT05L26D230G","Matteo","Ferrari","2005-07-26","matteo.ferrari96@gmail.com",0);
+insert into Persona values ("CLBJCP02S16L219Y","Jacopo","Calabrese","2002-11-16","jacopo.calabrese16@libero.it",0);
+insert into Persona values ("SNTNNA07B49L424U","Anna","Santoro","2007-02-09","anna.santoro64@hotmail.com",3);
+insert into Persona values ("LRSKVN89A18H196E","Kevin","Lorusso","1989-01-18","kevin.lorusso51@hotmail.com",1);
+insert into Persona values ("BRBRFL75P30C887R","Raffaele","Barbieri","1975-09-30","raffaele.barbieri50@hotmail.com",1);
+insert into Persona values ("LRSSFN62L01C365K","Stefano","Lorusso","1962-07-01","stefano.lorusso59@yahoo.it",1);
+insert into Persona values ("LMBNCL58P20F776A","Nicola","Lombardi","1958-09-20","nicola.lombardi91@libero.it",1);
+insert into Persona values ("DLCLRA95T45I143C","Laura","De Luca","1995-12-05","laura.de luca57@gmail.com",0);
+insert into Persona values ("PGLNMO07S52D760Z","Noemi","Puglisi","2007-11-12","noemi.puglisi73@hotmail.com",1);
+insert into Persona values ("TSCLNZ75B02H223Z","Lorenzo","Toscano","1975-02-02","lorenzo.toscano49@hotmail.com",3);
+insert into Persona values ("FRRRNN70T48G715L","Arianna","Ferrari","1970-12-08","arianna.ferrari79@hotmail.com",1);
+
+# ---------------------------------------------------------------------- #
+# Add info into "Professore"                                             #
+# ---------------------------------------------------------------------- #
+
+insert into Professore values (3);
+insert into Professore values (5);
+insert into Professore values (8);
+insert into Professore values (9);
+insert into Professore values (20);
+insert into Professore values (22);
+insert into Professore values (28);
+insert into Professore values (35);
+insert into Professore values (38);
+insert into Professore values (41);
+insert into Professore values (44);
+insert into Professore values (46);
+insert into Professore values (58);
+insert into Professore values (60);
+insert into Professore values (62);
+insert into Professore values (65);
+insert into Professore values (67);
+insert into Professore values (73);
 
 # ---------------------------------------------------------------------- #
 # Add info into "Provincia"                                              #
@@ -654,6 +796,213 @@ insert into Provincia values ("CT","Catania");
 insert into Provincia values ("TP","Trapani");
 insert into Provincia values ("CA","Cagliari");
 insert into Provincia values ("SS","Sassari");
+
+# ---------------------------------------------------------------------- #
+# Add info into "Segreteria"                                             #
+# ---------------------------------------------------------------------- #
+
+/*insert into Segreteria values (1,4);
+insert into Segreteria values (7,3);
+insert into Segreteria values (10,9);
+insert into Segreteria values (13,4);
+insert into Segreteria values (25,6);
+insert into Segreteria values (47,3);
+insert into Segreteria values (49,7);
+insert into Segreteria values (55,8);*/
+
+# ---------------------------------------------------------------------- #
+# Add info into "Sistema Universitario"                                  #
+# ---------------------------------------------------------------------- #
+
+insert into Sistema_Universitario values (0,"serena.d'amico55@studio.unibo.it","svtn55dmg3","DMCSRN57B50F875R");
+insert into Sistema_Universitario values (1,"giovanna.piras@studio.unibo.it","u76mw7obsm","PRSGNN08R52D491D");
+insert into Sistema_Universitario values (2,"tommaso.iacono@studio.unibo.it","5lra2za3mr","CNITMS99C09H703L");
+insert into Sistema_Universitario values (3,"francesco.iacono@studio.unibo.it","tb0bfph3ib","CNIFNC83E19D394D");
+insert into Sistema_Universitario values (4,"enrico.pellegrini@studio.unibo.it","x78t2hmnwi","PLLNRC56S08I134V");
+insert into Sistema_Universitario values (5,"massimo.lombardi@studio.unibo.it","7bh6st5t9c","LMBMSM92P04B861X");
+insert into Sistema_Universitario values (6,"nicolò.zanetti20@studio.unibo.it","w4lvd155dt","ZNTNCL93P13G273X");
+insert into Sistema_Universitario values (7,"francesco.napolitano32@studio.unibo.it","l2a5sam2wz","NPLFNC59M04H703E");
+insert into Sistema_Universitario values (8,"giulia.ventura@studio.unibo.it","f5awjr3z6g","VNTGLI96C70C724J");
+insert into Sistema_Universitario values (9,"filippo.napolitano20@studio.unibo.it","hx4gs9y9jf","NPLFPP91C21G915Q");
+insert into Sistema_Universitario values (10,"alessandro.sorrentino62@studio.unibo.it","wg6py6d1u2","SRRLSN74H26L219Y");
+insert into Sistema_Universitario values (11,"marco.conti@studio.unibo.it","lm8756lwbz","CNTMRC71D08B207F");
+insert into Sistema_Universitario values (12,"nicola.esposito62@studio.unibo.it","g9vd8o4mkf","SPSNCL77L10G224E");
+insert into Sistema_Universitario values (13,"sasha.piras88@studio.unibo.it","uz3ljqmbqp","PRSSSH07M28G484G");
+insert into Sistema_Universitario values (14,"simone.iacono@studio.unibo.it","k8bidf7lal","CNISMN85T28L424I");
+insert into Sistema_Universitario values (15,"anna.neri@studio.unibo.it","v898z2tqig","NRENNA64B49F776Z");
+insert into Sistema_Universitario values (16,"camilla.zuccaro38@studio.unibo.it","9exiqg730e","ZCCCLL58B61F205H");
+insert into Sistema_Universitario values (17,"giorgio.moroni20@studio.unibo.it","i6oqwixngg","MRNGRG71M12E376I");
+insert into Sistema_Universitario values (18,"diego.crespi44@studio.unibo.it","eydrusxwmp","CRSDGI57H28A913F");
+insert into Sistema_Universitario values (19,"emanuele.iacono@studio.unibo.it","m158x2dkwi","CNIMNL04B27F205L");
+insert into Sistema_Universitario values (20,"celeste.ferretti@studio.unibo.it","8h2umb56zv","FRRCST02E13H223W");
+insert into Sistema_Universitario values (21,"davide.valentini91@studio.unibo.it","qu48lo0co7","VLNDVD69E21A310L");
+insert into Sistema_Universitario values (22,"gabriele.verdi@studio.unibo.it","u6vubsw4rd","VRDGRL07R29A662I");
+insert into Sistema_Universitario values (23,"linda.grassi17@studio.unibo.it","u0jj4kjeqg","GRSLND08C59C724G");
+insert into Sistema_Universitario values (24,"carlo.neri57@studio.unibo.it","qhohmvfdls","NRECRL80D05D949N");
+insert into Sistema_Universitario values (25,"laura.verdi@studio.unibo.it","eo3nuakv2q","VRDLRA89B52A037W");
+insert into Sistema_Universitario values (26,"gabriel.lucchesi76@studio.unibo.it","l4p120zdw2","LCCGRL98H12G930D");
+insert into Sistema_Universitario values (27,"antonio.zuccaro69@studio.unibo.it","rke9q5xmop","ZCCNTN64M06A662G");
+insert into Sistema_Universitario values (28,"walter.ventura79@studio.unibo.it","wb6wwz5n22","VNTWTR86L13I134F");
+insert into Sistema_Universitario values (29,"irene.zuccaro26@studio.unibo.it","21t74pqbyp","ZCCRNI79S64G715X");
+insert into Sistema_Universitario values (30,"silvia.donati73@studio.unibo.it","a85l407lmm","DNTSLV76H58I309J");
+insert into Sistema_Universitario values (31,"giovanna.esposito38@studio.unibo.it","39dmbf27cj","SPSGNN04S61C724P");
+insert into Sistema_Universitario values (32,"giulia.monti92@studio.unibo.it","echl8qq0pi","MNTGLI00H45G915X");
+insert into Sistema_Universitario values (33,"giulia.caputo@studio.unibo.it","h7fa6lm3bz","CPTGLI63R70A794F");
+insert into Sistema_Universitario values (34,"pietro.marchetti@studio.unibo.it","fuxpxye21e","MRCPTR72S20D969D");
+insert into Sistema_Universitario values (35,"angela.ferrari55@studio.unibo.it","nbbqgut3av","FRRNGL56T42H266K");
+insert into Sistema_Universitario values (36,"matteo.neri@studio.unibo.it","bwa2ven8ug","NREMTT85L17C792C");
+insert into Sistema_Universitario values (37,"christian.piras26@studio.unibo.it","oew1ih6ko9","PRSCRS01H22L402V");
+insert into Sistema_Universitario values (38,"giovanna.vitale76@studio.unibo.it","3rtpusrj41","VTLGNN69P68B440X");
+insert into Sistema_Universitario values (39,"elena.ferretti48@studio.unibo.it","ze0oj4z1yy","FRRLNE61M50A037S");
+insert into Sistema_Universitario values (40,"antonella.gentile32@studio.unibo.it","21rng9scn4","GNTNNL66C57D276W");
+insert into Sistema_Universitario values (41,"antonella.ferrari60@studio.unibo.it","s9uvu5r9st","FRRNNL89S58D969D");
+insert into Sistema_Universitario values (42,"rita.d'amico47@studio.unibo.it","0aj1pp4ecw","DMCRTI59S62A662S");
+insert into Sistema_Universitario values (43,"paola.bonaventura@studio.unibo.it","6ymncgq4t8","BNVPLA56B42C365I");
+insert into Sistema_Universitario values (44,"vincenzo.longo18@studio.unibo.it","tfxkq5vgyb","LNGVCN91R10G859M");
+insert into Sistema_Universitario values (45,"omar.iacono@studio.unibo.it","r7qngl7ynl","CNIMRO69B15B861T");
+insert into Sistema_Universitario values (46,"alessandro.bernardi22@studio.unibo.it","8wyd0efwdi","BRNLSN67E29C724P");
+insert into Sistema_Universitario values (47,"sara.abate@studio.unibo.it","5lss7ut55r","BTASRA95L53C724C");
+insert into Sistema_Universitario values (48,"lorenzo.valentini49@studio.unibo.it","03ktkad7jg","VLNLNZ03D24C118Z");
+insert into Sistema_Universitario values (49,"giorgio.verdi44@studio.unibo.it","6jb3907i22","VRDGRG06T30C986J");
+insert into Sistema_Universitario values (50,"celeste.romano@studio.unibo.it","q6yn6icigp","RMNCST61H60D433T");
+insert into Sistema_Universitario values (51,"emanuele.conti@studio.unibo.it","ot2gj4rdvy","CNTMNL00H03C351Y");
+insert into Sistema_Universitario values (52,"luigi.iacono89@studio.unibo.it","sto6lu3l5q","CNILGU97R15C792Y");
+insert into Sistema_Universitario values (53,"andrea.basso30@studio.unibo.it","gzbyq29iow","BSSNDR63C48C986R");
+insert into Sistema_Universitario values (54,"domenico.zanetti@studio.unibo.it","lghu4n3sbo","ZNTDNC84L11B858F");
+insert into Sistema_Universitario values (55,"rita.sala31@studio.unibo.it","tmyf1ulshb","SLARTI80L65A643P");
+insert into Sistema_Universitario values (56,"alberto.toscano@studio.unibo.it","zmsfvtz5ub","TSCLRT73M13H223A");
+insert into Sistema_Universitario values (57,"michele.testa@studio.unibo.it","kk3r6uv1og","TSTMHL97M20B882A");
+insert into Sistema_Universitario values (58,"sasha.arena@studio.unibo.it","ioayjrk0jy","RNASSH06C01A643H");
+insert into Sistema_Universitario values (59,"antonella.franco28@studio.unibo.it","265oc3lub3","FRNNNL02T62L378Y");
+insert into Sistema_Universitario values (60,"matteo.mazza44@studio.unibo.it","t6kmm8x2rj","MZZMTT94C19B861V");
+insert into Sistema_Universitario values (61,"silvia.costa47@studio.unibo.it","2fn92rdltb","CSTSLV06H65L219T");
+insert into Sistema_Universitario values (62,"valerio.di benedetto50@studio.unibo.it","5hpbyo8r07","DBNVLR95L29D276L");
+insert into Sistema_Universitario values (63,"sofia.angelini79@studio.unibo.it","vluxnni1u8","NGLSFO75C52D230I");
+insert into Sistema_Universitario values (64,"alex.neri40@studio.unibo.it","ho841od0ro","NRELXA93E42D525N");
+insert into Sistema_Universitario values (65,"antonio.bianchi17@studio.unibo.it","024ommdk7x","BNCNTN57S24C792S");
+insert into Sistema_Universitario values (66,"angela.rinaldi37@studio.unibo.it","kmj5gt5g6l","RNLNGL87A67C986S");
+insert into Sistema_Universitario values (67,"anna.santoro@studio.unibo.it","n5tnqibgvh","SNTNNA07B49L424U");
+insert into Sistema_Universitario values (68,"kevin.lorusso@studio.unibo.it","ouuiu5nof1","LRSKVN89A18H196E");
+insert into Sistema_Universitario values (69,"raffaele.barbieri@studio.unibo.it","iq4e2kieno","BRBRFL75P30C887R");
+insert into Sistema_Universitario values (70,"stefano.lorusso51@studio.unibo.it","nexa7bvhie","LRSSFN62L01C365K");
+insert into Sistema_Universitario values (71,"nicola.lombardi14@studio.unibo.it","dooi8vicd6","LMBNCL58P20F776A");
+insert into Sistema_Universitario values (72,"noemi.puglisi@studio.unibo.it","ct7b77t9ce","PGLNMO07S52D760Z");
+insert into Sistema_Universitario values (73,"lorenzo.toscano88@studio.unibo.it","gf4io03jks","TSCLNZ75B02H223Z");
+insert into Sistema_Universitario values (74,"arianna.ferrari@studio.unibo.it","2um7t2eahj","FRRRNN70T48G715L");
+
+# ---------------------------------------------------------------------- #
+# Add info into "Studente"                                               #
+# ---------------------------------------------------------------------- #
+
+insert into Studente values (0);
+insert into Studente values (2);
+insert into Studente values (4);
+insert into Studente values (6);
+insert into Studente values (11);
+insert into Studente values (12);
+insert into Studente values (14);
+insert into Studente values (15);
+insert into Studente values (16);
+insert into Studente values (17);
+insert into Studente values (18);
+insert into Studente values (19);
+insert into Studente values (21);
+insert into Studente values (23);
+insert into Studente values (24);
+insert into Studente values (26);
+insert into Studente values (27);
+insert into Studente values (29);
+insert into Studente values (30);
+insert into Studente values (31);
+insert into Studente values (32);
+insert into Studente values (33);
+insert into Studente values (34);
+insert into Studente values (36);
+insert into Studente values (37);
+insert into Studente values (39);
+insert into Studente values (40);
+insert into Studente values (42);
+insert into Studente values (43);
+insert into Studente values (45);
+insert into Studente values (48);
+insert into Studente values (50);
+insert into Studente values (51);
+insert into Studente values (52);
+insert into Studente values (53);
+insert into Studente values (54);
+insert into Studente values (56);
+insert into Studente values (57);
+insert into Studente values (59);
+insert into Studente values (61);
+insert into Studente values (63);
+insert into Studente values (64);
+insert into Studente values (66);
+insert into Studente values (68);
+insert into Studente values (69);
+insert into Studente values (70);
+insert into Studente values (71);
+insert into Studente values (72);
+insert into Studente values (74);
+
+# ---------------------------------------------------------------------- #
+# Add info into "Thread"                                                 #
+# ---------------------------------------------------------------------- #
+
+insert into Thread values
+(0, 0, 0, 0,
+ "Riunione dipartimento",
+ "La riunione del dipartimento si terrà venerdì alle ore 15 in aula docenti.",
+ "2026-01-10 09:30:00",
+ 5, 0, 1, 0, 1, null, 3);
+insert into Thread values
+(1, 0, 0, 1,
+ "Sostituzioni docenti assenti",
+ "Inserire qui le disponibilità per eventuali sostituzioni della prossima settimana.",
+ "2026-01-11 08:15:00",
+ 3, 0, 0, 0, 0, null, 5);
+ 
+ insert into Thread values
+(2, 0, 3, 0,
+ "Calendario verifiche",
+ "Il calendario delle verifiche del mese è disponibile sul registro elettronico.",
+ "2026-01-12 10:00:00",
+ 12, 1, 1, 0, 1, null, 8);
+ 
+ 
+ insert into Thread values
+(3, 1, 0, 0,
+ "Assemblea di istituto",
+ "Proposte per i temi dell’assemblea del prossimo mese.",
+ "2026-01-13 14:20:00",
+ 8, 0, 0, 0, 0, null, 23);
+ 
+ insert into Thread values
+(4, 1, 1, 0,
+ "Incontro con i docenti",
+ "L’incontro con i docenti rappresentanti si terrà martedì alle 11.",
+ "2026-01-14 09:00:00",
+ 15, 2, 1, 0, 1, null, 31);
+ 
+ insert into Thread values
+(5, 1, 2, 0,
+ "Gita scolastica",
+ "Avete idee per la prossima gita scolastica?",
+ "2026-01-15 16:45:00",
+ 20, 3, 0, 0, 0, null, 23);
+insert into Thread values
+(6, 1, 2, 1,
+ "Orario lezioni",
+ "Che ne pensate del nuovo orario delle lezioni?",
+ "2026-01-16 12:10:00",
+ 10, 1, 0, 0, 0, null, 24);
+ 
+ 
+ insert into Thread values
+(7, 2, 3, 0,
+ "Chiusura scuola",
+ "La scuola resterà chiusa lunedì per manutenzione straordinaria.",
+ "2026-01-17 07:30:00",
+ 50, 0, 1, 1, 1, null, 1);
 
 -- Constraints Section
 -- ___________________
