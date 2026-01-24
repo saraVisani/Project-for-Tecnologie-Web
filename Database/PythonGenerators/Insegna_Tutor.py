@@ -650,13 +650,20 @@ nuovi_prof=[225
 import random
 
 def genera_insegna():
-    riga = 449
+    riga = -1
+
     for insegnante in nuovi_prof:
         righe_2020 = [(i, r) for i, r in enumerate(materie_anno) if r[2] == 2020]
         indice, riga = random.choice(righe_2020)
         for i in range (7):
             cod_materia_anno, _, _ = materie_anno[i+indice]
             print(f"insert into Insegna values ({cod_materia_anno},{insegnante});")
+""" for cod_materia_anno, _, anno in materie_anno:
+        if anno == 2020:
+            riga += 1
+            if riga >= len(professori):
+                riga = 0
+        print(f"insert into Insegna values ({cod_materia_anno},{professori[riga]});")"""
 
 genera_insegna()
 
