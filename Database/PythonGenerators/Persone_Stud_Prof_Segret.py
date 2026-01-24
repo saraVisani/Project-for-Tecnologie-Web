@@ -453,4 +453,81 @@ def genera_popolazione(num_persone=50):
     for s in segreteria:
         print(f'insert into Segreteria values ({s["Matricola"]},{s["Codice_Uni"]});')
 
-genera_popolazione(num_persone=100)
+# genera_popolazione(num_persone=100)
+
+def genera_prof_Seg(numero):
+    persone = []
+    universitari = []
+    professori = []
+    segreteria = []
+
+    matricola_counter = 74  # parte da -1 perché incrementiamo subito
+
+    for _ in range(numero):
+        nome = nome_random()
+        cognome = cognome_random()
+        sesso = sesso_da_nome(nome)
+        data_nascita = data_nascita_random(min_eta=18, max_eta=70)
+        codice_comune = codice_comune_random()
+        email = genera_email_normale(nome, cognome)
+        cf = genera_codice_fiscale(nome, cognome, data_nascita.strftime("%Y-%m-%d"), sesso, codice_comune)
+
+        # Email normale o unibo
+
+        livello = 1  # di default studente universitario
+        is_universitario = True
+
+        persona = {
+            "CF": cf,
+            "Nome": nome,
+            "Cognome": cognome,
+            "Data_Nascita": data_nascita.strftime("%Y-%m-%d"),
+            "Email": email,
+            "Livello_Permesso": livello
+        }
+        persone.append(persona)
+
+        # Se è universitario, genera matricola e dividi tra categorie
+        if is_universitario:
+            matricola_counter += 1  # parte da 0
+            email_uni = genera_email_unibo(nome, cognome)
+            password = ''.join(random.choices("abcdefghijklmnopqrstuvwxyz0123456789", k=10))
+
+            universitario = {
+                "Matricola": matricola_counter,
+                "Email_Uni": email_uni,
+                "Password": password,
+                "CF": cf
+            }
+            universitari.append(universitario)
+
+            # divisione tra prof, studente, segreteria
+            scelta = random.random()
+            if scelta < 0.6:
+                livello = 3
+                professori.append({"Matricola": matricola_counter})
+            else:
+                livello = 4
+                segreteria.append({"Matricola": matricola_counter, "Codice_Uni": random.randint(1, 10)})
+
+            # aggiorna il livello nella persona
+            persona["Livello_Permesso"] = livello
+
+    # stampa dati
+    print("\n-- PERSONE --")
+    for p in persone:
+        print(f'insert into Persona values ("{p["CF"]}","{p["Nome"]}","{p["Cognome"]}","{p["Data_Nascita"]}","{p["Email"]}",{p["Livello_Permesso"]});')
+
+    print("\n-- SISTEMA UNIVERSITARIO --")
+    for u in universitari:
+        print(f'insert into Sistema_Universitario values ({u["Matricola"]},"{u["Email_Uni"]}","{u["Password"]}","{u["CF"]}");')
+
+    print("\n-- PROFESSORI --")
+    for p in professori:
+        print(f'insert into Professore values ({p["Matricola"]});')
+
+    print("\n-- SEGRETERIA --")
+    for s in segreteria:
+        print(f'insert into Segreteria values ({s["Matricola"]},{s["Codice_Uni"]});')
+
+genera_prof_Seg(50)
