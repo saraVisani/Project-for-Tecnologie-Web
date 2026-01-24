@@ -613,15 +613,52 @@ piano_didattico = [(0, 2020, "ECO03", 0),
 (147, 2021, "ECO03", 224),
 (148, 2020, "URB01", 125)]
 
+nuovi_prof=[225
+,226
+,227
+,228
+,229
+,230
+,231
+,232
+,233
+,234
+,235
+,236
+,237
+,238
+,239
+,240
+,241
+,242
+,243
+,244
+,245
+,246
+,247
+,248
+,249
+,250
+,251
+,252
+,253
+,254
+,255
+,256
+,257]
+
+import random
+
 def genera_insegna():
     riga = 449
-    for insegnante in professori:
-        riga = riga+1
+    for insegnante in nuovi_prof:
+        righe_2020 = [(i, r) for i, r in enumerate(materie_anno) if r[2] == 2020]
+        indice, riga = random.choice(righe_2020)
         for i in range (7):
-            cod_materia_anno, _, _ = materie_anno[i+riga]
+            cod_materia_anno, _, _ = materie_anno[i+indice]
             print(f"insert into Insegna values ({cod_materia_anno},{insegnante});")
 
-#genera_insegna()
+genera_insegna()
 
 import random
 def genera_tutor():
@@ -638,4 +675,4 @@ def genera_tutor():
                 go = True
         print(f"insert into Tutor values ({cod_materia_anno},{studente});")
 
-genera_tutor()
+#genera_tutor()

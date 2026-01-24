@@ -583,7 +583,7 @@ def genera_stud(numero):
             else:
                 livello = 1
             studenti.append({"Matricola": matricola_counter})
-           
+
             # aggiorna il livello nella persona
             persona["Livello_Permesso"] = livello
 
@@ -600,4 +600,77 @@ def genera_stud(numero):
     for s in studenti:
         print(f'insert into Studente values ({s["Matricola"]});')
 
-genera_stud(100)
+#genera_stud(100)
+
+def genera_prof(numero):
+    persone = []
+    universitari = []
+    professori = []
+
+    matricola_counter = 74  # parte da -1 perché incrementiamo subito
+
+    for _ in range(numero):
+        persone = []
+        universitari = []
+        professori = []
+
+        matricola_counter = 224  # parte da -1 perché incrementiamo subito
+
+        for _ in range(numero):
+            nome = nome_random()
+            cognome = cognome_random()
+            sesso = sesso_da_nome(nome)
+            data_nascita = data_nascita_random(min_eta=18, max_eta=70)
+            codice_comune = codice_comune_random()
+            email = genera_email_normale(nome, cognome)
+            cf = genera_codice_fiscale(nome, cognome, data_nascita.strftime("%Y-%m-%d"), sesso, codice_comune)
+
+            # Email normale o unibo
+
+            livello = 1  # di default studente universitario
+            is_universitario = True
+
+            persona = {
+                "CF": cf,
+                "Nome": nome,
+                "Cognome": cognome,
+                "Data_Nascita": data_nascita.strftime("%Y-%m-%d"),
+                "Email": email,
+                "Livello_Permesso": livello
+            }
+            persone.append(persona)
+
+            # Se è universitario, genera matricola e dividi tra categorie
+            if is_universitario:
+                matricola_counter += 1  # parte da 0
+                email_uni = genera_email_unibo(nome, cognome)
+                password = ''.join(random.choices("abcdefghijklmnopqrstuvwxyz0123456789", k=10))
+
+                universitario = {
+                    "Matricola": matricola_counter,
+                    "Email_Uni": email_uni,
+                    "Password": password,
+                    "CF": cf
+                }
+                universitari.append(universitario)
+
+                livello = 3
+                professori.append({"Matricola": matricola_counter})
+
+                # aggiorna il livello nella persona
+                persona["Livello_Permesso"] = livello
+
+        # stampa dati
+        print("\n-- PERSONE --")
+        for p in persone:
+            print(f'insert into Persona values ("{p["CF"]}","{p["Nome"]}","{p["Cognome"]}","{p["Data_Nascita"]}","{p["Email"]}",{p["Livello_Permesso"]});')
+
+        print("\n-- SISTEMA UNIVERSITARIO --")
+        for u in universitari:
+            print(f'insert into Sistema_Universitario values ({u["Matricola"]},"{u["Email_Uni"]}","{u["Password"]}","{u["CF"]}");')
+
+        print("\n-- PROFESSORI --")
+        for p in professori:
+            print(f'insert into Professore values ({p["Matricola"]});')
+
+genera_prof(33)
