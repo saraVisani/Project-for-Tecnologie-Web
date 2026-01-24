@@ -136,9 +136,9 @@ uffici = []
 classi = []
 
 def codice_stanza():
-    sezione = random.randint(1, 5)
-    stanza = random.randint(1, 9)
-    return float(f"{sezione}.{stanza}")
+    sezione = random.randint(1, 5)   # 1..5
+    stanza = random.randint(0, 29)   # 0..29
+    return sezione * 100 + stanza
 
 def lab_si_no():
     return random.choices(

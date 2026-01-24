@@ -52,4 +52,4 @@ def codice():
 for studente in studenti:
     anno = random.choice(anni)
     cod_corso, resto = random.choice(corsi)[:2]
-    print(f"insert into Piano_Didattico ({codice()}, {anno}, \"{cod_corso}\", {studente});")
+    print(f"insert into Piano_Didattico values ({codice()}, {anno}, \"{cod_corso}\", {studente});")
