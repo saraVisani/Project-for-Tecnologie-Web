@@ -1394,11 +1394,13 @@ SLOT_ORARI = [
     ("15:00", "17:00"),
 ]
 
+def overlap(a_start, a_end, b_start, b_end):
+    return a_start < b_end and b_start < a_end
+
 def parse(date):
     return datetime.strptime(date, "%Y-%m-%d")
 
-def overlap(a_start, a_end, b_start, b_end):
-    return a_start < b_end and b_start < a_end
+# ------------------ GENERAZIONE ORARI ------------------
 
 orari_generati = []
 
@@ -1427,19 +1429,28 @@ for mod in moduli:
 
     # aule compatibili
     aule = [c for c in classi if c[0] == sede]
-
     if not aule:
         continue
 
+    # numero di lezioni a settimana
     lezioni_sett = random.choice([2, 3])
     giorni_scelti = random.sample(GIORNI, lezioni_sett)
 
+    # data di inizio modulo
+    data_base = parse(d_inizio)
+
     for giorno in giorni_scelti:
+        # calcolo offset giorni rispetto al primo giorno della settimana
+        giorno_index = GIORNI.index(giorno)
+        lunedi_index = GIORNI.index('Lunedì')  # assumiamo che la settimana inizi lunedì
+        delta_giorni = giorno_index - lunedi_index
+        data_lezione = data_base + timedelta(days=delta_giorni)
+
         slot = random.choice(SLOT_ORARI)
         aula = random.choice(aule)
 
-        start = datetime.strptime(slot[0], "%H:%M")
-        end = datetime.strptime(slot[1], "%H:%M")
+        start = datetime.combine(data_lezione, datetime.strptime(slot[0], "%H:%M").time())
+        end   = datetime.combine(data_lezione, datetime.strptime(slot[1], "%H:%M").time())
 
         ok = True
         for o in orari_generati:
@@ -1465,19 +1476,18 @@ for mod in moduli:
                 "stanza": aula[1]
             })
 
-codice_corrente = 0
-
-def codice():
-    global codice_corrente
-    val = codice_corrente
-    codice_corrente += 1
+codice_corrente = 0 
+def codice(): 
+    global codice_corrente 
+    val = codice_corrente 
+    codice_corrente += 1 
     return val
 
-# ------------------ OUTPUT ------------------
+import time
+i=0
 
-print("\n===== ORARIO GENERATO =====\n")
-
-for o in orari_generati:
-    print(
-        f"insert into Orario values ({codice()}, '{o['corso']}', {o['Mat_anno']}, {o['Modulo']}, '{o['start'].strftime('%Y-%m-%d %H:%M:%S')}', {o['uni']}, {o['stanza']}, '{o['end'].strftime('%Y-%m-%d %H:%M:%S')}');"
-    )
+for o in orari_generati: 
+    if i == 900:
+        time.sleep(50)
+    i +=1
+    print( f"insert into Orario values ({codice()}, '{o['corso']}', {o['Mat_anno']}, {o['Modulo']}, '{o['start'].strftime('%Y-%m-%d %H:%M:%S')}', {o['uni']}, {o['stanza']}, '{o['end'].strftime('%Y-%m-%d %H:%M:%S')}');" )
