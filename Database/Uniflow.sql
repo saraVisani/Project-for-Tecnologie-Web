@@ -204,14 +204,14 @@ create table Messaggio (
      constraint SID_Messaggio_ID unique (Cod_Unico_Thread, Codice));
 
 create table Modulo (
-	 Codice_Modulo varchar(10) not null,
+	Codice_Corso varchar(10) not null,
      Cod_Mat_Anno numeric(10) not null,
      Codice numeric(10) not null,
      Inizio_Modulo datetime not null,
      Fine_Modulo datetime not null,
      Descrizione varchar(510) not null,
      Matricola_Tit numeric(10) not null,
-     constraint ID_Modulo_ID primary key (Codice_Modulo, Cod_Mat_Anno, Codice));
+     constraint ID_Modulo_ID primary key (Codice_Corso, Cod_Mat_Anno, Codice));
 
 create table Notifica (
      Codice numeric(10) not null,
