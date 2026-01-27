@@ -609,11 +609,7 @@ insert into Classe values (9, 527, 0);
 insert into Classe values (10, 320, 0);
 insert into Classe values (10, 224, 0);
 insert into Classe values (10, 118, 0);
-insert into Cinsert into Classe values (5, 506, 1);
-insert into Classe values (6, 507, 1);
-insert into Classe values (6, 119, 0);
-insert into Classe values (6, 313, 1);
-insert into Classe values (7, 302, 1);lasse values (10, 204, 0);
+insert into Classe values (10, 204, 0);
 insert into Classe values (10, 326, 0);
 insert into Classe values (11, 121, 0);
 insert into Classe values (11, 320, 0);
@@ -659,16 +655,7 @@ insert into Collaboratore values (19, "NRENNA64B49F776Z");
 insert into Collaboratore values (19, "SPSTMS01T21G715H");
 insert into Collaboratore values (20, "LMBNCL58P20F776A");
 insert into Collaboratore values (20, "NREDNC60S08I123S");
-insert into Collaboratoinsert into Richiesta_Evento values (1, "Inserimento", "Evento di Volontariato Universitario", 66, "Evento istituzionale promosso dall’ateneo", NULL, "VNTGPP08R29D612J", NULL, "DMCLNZ01E01F776T");
-insert into Richiesta_Evento values (2, "Inserimento", "Festival della Scienza", 170, "Attività didattica speciale con ospiti esterni", NULL, "LMBNCL58P20F776A", NULL, "CNIFNC97R42A189W");
-insert into Richiesta_Evento values (3, "Modifica", "Festival del Cinema Studentesco", 26, "Ciclo di incontri tematici interdisciplinari", 14, "CLMCSR80B23H224A", "LMBMSM92P04B861X", "NULL");
-insert into Richiesta_Evento values (4, "Modifica", "Festival del Teatro Studentesco", 192, "Evento culturale aperto al pubblico", 37, "BRDLXA72D43C351V", "VRDGRG06T30C986J", "NULL");
-insert into Richiesta_Evento values (5, "Modifica", "Workshop di Statistica", 116, "Evento istituzionale promosso dall’ateneo", 2, "RSSGRG81P53L402C", "BNCLRI99H45F883G", "NULL");
-insert into Richiesta_Evento values (6, "Inserimento", "Seminario di Filosofia", 92, "Iniziativa di valorizzazione del territorio", NULL, "RMNPLA74D13A310O", NULL, "BLDFRC74S17G715F");
-insert into Richiesta_Evento values (7, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (8, "Modifica", "Workshop di Scrittura Accademica", 48, "Incontro di approfondimento metodologico", 36, "CNIDNS80M17D433N", "PRSGNN08R52D491D", "NULL");
-insert into Richiesta_Evento values (9, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (10, "Eliminazione", NULL, NULL, NULL, 27, NULL, "BNCLRI99H45F883G", NULL);re values (29, "SPSTMS01T21G715H");
+insert into Collaboratore values (29, "SPSTMS01T21G715H");
 insert into Collaboratore values (31, "FRNCRL07M03C365Q");
 insert into Collaboratore values (32, "TSCDNL06E23A348K");
 insert into Collaboratore values (32, "NREDNC60S08I123S");
@@ -719,7 +706,7 @@ insert into Composto_Da values (22, 12, 0);
 insert into Composto_Da values (22, 32, 0);
 insert into Composto_Da values (22, 33, 1);
 insert into Composto_Da values (22, 41, 1);
-insert into Composto_Da values (23, 270, 1);c
+insert into Composto_Da values (23, 270, 1);
 insert into Composto_Da values (25, 117, 1);
 insert into Composto_Da values (25, 194, 0);
 insert into Composto_Da values (25, 195, 0);
@@ -4804,16 +4791,7 @@ insert into Orario values (1294, 'POL01', 323, 4, '2021-09-27 11:00:00', 9, 527,
 insert into Orario values (1295, 'POL01', 323, 4, '2021-09-25 09:00:00', 9, 527, '2021-09-25 11:00:00');
 insert into Orario values (1296, 'POL01', 323, 4, '2021-09-22 15:00:00', 9, 527, '2021-09-22 17:00:00');
 insert into Orario values (1297, 'POL01', 324, 1, '2022-09-21 11:00:00', 9, 527, '2022-09-21 12:00:00');
-insert into Orario values (1298, 'POL0insert into Richiesta_Evento values (1, "Inserimento", "Evento di Volontariato Universitario", 66, "Evento istituzionale promosso dall’ateneo", NULL, "VNTGPP08R29D612J", NULL, "DMCLNZ01E01F776T");
-insert into Richiesta_Evento values (2, "Inserimento", "Festival della Scienza", 170, "Attività didattica speciale con ospiti esterni", NULL, "LMBNCL58P20F776A", NULL, "CNIFNC97R42A189W");
-insert into Richiesta_Evento values (3, "Modifica", "Festival del Cinema Studentesco", 26, "Ciclo di incontri tematici interdisciplinari", 14, "CLMCSR80B23H224A", "LMBMSM92P04B861X", "NULL");
-insert into Richiesta_Evento values (4, "Modifica", "Festival del Teatro Studentesco", 192, "Evento culturale aperto al pubblico", 37, "BRDLXA72D43C351V", "VRDGRG06T30C986J", "NULL");
-insert into Richiesta_Evento values (5, "Modifica", "Workshop di Statistica", 116, "Evento istituzionale promosso dall’ateneo", 2, "RSSGRG81P53L402C", "BNCLRI99H45F883G", "NULL");
-insert into Richiesta_Evento values (6, "Inserimento", "Seminario di Filosofia", 92, "Iniziativa di valorizzazione del territorio", NULL, "RMNPLA74D13A310O", NULL, "BLDFRC74S17G715F");
-insert into Richiesta_Evento values (7, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (8, "Modifica", "Workshop di Scrittura Accademica", 48, "Incontro di approfondimento metodologico", 36, "CNIDNS80M17D433N", "PRSGNN08R52D491D", "NULL");
-insert into Richiesta_Evento values (9, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (10, "Eliminazione", NULL, NULL, NULL, 27, NULL, "BNCLRI99H45F883G", NULL);1', 324, 1, '2022-09-25 15:00:00', 9, 527, '2022-09-25 17:00:00');
+insert into Orario values (1298, 'POL01', 324, 1, '2022-09-25 15:00:00', 9, 527, '2022-09-25 17:00:00');
 insert into Orario values (1299, 'POL01', 324, 2, '2022-09-14 11:00:00', 9, 527, '2022-09-14 12:00:00');
 insert into Orario values (1300, 'POL01', 324, 2, '2022-09-11 15:00:00', 9, 527, '2022-09-11 17:00:00');
 insert into Orario values (1301, 'POL01', 325, 1, '2023-09-13 09:00:00', 9, 527, '2023-09-13 11:00:00');
@@ -5794,16 +5772,7 @@ insert into Piano_Didattico values (54, 2026, "COM01", 131);
 insert into Piano_Didattico values (55, 2024, "ING01", 132);
 insert into Piano_Didattico values (56, 2021, "SOC01", 133);
 insert into Piano_Didattico values (57, 2022, "STA01", 134);
-insert into Piano_Didattico insert into Richiesta_Evento values (1, "Inserimento", "Evento di Volontariato Universitario", 66, "Evento istituzionale promosso dall’ateneo", NULL, "VNTGPP08R29D612J", NULL, "DMCLNZ01E01F776T");
-insert into Richiesta_Evento values (2, "Inserimento", "Festival della Scienza", 170, "Attività didattica speciale con ospiti esterni", NULL, "LMBNCL58P20F776A", NULL, "CNIFNC97R42A189W");
-insert into Richiesta_Evento values (3, "Modifica", "Festival del Cinema Studentesco", 26, "Ciclo di incontri tematici interdisciplinari", 14, "CLMCSR80B23H224A", "LMBMSM92P04B861X", "NULL");
-insert into Richiesta_Evento values (4, "Modifica", "Festival del Teatro Studentesco", 192, "Evento culturale aperto al pubblico", 37, "BRDLXA72D43C351V", "VRDGRG06T30C986J", "NULL");
-insert into Richiesta_Evento values (5, "Modifica", "Workshop di Statistica", 116, "Evento istituzionale promosso dall’ateneo", 2, "RSSGRG81P53L402C", "BNCLRI99H45F883G", "NULL");
-insert into Richiesta_Evento values (6, "Inserimento", "Seminario di Filosofia", 92, "Iniziativa di valorizzazione del territorio", NULL, "RMNPLA74D13A310O", NULL, "BLDFRC74S17G715F");
-insert into Richiesta_Evento values (7, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (8, "Modifica", "Workshop di Scrittura Accademica", 48, "Incontro di approfondimento metodologico", 36, "CNIDNS80M17D433N", "PRSGNN08R52D491D", "NULL");
-insert into Richiesta_Evento values (9, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (10, "Eliminazione", NULL, NULL, NULL, 27, NULL, "BNCLRI99H45F883G", NULL);values (58, 2020, "CHI01", 135);
+insert into Piano_Didattico values (58, 2020, "CHI01", 135);
 insert into Piano_Didattico values (59, 2021, "FIL01", 136);
 insert into Piano_Didattico values (60, 2025, "ECO01", 137);
 insert into Piano_Didattico values (61, 2020, "ECO01", 138);
@@ -6663,16 +6632,7 @@ insert into Ricevimento values (497, 1, '2025-08-30 16:00:00', '2025-08-30 16:30
 insert into Ricevimento values (498, 0, '2025-09-05 11:00:00', '2025-09-05 13:50:00', 17, 8, 318, 44);
 insert into Ricevimento values (499, 0, '2025-09-12 16:00:00', '2025-09-12 16:45:00', 3, 2, 414, 44);
 insert into Ricevimento values (500, 1, '2025-09-09 16:00:00', '2025-09-09 16:40:00', 4, null, null, 44);
-insert into Ricevimento valinsert into Richiesta_Evento values (1, "Inserimento", "Evento di Volontariato Universitario", 66, "Evento istituzionale promosso dall’ateneo", NULL, "VNTGPP08R29D612J", NULL, "DMCLNZ01E01F776T");
-insert into Richiesta_Evento values (2, "Inserimento", "Festival della Scienza", 170, "Attività didattica speciale con ospiti esterni", NULL, "LMBNCL58P20F776A", NULL, "CNIFNC97R42A189W");
-insert into Richiesta_Evento values (3, "Modifica", "Festival del Cinema Studentesco", 26, "Ciclo di incontri tematici interdisciplinari", 14, "CLMCSR80B23H224A", "LMBMSM92P04B861X", "NULL");
-insert into Richiesta_Evento values (4, "Modifica", "Festival del Teatro Studentesco", 192, "Evento culturale aperto al pubblico", 37, "BRDLXA72D43C351V", "VRDGRG06T30C986J", "NULL");
-insert into Richiesta_Evento values (5, "Modifica", "Workshop di Statistica", 116, "Evento istituzionale promosso dall’ateneo", 2, "RSSGRG81P53L402C", "BNCLRI99H45F883G", "NULL");
-insert into Richiesta_Evento values (6, "Inserimento", "Seminario di Filosofia", 92, "Iniziativa di valorizzazione del territorio", NULL, "RMNPLA74D13A310O", NULL, "BLDFRC74S17G715F");
-insert into Richiesta_Evento values (7, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (8, "Modifica", "Workshop di Scrittura Accademica", 48, "Incontro di approfondimento metodologico", 36, "CNIDNS80M17D433N", "PRSGNN08R52D491D", "NULL");
-insert into Richiesta_Evento values (9, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (10, "Eliminazione", NULL, NULL, NULL, 27, NULL, "BNCLRI99H45F883G", NULL);ues (501, 1, '2025-09-15 09:00:00', '2025-09-15 10:00:00', 4, null, null, 44);
+insert into Ricevimento values (501, 1, '2025-09-15 09:00:00', '2025-09-15 10:00:00', 4, null, null, 44);
 insert into Ricevimento values (502, 0, '2025-09-20 09:00:00', '2025-09-20 10:00:00', 6, 2, 414, 44);
 insert into Ricevimento values (503, 0, '2025-09-22 17:00:00', '2025-09-22 17:30:00', 1, 11, 316, 44);
 insert into Ricevimento values (504, 0, '2025-09-26 11:00:00', '2025-09-26 14:00:00', 18, 8, 318, 44);
@@ -7187,16 +7147,7 @@ insert into Ricevimento values (1012, 1, '2025-05-26 13:00:00', '2025-05-26 14:3
 insert into Ricevimento values (1013, 0, '2025-06-06 12:00:00', '2025-06-06 13:00:00', 4, 4, 414, 78);
 insert into Ricevimento values (1014, 1, '2025-06-14 11:00:00', '2025-06-14 11:45:00', 3, null, null, 78);
 insert into Ricevimento values (1015, 1, '2025-06-19 09:00:00', '2025-06-19 11:30:00', 5, null, null, 78);
-insert into Ricevimento vinsert into Richiesta_Evento values (1, "Inserimento", "Evento di Volontariato Universitario", 66, "Evento istituzionale promosso dall’ateneo", NULL, "VNTGPP08R29D612J", NULL, "DMCLNZ01E01F776T");
-insert into Richiesta_Evento values (2, "Inserimento", "Festival della Scienza", 170, "Attività didattica speciale con ospiti esterni", NULL, "LMBNCL58P20F776A", NULL, "CNIFNC97R42A189W");
-insert into Richiesta_Evento values (3, "Modifica", "Festival del Cinema Studentesco", 26, "Ciclo di incontri tematici interdisciplinari", 14, "CLMCSR80B23H224A", "LMBMSM92P04B861X", "NULL");
-insert into Richiesta_Evento values (4, "Modifica", "Festival del Teatro Studentesco", 192, "Evento culturale aperto al pubblico", 37, "BRDLXA72D43C351V", "VRDGRG06T30C986J", "NULL");
-insert into Richiesta_Evento values (5, "Modifica", "Workshop di Statistica", 116, "Evento istituzionale promosso dall’ateneo", 2, "RSSGRG81P53L402C", "BNCLRI99H45F883G", "NULL");
-insert into Richiesta_Evento values (6, "Inserimento", "Seminario di Filosofia", 92, "Iniziativa di valorizzazione del territorio", NULL, "RMNPLA74D13A310O", NULL, "BLDFRC74S17G715F");
-insert into Richiesta_Evento values (7, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (8, "Modifica", "Workshop di Scrittura Accademica", 48, "Incontro di approfondimento metodologico", 36, "CNIDNS80M17D433N", "PRSGNN08R52D491D", "NULL");
-insert into Richiesta_Evento values (9, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (10, "Eliminazione", NULL, NULL, NULL, 27, NULL, "BNCLRI99H45F883G", NULL);alues (1016, 1, '2025-06-23 16:00:00', '2025-06-23 18:00:00', 4, null, null, 78);
+insert into Ricevimento values (1016, 1, '2025-06-23 16:00:00', '2025-06-23 18:00:00', 4, null, null, 78);
 insert into Ricevimento values (1017, 1, '2025-07-04 11:00:00', '2025-07-04 12:30:00', 3, null, null, 78);
 insert into Ricevimento values (1018, 0, '2025-07-12 12:00:00', '2025-07-12 14:40:00', 8, 4, 414, 78);
 insert into Ricevimento values (1019, 0, '2025-07-08 13:00:00', '2025-07-08 13:30:00', 2, 4, 414, 78);
@@ -7251,25 +7202,7 @@ insert into Ricevimento values (1067, 1, '2025-04-23 09:00:00', '2025-04-23 12:0
 insert into Ricevimento values (1068, 0, '2025-04-28 09:00:00', '2025-04-28 10:15:00', 5, 14, 219, 80);
 insert into Ricevimento values (1069, 0, '2025-05-09 09:00:00', '2025-05-09 12:00:00', 6, 14, 219, 80);
 insert into Ricevimento values (1070, 1, '2025-05-05 11:00:00', '2025-05-05 12:40:00', 5, null, null, 80);
-insert into Ricevimento values (1071, 0, '2025insert into Richiesta_Evento values (1, "Inserimento", "Evento di Volontariato Universitario", 66, "Evento istituzionale promosso dall’ateneo", NULL, "VNTGPP08R29D612J", NULL, "DMCLNZ01E01F776T");
-insert into Richiesta_Evento values (2, "Inserimento", "Festival della Scienza", 170, "Attività didattica speciale con ospiti esterni", NULL, "LMBNCL58P20F776A", NULL, "CNIFNC97R42A189W");
-insert into Richiesta_Evento values (3, "Modifica", "Festival del Cinema Studentesco", 26, "Ciclo di incontri tematici interdisciplinari", 14, "CLMCSR80B23H224A", "LMBMSM92P04B861X", "NULL");
-insert into Richiesta_Evento values (4, "Modifica", "Festival del Teatro Studentesco", 192, "Evento culturale aperto al pubblico", 37, "BRDLXA72D43C351V", "VRDGRG06T30C986J", "NULL");
-insert into Richiesta_Evento values (5, "Modifica", "Workshop di Statistica", 116, "Evento istituzionale promosso dall’ateneo", 2, "RSSGRG81P53L402C", "BNCLRI99H45F883G", "NULL");
-insert into Richiesta_Evento values (6, "Inserimento", "Seminario di Filosofia", 92, "Iniziativa di valorizzazione del territorio", NULL, "RMNPLA74D13A310O", NULL, "BLDFRC74S17G715F");
-insert into Richiesta_Evento values (7, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (8, "Modifica", "Workshop di Scrittura Accademica", 48, "Incontro di approfondimento metodologico", 36, "CNIDNS80M17D433N", "PRSGNN08R52D491D", "NULL");
-insert into Richiesta_Evento values (9, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (10, "Eliminazione", NULL, NULL, NULL, 27, NULL, "BNCLRI99H45F883G", NULL);insert into Richiesta_Evento values (1, "Inserimento", "Evento di Volontariato Universitario", 66, "Evento istituzionale promosso dall’ateneo", NULL, "VNTGPP08R29D612J", NULL, "DMCLNZ01E01F776T");
-insert into Richiesta_Evento values (2, "Inserimento", "Festival della Scienza", 170, "Attività didattica speciale con ospiti esterni", NULL, "LMBNCL58P20F776A", NULL, "CNIFNC97R42A189W");
-insert into Richiesta_Evento values (3, "Modifica", "Festival del Cinema Studentesco", 26, "Ciclo di incontri tematici interdisciplinari", 14, "CLMCSR80B23H224A", "LMBMSM92P04B861X", "NULL");
-insert into Richiesta_Evento values (4, "Modifica", "Festival del Teatro Studentesco", 192, "Evento culturale aperto al pubblico", 37, "BRDLXA72D43C351V", "VRDGRG06T30C986J", "NULL");
-insert into Richiesta_Evento values (5, "Modifica", "Workshop di Statistica", 116, "Evento istituzionale promosso dall’ateneo", 2, "RSSGRG81P53L402C", "BNCLRI99H45F883G", "NULL");
-insert into Richiesta_Evento values (6, "Inserimento", "Seminario di Filosofia", 92, "Iniziativa di valorizzazione del territorio", NULL, "RMNPLA74D13A310O", NULL, "BLDFRC74S17G715F");
-insert into Richiesta_Evento values (7, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (8, "Modifica", "Workshop di Scrittura Accademica", 48, "Incontro di approfondimento metodologico", 36, "CNIDNS80M17D433N", "PRSGNN08R52D491D", "NULL");
-insert into Richiesta_Evento values (9, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (10, "Eliminazione", NULL, NULL, NULL, 27, NULL, "BNCLRI99H45F883G", NULL);-06-02 13:00:00', '2025-06-02 15:45:00', 11, null, null, 80);
+insert into Ricevimento values (1071, 0, '2025-06-02 13:00:00', '2025-06-02 15:45:00', 11, null, null, 80);
 insert into Ricevimento values (1077, 0, '2025-06-14 10:00:00', '2025-06-14 11:30:00', 3, 14, 219, 80);
 insert into Ricevimento values (1078, 1, '2025-06-17 14:00:00', '2025-06-17 14:15:00', 1, null, null, 80);
 insert into Ricevimento values (1079, 0, '2025-06-24 17:00:00', '2025-06-24 18:50:00', 11, 14, 219, 80);
@@ -11389,16 +11322,7 @@ insert into Ricevimento values (5188, 1, '2026-12-14 11:00:00', '2026-12-14 14:0
 
 truncate table Richiesta_Evento;
 
-insert into Richiesta_Evento values (1, "Inserimento", "Evento di Volontariato Universitario", 66, "Evento istituzionale promosso dall’ateneo", NULL, "VNTGPP08R29D612J", NULL, "DMCLNZ01E01F776T");
-insert into Richiesta_Evento values (2, "Inserimento", "Festival della Scienza", 170, "Attività didattica speciale con ospiti esterni", NULL, "LMBNCL58P20F776A", NULL, "CNIFNC97R42A189W");
-insert into Richiesta_Evento values (3, "Modifica", "Festival del Cinema Studentesco", 26, "Ciclo di incontri tematici interdisciplinari", 14, "CLMCSR80B23H224A", "LMBMSM92P04B861X", "NULL");
-insert into Richiesta_Evento values (4, "Modifica", "Festival del Teatro Studentesco", 192, "Evento culturale aperto al pubblico", 37, "BRDLXA72D43C351V", "VRDGRG06T30C986J", "NULL");
-insert into Richiesta_Evento values (5, "Modifica", "Workshop di Statistica", 116, "Evento istituzionale promosso dall’ateneo", 2, "RSSGRG81P53L402C", "BNCLRI99H45F883G", "NULL");
-insert into Richiesta_Evento values (6, "Inserimento", "Seminario di Filosofia", 92, "Iniziativa di valorizzazione del territorio", NULL, "RMNPLA74D13A310O", NULL, "BLDFRC74S17G715F");
-insert into Richiesta_Evento values (7, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (8, "Modifica", "Workshop di Scrittura Accademica", 48, "Incontro di approfondimento metodologico", 36, "CNIDNS80M17D433N", "PRSGNN08R52D491D", "NULL");
-insert into Richiesta_Evento values (9, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (10, "Eliminazione", NULL, NULL, NULL, 27, NULL, "BNCLRI99H45F883G", NULL);
+
 
 # ---------------------------------------------------------------------- #
 # Add info into "Sede"                                                   #
@@ -12639,7 +12563,7 @@ alter table Richiesta_Orario add constraint REF_Richi_Orari_FK
 
 alter table Richiesta_Orario add constraint REF_Richi_Modul_FK
      foreign key (Codice_Corso, Cod_Mat_Anno, Codice_Modulo)
-     references Modulo(Cod_Mat_Anno, Codice);
+     references Modulo(Codice_Corso, Cod_Mat_Anno, Codice);
 
 alter table Richiesta_Orario add constraint REF_Richi_Modul_CHK
      check((Cod_Mat_Anno is not null and Codice_Modulo is not null)
@@ -12905,7 +12829,7 @@ create index REF_Messa_Siste_IND
      on Messaggio (Matricola);
 
 create unique index ID_Modulo_IND
-     on Modulo (Codice_Materia, Cod_Mat_Anno, Codice);
+     on Modulo (Codice_Corso, Cod_Mat_Anno, Codice);
 
 create index REF_Modul_Profe_IND
      on Modulo (Matricola_Tit);
