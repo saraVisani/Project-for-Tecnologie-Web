@@ -711,7 +711,7 @@ def genera_richieste_evento(n):
             codice_evento = random.randint(1, 51)
             richiedente = rappresentanti_evento[codice_evento]
             luogo = "NULL"
-            stmt = f'insert into Richiesta_Evento values ({codice_richiesta}, "{tipo}", "{nome}", {posti}, "{descrizione}", {codice_evento}, "{rappresentante}", "{richiedente}", "{richiedente_inserimento}");'
+            stmt = f'insert into Richiesta_Evento values ({codice_richiesta}, "{tipo}", "{nome}", {posti}, "{descrizione}", {codice_evento}, "{rappresentante}", "{richiedente}", {richiedente_inserimento});'
         
         else:  # Eliminazione
             nome = "NULL"

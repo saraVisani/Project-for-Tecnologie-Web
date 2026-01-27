@@ -11322,7 +11322,16 @@ insert into Ricevimento values (5188, 1, '2026-12-14 11:00:00', '2026-12-14 14:0
 
 truncate table Richiesta_Evento;
 
-
+insert into Richiesta_Evento values (1, "Modifica", "Festival del Teatro Studentesco", 182, "Incontro di presentazione di nuove tecnologie", 33, "CRSDNL01C29G908C", "FRRRNN70T48G715L", NULL);
+insert into Richiesta_Evento values (2, "Modifica", "Conferenza Internazionale", 176, "Seminario avanzato per studenti magistrali", 43, "LMBMSM92P04B861X", "RMNDBR75S51A189M", NULL);
+insert into Richiesta_Evento values (3, "Modifica", "Workshop di Matematica", 127, "Attività seminariale di supporto alla didattica", 42, "DMCLCU91S70F205J", "TSTMNL84P12B861F", NULL);
+insert into Richiesta_Evento values (4, "Eliminazione", NULL, NULL, NULL, 33, NULL, "FRRRNN70T48G715L", NULL);
+insert into Richiesta_Evento values (5, "Modifica", "Evento di Innovazione Tecnologica", 174, "Evento di formazione continua", 40, "LRSSFN62L01C365K", "FBBLCA75B52A286A", NULL);
+insert into Richiesta_Evento values (6, "Eliminazione", NULL, NULL, NULL, 1, NULL, "ZNTDNC84L11B858F", NULL);
+insert into Richiesta_Evento values (7, "Inserimento", "Festival del Cinema Studentesco", 169, "Laboratorio interattivo a numero chiuso", NULL, "MZZMTT94C19B861V", NULL, "BNCMNC72D70B882D");
+insert into Richiesta_Evento values (8, "Inserimento", "Workshop di Matematica", 117, "Evento formativo certificato", NULL, "DSNSRG96C16A189M", NULL, "BRBLRI58T61D111Z");
+insert into Richiesta_Evento values (9, "Inserimento", "Seminario di Storia dell'Arte", 116, "Evento aperto alla cittadinanza", NULL, "CNILGU97R15C792Y", NULL, "VRDDVD64L12C520H");
+insert into Richiesta_Evento values (10, "Modifica", "Conferenza Internazionale", 143, "Evento di presentazione dei corsi di laurea", 35, "BSSNDR63C48C986R", "FSCLNE01A51C887J", NULL);
 
 # ---------------------------------------------------------------------- #
 # Add info into "Sede"                                                   #
