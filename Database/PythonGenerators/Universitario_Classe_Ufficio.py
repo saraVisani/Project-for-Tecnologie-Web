@@ -204,8 +204,18 @@ def stampa_luoghi():
 
 nuovi_Professori = [78,80,81,82,83,84,88,94,95,96,98,99,100,101,102,103,104,106,109,111,113,116,117,118,119,123]
 
+NuoviAncoraProf = [
+    78, 80, 81, 82, 83, 84, 88, 94, 95, 96, 98, 99,
+    100, 101, 102, 103, 104, 106, 109, 111, 113,
+    116, 117, 118, 119, 123,
+    225, 226, 227, 228, 229, 230, 231, 232, 233, 234,
+    235, 236, 237, 238, 239, 240, 241, 242, 243, 244,
+    245, 246, 247, 248, 249, 250, 251, 252, 253, 254,
+    255, 256, 257
+]
+
 def genera_uffici():
-    for prof in nuovi_Professori:
+    for prof in NuoviAncoraProf:
         codice_uni, _, _, _, _ = random.choice(sedi)
         cs = codice_stanza()
         luogo = luoghi.pop(0)
@@ -232,10 +242,10 @@ def genera_luoghi_uffici(n):
             "Capienza": cap,
             "Nome": calcola_Nome(fascia),
             "Fascia": fascia
-        })   
+        })
 
 #genera_luoghi(26)
-genera_luoghi_uffici(26)
+genera_luoghi_uffici(len(NuoviAncoraProf))
 stampa_luoghi()
 genera_uffici()
 #genera_stanze_per_sedi()
