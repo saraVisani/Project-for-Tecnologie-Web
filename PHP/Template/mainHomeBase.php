@@ -1,6 +1,6 @@
 <article>
     <header>
-        <h2>I Nostri Campus</h2>
+        <h2><?php echo $templateParams["mainTitleOne"];?></h2>
     </header>
     <h3>Campus di Bologna</h3>
     <p>
@@ -13,7 +13,7 @@
 </article>
 <article>
     <header>
-        <h2>Mappa Interattiva?</h2>
+        <h2><?php echo $templateParams["mainTitleTwo"];?></h2>
     </header>
     <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, accusamus! Provident sed quam soluta
