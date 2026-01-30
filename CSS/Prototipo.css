@@ -1,0 +1,174 @@
+/* Reset di base */
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Layout flessibile per spingere il footer in basso */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    padding: 0;
+    margin: 0;
+    background: white;
+}
+
+.page-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    /* immagine + resto dello spazio */
+    align-items: center;
+    /* centra verticalmente */
+    position: relative;
+    height: 100px;
+    /* altezza header */
+    padding-left: 20px;
+    /* spazio per immagine */
+    background: white;
+}
+
+.header-img {
+    width: 80px;
+    /* quadrata */
+    height: 80px;
+    object-fit: cover;
+    grid-column: 1;
+    /* rimane a sinistra */
+}
+
+.page-header h1 {
+    position: absolute;
+    /* lo mettiamo sopra la griglia */
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    font-size: 32px;
+}
+
+/* Navbar */
+.navbar {
+    background: #222;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    /* allinea tutto al centro */
+    margin: 0;
+    /** rimuove il margine di default **/
+    padding: 0;
+    /** rimuove il padding di default **/
+}
+
+.navbar li {
+    position: relative;
+}
+
+.navbar a,
+.dropbtn {
+    display: flex;
+    align-items: center;
+    /* centro verticale */
+    justify-content: center;
+    height: 50px;
+    /* stessa altezza per tutti */
+    padding: 0 20px;
+    line-height: 1;
+    /* elimina offset strani */
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.navbar a:hover,
+.dropbtn:hover {
+    background: #444;
+}
+
+/* Dropdown */
+.dropdown-content {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    padding: 0 16px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #333;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    min-width: 180px;
+}
+
+.dropdown-content li a {
+    padding: 12px 16px;
+    display: block;
+}
+
+.dropdown-content li a:hover {
+    background: #555;
+}
+
+/* Stato aperto */
+.dropdown.active .dropdown-content {
+    max-height: 300px;
+    /* abbastanza grande per le voci */
+    opacity: 1;
+}
+
+.arrow {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 6px;
+    transition: transform 0.3s ease;
+}
+
+/* quando il menu è aperto */
+.dropdown.active .arrow {
+    transform: rotate(180deg);
+}
+
+/* Layout generale per spingere il footer in basso */
+main {
+    flex: 1;
+    /* spinge il footer in basso */
+}
+
+/* Footer */
+.footer {
+    background: #222;
+    padding: 40px 0;
+}
+
+.footer-nav {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 12px 60px;
+    /* righe | colonne */
+    justify-content: center;
+    /* centra tutta la griglia */
+    text-align: center;
+}
+
+.footer-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}

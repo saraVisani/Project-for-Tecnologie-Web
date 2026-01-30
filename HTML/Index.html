@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
     <title>UniFlow</title>
+    <link rel="stylesheet" href="../CSS/Prototipo.css"/>
+    <script src="../Js/index.js" defer></script>
 </head>
-
 <body>
-    <header>
+    <header class="page-header">
+        <img src="../Img/AlmaMater.jpg" alt="Logo" class="header-img">
         <h1>Home</h1>
     </header>
-    <nav>
-        <ul>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-        </ul>
+    <nav class="navbar">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+
+        <li class="dropdown">
+            <button class="dropbtn">
+            Servizi <span class="arrow">▾</span>
+            </button>
+            <ul class="dropdown-content">
+                <li><a href="#">Web Design</a></li>
+                <li><a href="#">SEO</a></li>
+                <li><a href="#">Marketing</a></li>
+            </ul>
+        </li>
+
+        <li class="dropdown">
+            <button class="dropbtn">
+            Chi siamo <span class="arrow">▾</span>
+            </button>
+            <ul class="dropdown-content">
+                <li><a href="#">Team</a></li>
+                <li><a href="#">Storia</a></li>
+            </ul>
+        </li>
+    </ul>
     </nav>
     <main>
         <article>
@@ -39,4 +58,19 @@
             </p>
         </article>
     </main>
+    <footer class="footer">
+        <nav class="footer-nav">
+            <a href="#">Privacy</a>
+            <a href="#">Termini</a>
+            <a href="#">Contatti</a>
+
+            <a href="#">Supporto</a>
+            <a href="#">FAQ</a>
+            <a href="#">Lavora con noi</a>
+
+            <a href="#">Blog</a>
+            <a href="#">Cookie</a>
+            <a href="#">Sitemap</a>
+        </nav>
+    </footer>
 </body>
