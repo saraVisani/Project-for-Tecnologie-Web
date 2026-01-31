@@ -4,10 +4,10 @@ require_once("Bootstrap.php");
 $templateParams["titolo"] = "Home | UniFlow";
 $templateParams["name"] = "Home";
 
-$templateParams["js"] = array("../Js/index.js");
+$templateParams["js"] = array("../Js/campusSlider.js", "../Js/index.js");
 
 //index for normal users
-$templateParams["mainTemplate"] = "mainHomeBase.php";
+/*$templateParams["mainTemplate"] = "mainHomeBase.php";
 $templateParams["mainTitleOne"] = "I Nostri Campus";
 $templateParams["campus"] = $dbh->getAllCampuses();
 $templateParams["mainTitleTwo"] = "Mappa Interattiva?";
@@ -17,7 +17,7 @@ $templateParams["asideTitleTwo"] = "Domande";
 $templateParams["asideInnerTitleOne"] = "Hai una domanda?";
 $templateParams["asideInnerTitleTwo"] = "Domande Frequenti";
 $templateParams["eventi"] = $dbh->getMostRecentPublicEvents();
-$templateParams["faq"] = $dbh->getMostPopularFAQsByLevel();
+$templateParams["faq"] = $dbh->getMostPopularFAQsByLevel();*/
 
 /*var_dump($templateParams["articolicasuali"]);//debug*/
 require("Template/base.php");

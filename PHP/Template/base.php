@@ -5,6 +5,13 @@
     <link rel="stylesheet" href="../CSS/Prototipo.css"/>
     <script src="../Js/navbar.js" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <?php
+        if (isset($templateParams["js"])) {
+            foreach ($templateParams["js"] as $script) {
+                echo '<script src="' . $script . '" defer></script>';
+            }
+        }
+    ?>
 </head>
 <body>
     <header class="page-header">
@@ -13,7 +20,7 @@
     </header>
     <nav class="navbar">
         <ul>
-            <li><a href="../index.php">Home</a></li>
+            <li><a href="../PHP/index.php">Home</a></li>
 
             <li class="dropdown">
                 <button class="dropbtn">
@@ -55,14 +62,8 @@
     </nav>
     <div class="content">
         <main>
-            <?php
-                require($templateParams["mainTemplate"]);
-            ?>
         </main>
         <aside>
-            <?php
-                require($templateParams["asideTemplate"]);
-            ?>
         </aside>
     </div>
     <footer class="footer">

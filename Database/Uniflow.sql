@@ -37,7 +37,7 @@ create table Agg_Promotore (
      constraint ID_Agg_Promotore_ID primary key (Codice_Promotore, Codice_Richiesta));
 
 create table Ambito (
-     Nome varchar(30) not null,
+     Nome varchar(50) not null,
      Colore varchar(10) not null,
      constraint ID_Ambito_ID primary key (Nome));
 
@@ -52,7 +52,7 @@ create table Cambiare_Orario (
 create table Canale (
      Cod_Forum numeric(1) not null,
      Codice numeric(10) not null,
-     Nome varchar(30) not null,
+     Nome varchar(50) not null,
      Grado numeric(1) not null,
      Visualizzare TINYINT(1) not null,
      Visualizzare_Tutti TINYINT(1) not null,
@@ -83,10 +83,10 @@ create table Composto_Da (
 
 create table Corso (
      Codice varchar(10) not null,
-     Nome varchar(30) not null,
+     Nome varchar(50) not null,
      Descrizione varchar(510) not null,
      Colore varchar(10),
-     Ambito varchar(30) not null,
+     Ambito varchar(50) not null,
      constraint ID_Corso_ID primary key (Codice));
 
 create table Elemento (
@@ -119,7 +119,7 @@ create table Esterno (
 
 create table Evento (
      Codice numeric(10) not null,
-     Nome varchar(30) not null,
+     Nome varchar(70) not null,
      Inizio datetime not null,
      Fine datetime not null,
      Posti numeric(6) not null,
@@ -173,7 +173,7 @@ create table Insegna (
 create table Luogo (
      Codice numeric(10) not null,
      Capienza numeric(6) not null,
-     Nome varchar(30) not null,
+     Nome varchar(50) not null,
      constraint ID_Luogo_ID primary key (Codice));
 
 create table Materia (
@@ -302,7 +302,7 @@ create table Ricevimento (
 create table Richiesta_Evento (
      Codice numeric(10) not null,
      Tipo varchar(20) not null,
-     Nome varchar(30),
+     Nome varchar(50),
      Posti numeric(6),
      Descrizione varchar(510),
      Codice_Evento numeric(10),
@@ -340,6 +340,7 @@ create table Sede (
      Codice_Citta varchar(5) not null,
      N_Civico numeric(6) not null,
      Nome varchar(30) not null,
+     Descrizione varchar(225) not null,
      constraint SID_Sede_Indir_ID unique (Codice_Prov, Codice_Citta, N_Civico),
      constraint ID_Sede_ID primary key (Codice));
 
@@ -360,7 +361,7 @@ create table Seguito_In (
 
 create table Sistema_Universitario (
      Matricola numeric(10) not null,
-     Email_Uni varchar(30) not null,
+     Email_Uni varchar(50) not null,
      Password varchar(20) not null,
      CF varchar(16) not null,
      constraint ID_Sistema_Universitario_ID primary key (Matricola),
@@ -381,7 +382,7 @@ create table Thread (
      Cod_Forum numeric(1) not null,
      Cod_Canale numeric(10) not null,
      Codice numeric(10) not null,
-     Titolo varchar(20) not null,
+     Titolo varchar(50) not null,
      Testo varchar(60000) not null,
      Data datetime not null,
      Likes numeric(10) not null,
@@ -1481,16 +1482,7 @@ insert into Insegna values (269,113);
 insert into Insegna values (270,113);
 insert into Insegna values (271,113);
 insert into Insegna values (272,113);
-insert into Insegna values (273,116);insert into Richiesta_Evento values (1, "Inserimento", "Evento di Volontariato Universitario", 66, "Evento istituzionale promosso dall’ateneo", NULL, "VNTGPP08R29D612J", NULL, "DMCLNZ01E01F776T");
-insert into Richiesta_Evento values (2, "Inserimento", "Festival della Scienza", 170, "Attività didattica speciale con ospiti esterni", NULL, "LMBNCL58P20F776A", NULL, "CNIFNC97R42A189W");
-insert into Richiesta_Evento values (3, "Modifica", "Festival del Cinema Studentesco", 26, "Ciclo di incontri tematici interdisciplinari", 14, "CLMCSR80B23H224A", "LMBMSM92P04B861X", "NULL");
-insert into Richiesta_Evento values (4, "Modifica", "Festival del Teatro Studentesco", 192, "Evento culturale aperto al pubblico", 37, "BRDLXA72D43C351V", "VRDGRG06T30C986J", "NULL");
-insert into Richiesta_Evento values (5, "Modifica", "Workshop di Statistica", 116, "Evento istituzionale promosso dall’ateneo", 2, "RSSGRG81P53L402C", "BNCLRI99H45F883G", "NULL");
-insert into Richiesta_Evento values (6, "Inserimento", "Seminario di Filosofia", 92, "Iniziativa di valorizzazione del territorio", NULL, "RMNPLA74D13A310O", NULL, "BLDFRC74S17G715F");
-insert into Richiesta_Evento values (7, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (8, "Modifica", "Workshop di Scrittura Accademica", 48, "Incontro di approfondimento metodologico", 36, "CNIDNS80M17D433N", "PRSGNN08R52D491D", "NULL");
-insert into Richiesta_Evento values (9, "Eliminazione", NULL, NULL, NULL, 2, NULL, "BNCLRI99H45F883G", NULL);
-insert into Richiesta_Evento values (10, "Eliminazione", NULL, NULL, NULL, 27, NULL, "BNCLRI99H45F883G", NULL);
+insert into Insegna values (273,116);
 insert into Insegna values (279,116);
 insert into Insegna values (280,117);
 insert into Insegna values (281,117);
@@ -11329,9 +11321,9 @@ insert into Richiesta_Evento values (3, "Modifica", "Workshop di Matematica", 12
 insert into Richiesta_Evento values (4, "Eliminazione", NULL, NULL, NULL, 33, NULL, "FRRRNN70T48G715L", NULL);
 insert into Richiesta_Evento values (5, "Modifica", "Evento di Innovazione Tecnologica", 174, "Evento di formazione continua", 40, "LRSSFN62L01C365K", "FBBLCA75B52A286A", NULL);
 insert into Richiesta_Evento values (6, "Eliminazione", NULL, NULL, NULL, 1, NULL, "ZNTDNC84L11B858F", NULL);
-insert into Richiesta_Evento values (7, "Inserimento", "Festival del Cinema Studentesco", 169, "Laboratorio interattivo a numero chiuso", NULL, "MZZMTT94C19B861V", NULL, "BNCMNC72D70B882D");
-insert into Richiesta_Evento values (8, "Inserimento", "Workshop di Matematica", 117, "Evento formativo certificato", NULL, "DSNSRG96C16A189M", NULL, "BRBLRI58T61D111Z");
-insert into Richiesta_Evento values (9, "Inserimento", "Seminario di Storia dell'Arte", 116, "Evento aperto alla cittadinanza", NULL, "CNILGU97R15C792Y", NULL, "VRDDVD64L12C520H");
+insert into Richiesta_Evento values (7, "Inserimento", "Festival del Cinema Studentesco", 169, "Laboratorio interattivo a numero chiuso", NULL, "MZZMTT94C19B861V", NULL, 5);
+insert into Richiesta_Evento values (8, "Inserimento", "Workshop di Matematica", 117, "Evento formativo certificato", NULL, "DSNSRG96C16A189M", NULL, 10);
+insert into Richiesta_Evento values (9, "Inserimento", "Seminario di Storia dell'Arte", 116, "Evento aperto alla cittadinanza", NULL, "CNILGU97R15C792Y", NULL, 6);
 insert into Richiesta_Evento values (10, "Modifica", "Conferenza Internazionale", 143, "Evento di presentazione dei corsi di laurea", 35, "BSSNDR63C48C986R", "FSCLNE01A51C887J", NULL);
 
 # ---------------------------------------------------------------------- #
@@ -11340,23 +11332,24 @@ insert into Richiesta_Evento values (10, "Modifica", "Conferenza Internazionale"
 
 truncate table Sede;
 
-insert into Sede values (0, "BO", "BO", 33, "Palazzo Poggi");
-insert into Sede values (1, "BO", "BO", 38, "Palazzo Riario");
-insert into Sede values (2, "BO", "BO", 2, "San Giovanni in Monte");
-insert into Sede values (3, "BO", "BO", 20, "Collegio dei Fiamminghi");
-insert into Sede values (4, "BO", "BO", 45, "Palazzo Hercolani");
-insert into Sede values (5, "BO", "BO", 28, "Complesso Terracini");
-insert into Sede values (6, "BO", "BO", 9, "Policlinico Sant'Orsola-Malpighi");
-insert into Sede values (7, "FC", "CE", 50, "Campus universitario di Cesena");
-insert into Sede values (8, "FC", "FO", 1, "Polo universitario di Forlì");
-insert into Sede values (9, "RA", "RA", 27, "Direzione e servizi studenti");
-insert into Sede values (10, "RA", "RA", 1, "Dipartimento Beni Culturali");
-insert into Sede values (11, "RA", "RA", 6, "Palazzo Corradini");
-insert into Sede values (12, "RA", "RA", 23, "Palazzo Verdi");
-insert into Sede values (13, "RA", "RA", 163, "Laboratori Scientifici");
-insert into Sede values (14, "RA", "RA", 55, "Ingegneria e Architettura");
-insert into Sede values (15, "RA", "RA", 5, "Ospedale S.Maria delle Croci");
-insert into Sede values (16, "RN", "RN", 22, "Complesso Valgimigli");
+insert into Sede values (0, "BO", "BO", 33, "Palazzo Poggi", "Cuore storico dell'Università di Bologna, ospita uffici, aule e spazi per eventi culturali.");
+insert into Sede values (1, "BO", "BO", 38, "Palazzo Riario", "Elegante edificio dove si svolgono corsi e seminari per diverse facoltà.");
+insert into Sede values (2, "BO", "BO", 2, "San Giovanni in Monte", "Ex chiesa trasformata in spazio universitario per conferenze e attività culturali.");
+insert into Sede values (3, "BO", "BO", 20, "Collegio dei Fiamminghi", "Residenza e centro culturale per studenti internazionali e progetti artistici.");
+insert into Sede values (4, "BO", "BO", 45, "Palazzo Hercolani", "Sede di uffici e aule per corsi accademici e attività amministrative.");
+insert into Sede values (5, "BO", "BO", 28, "Complesso Terracini", "Struttura moderna con laboratori e aule per studi scientifici e tecnologici.");
+insert into Sede values (6, "BO", "BO", 9, "Policlinico Sant'Orsola-Malpighi", "Centro medico universitario, con cliniche, laboratori e corsi di Medicina e Chirurgia.");
+insert into Sede values (7, "FC", "CE", 50, "Campus universitario di Cesena", "Campus completo con aule, laboratori, biblioteche e residenze per studenti.");
+insert into Sede values (8, "FC", "FO", 1, "Polo universitario di Forlì", "Sede moderna per corsi, laboratori e attività didattiche a Forlì.");
+insert into Sede values (9, "RA", "RA", 27, "Direzione e servizi studenti", "Punto di riferimento per informazioni, servizi e supporto agli studenti.");
+insert into Sede values (10, "RA", "RA", 1, "Dipartimento Beni Culturali", "Sede accademica per studi storici, artistici e archeologici, con aule e laboratori.");
+insert into Sede values (11, "RA", "RA", 6, "Palazzo Corradini", "Edificio storico utilizzato per corsi, conferenze ed eventi culturali.");
+insert into Sede values (12, "RA", "RA", 23, "Palazzo Verdi", "Sede universitaria per discipline umanistiche e sociali, con spazi per studenti e docenti.");
+insert into Sede values (13, "RA", "RA", 163, "Laboratori Scientifici", "Strutture all'avanguardia per ricerca e attività scientifiche sperimentali.");
+insert into Sede values (14, "RA", "RA", 55, "Ingegneria e Architettura", "Sede dei dipartimenti di Ingegneria e Architettura, con laboratori, aule e spazi per progetti.");
+insert into Sede values (15, "RA", "RA", 5, "Ospedale S.Maria delle Croci", "Centro clinico e sede universitaria per corsi e tirocinio in Medicina.");
+insert into Sede values (16, "RN", "RN", 22, "Complesso Valgimigli", "Sede universitaria con laboratori e aule moderne per corsi scientifici e tecnologici.");
+
 
 # ---------------------------------------------------------------------- #
 # Add info into "Segreteria"                                             #

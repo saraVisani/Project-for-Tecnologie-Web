@@ -94,7 +94,7 @@ function renderAsideHomeBase(titles, data){
     let eventiHTML = "";
     let faqHTML = "";
 
-    // EVENTI
+    // Eventi
     data.eventi.forEach(evento => {
         eventiHTML += `
         <li>
@@ -109,11 +109,7 @@ function renderAsideHomeBase(titles, data){
 
     // FAQ
     data.faq.forEach(faq => {
-        faqHTML += `
-        <li>
-            <a href="#">${faq.domanda}</a>
-        </li>
-        `;
+        faqHTML += `<li><a href="#">${faq.domanda}</a></li>`;
     });
 
     return `
@@ -150,7 +146,7 @@ function renderAsideHomeBase(titles, data){
 
 async function loadHome(){
 
-    const res = await fetch("api/home.php");
+    const res = await fetch("./Api/api-index.php");
     const json = await res.json();
 
     const template = chooseHomeTemplate(json.user);
