@@ -391,7 +391,7 @@ create table Thread (
      Chiuso TINYINT(1) not null,
      No_Reply TINYINT(1) not null,
      Thread_Puntato numeric(60),
-     Matricola numeric(10) not null,
+     Matricola numeric(10),
      constraint SID_Thread_ID unique (Cod_Forum, Cod_Canale, Codice),
      constraint ID_Thread_ID primary key (Cod_Unico));
 
@@ -34480,29 +34480,24 @@ insert into Thread values
  "Inserire qui le disponibilità per eventuali sostituzioni della prossima settimana.",
  "2026-01-11 08:15:00",
  3, 0, 0, 0, 0, null, 5);
-
  insert into Thread values
 (2, 0, 3, 0,
  "Calendario verifiche",
  "Il calendario delle verifiche del mese è disponibile sul registro elettronico.",
  "2026-01-12 10:00:00",
  12, 1, 1, 0, 1, null, 8);
-
-
  insert into Thread values
 (3, 1, 0, 0,
  "Assemblea di istituto",
  "Proposte per i temi dell’assemblea del prossimo mese.",
  "2026-01-13 14:20:00",
  8, 0, 0, 0, 0, null, 23);
-
  insert into Thread values
 (4, 1, 1, 0,
  "Incontro con i docenti",
  "L’incontro con i docenti rappresentanti si terrà martedì alle 11.",
  "2026-01-14 09:00:00",
  15, 2, 1, 0, 1, null, 31);
-
  insert into Thread values
 (5, 1, 2, 0,
  "Gita scolastica",
@@ -34515,14 +34510,29 @@ insert into Thread values
  "Che ne pensate del nuovo orario delle lezioni?",
  "2026-01-16 12:10:00",
  10, 1, 0, 0, 0, null, 24);
-
-
  insert into Thread values
 (7, 2, 3, 0,
  "Chiusura scuola",
  "La scuola resterà chiusa lunedì per manutenzione straordinaria.",
  "2026-01-17 07:30:00",
  50, 0, 1, 1, 1, null, 1);
+insert into Thread values
+(8, 2, 4, 0, 
+"Aggiornamenti sull'orario settimanale"
+"In questo thread trovate tutte le modifiche e gli aggiornamenti agli orari delle lezioni di questa settimana.", 
+"2026-02-01 10:00:00", 
+100, 20, 0, 0, 0, null, null);
+insert into Thread values
+(9, 2, 4, 1, 
+"Domande esami", 
+"Spazio per fare domande sugli esami.", 
+"2026-01-13 11:30:00", 
+165, 3, 1, 0, 0, null, null);
+insert into Thread values
+(10, 2, 4, 2, "Comunicazioni segreteria", 
+"Comunicazioni importanti per tutti gli studenti.", 
+"2026-02-01 12:00:00", 
+442, 130, 0, 0, 0, null, null);
 
 # ---------------------------------------------------------------------- #
 # Add info into "Ufficio"                                                #
