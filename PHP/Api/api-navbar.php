@@ -59,7 +59,7 @@ if(isUserLoggedIn()){
         ],
         [
             "label" => "Logout",
-            "link" => "../PHP/logout.php"
+            "link" => "../PHP/login.php"
         ]
     ];
 

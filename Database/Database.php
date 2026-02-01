@@ -31,6 +31,73 @@ class DatabaseHelper
         return $row ? (int)$row['Matricola'] : null; // ritorna null se non trovato
     }
 
+    public function usernameOk($username)
+    {
+        return (bool) $this->resolveUserId($username);
+    }
+
+    public function passwordOk($username, $password){
+        $mt = $this->resolveUserId($username);
+        if (!$mt) {
+            return false;
+        }
+
+        $query = "SELECT Password
+                    FROM Sistema_Universitario
+                    WHERE Matricola = ? AND Password = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $mt, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $stmt->close();
+
+        return !empty($row);
+    }
+
+    public function accessLevelOk($username, $level){
+        $mt = $this->resolveUserId($username);
+        if (!$mt) {
+            return false;
+        }
+
+        $query = "SELECT Livello_Accesso
+                    FROM Sistema_Universitario, Persona
+                    WHERE Matricola = ?
+                    AND Persona.Livello_Accesso >= ?
+                    AND Sistema_Universitario.CF = Persona.CF";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ii", $mt, $level);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $stmt->close();
+
+        return !empty($row);
+    }
+
+    public function getLevelAccess($username){
+        $mt = $this->resolveUserId($username);
+        if (!$mt) {
+            return false;
+        }
+
+        $query = "SELECT Persona.Livello_Accesso
+                FROM Sistema_Universitario
+                JOIN Persona ON Sistema_Universitario.CF = Persona.CF
+                WHERE Matricola = ?";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $mt);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $stmt->close();
+
+        return $row ? (int)$row['Livello_Accesso'] : false;
+    }
+
     public function getMostRecentPublicEvents($number = 3)
     {
         $sql = "SELECT Nome AS titolo, Inizio AS data, Descrizione AS descrizione
@@ -84,7 +151,7 @@ class DatabaseHelper
             return []; // nessun evento se utente non trovato
         }
 
-        
+
     }
 
     public function getReunionStudent($idUtente)

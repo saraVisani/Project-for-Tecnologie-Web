@@ -68,3 +68,12 @@ form#loginForm input[type="submit"] {
 form#loginForm input[type="submit"]:hover {
     background-color: #45a049;
 }
+
+.error {
+    color: #b00020;
+    background: #fdecea;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    text-align: center;
+}
