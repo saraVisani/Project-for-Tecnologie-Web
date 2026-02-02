@@ -35,27 +35,56 @@ function renderMainNavbar(buttonsLeft, buttonsRight, items){
 
     // Bottoni destra (Rubrica, Login / Logout)
     buttonsRight.forEach(btn => {
-        if(btn.link){
+
+        if (btn.label === "Logout") {
             rightButtonsHTML += `
-                <li><a href="${btn.link}">${btn.label}</a></li>
+                <li>
+                    <button type="button" class="dropbtn logout-btn">
+                        Logout
+                    </button>
+                </li>
             `;
         } else {
             rightButtonsHTML += `
-                <li><button>${btn.label}</button></li>
+                <li><a href="${btn.link}">${btn.label}</a></li>
             `;
         }
+
     });
 
     return `
-        <nav class="navbar">
-            <ul>
-                ${leftButtonsHTML}
-                ${itemsHTML}
-                ${rightButtonsHTML}
-            </ul>
-        </nav>
+        <ul>
+            ${leftButtonsHTML}
+            ${itemsHTML}
+            ${rightButtonsHTML}
+        </ul>
     `;
 }
+
+async function logout() {
+
+    try {
+        const res = await fetch("./Api/api-logout.php");
+        const json = await res.json();
+
+        if (json.success) {
+            alert(json.message);
+            await loadNavbar();
+            window.location.href = "../PHP/index.php";
+        } else {
+            alert("Errore durante il logout");
+        }
+
+    } catch (err) {
+        console.error("Logout error:", err);
+    }
+}
+
+document.addEventListener("click", e => {
+    if (e.target.classList.contains("logout-btn")) {
+        logout();
+    }
+});
 
 async function loadNavbar(){
 

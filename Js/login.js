@@ -36,11 +36,7 @@ async function submitLogin(e) {
 
     const json = await res.json();
 
-    if (!json.login) {
-        alert(json.message);
-        location.href = "../PHP/index.php";
-    }
-    else if (json.success) {
+    if (json.success) {
         alert(
             "Login effettuato con successo" +
             (json.message ? "\n" + json.message : "")
@@ -49,7 +45,7 @@ async function submitLogin(e) {
     }
     else {
         const main = document.querySelector("main");
-        main.innerHTML = renderLogin(message);
+        main.innerHTML = renderLogin(json.message);
 
         document
             .getElementById("loginForm")
@@ -57,4 +53,13 @@ async function submitLogin(e) {
     }
 }
 
-renderLogin();
+function loadLogin() {
+    const main = document.querySelector("main");
+    main.innerHTML = renderLogin();
+
+    document
+        .getElementById("loginForm")
+        .addEventListener("submit", submitLogin);
+}
+
+loadLogin();

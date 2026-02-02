@@ -33,15 +33,31 @@ class DatabaseHelper
 
     public function usernameOk($username)
     {
-        return (bool) $this->resolveUserId($username);
+        // ottieni la matricola (da email o direttamente)
+        $matricola = $this->resolveUserId($username);
+
+        // se resolveUserId ha dato null, l'utente non esiste
+        if ($matricola === null) {
+            return false;
+        }
+
+        // controllo esplicito che la matricola esista nel DB
+        $stmt = $this->db->prepare("SELECT Matricola FROM Sistema_Universitario WHERE Matricola = ?");
+        $stmt->bind_param("i", $matricola);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $stmt->close();
+
+        return !empty($row); // true se esiste
     }
 
     public function passwordOk($username, $password){
         $mt = $this->resolveUserId($username);
-        if (!$mt) {
+        if ($mt === null ) {
             return false;
         }
-
+        
         $query = "SELECT Password
                     FROM Sistema_Universitario
                     WHERE Matricola = ? AND Password = ?";
@@ -57,14 +73,14 @@ class DatabaseHelper
 
     public function accessLevelOk($username, $level){
         $mt = $this->resolveUserId($username);
-        if (!$mt) {
+        if ($mt === null) {
             return false;
         }
 
-        $query = "SELECT Livello_Accesso
+        $query = "SELECT Livello_Permesso
                     FROM Sistema_Universitario, Persona
                     WHERE Matricola = ?
-                    AND Persona.Livello_Accesso >= ?
+                    AND Persona.Livello_Permesso >= ?
                     AND Sistema_Universitario.CF = Persona.CF";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("ii", $mt, $level);
@@ -78,11 +94,11 @@ class DatabaseHelper
 
     public function getLevelAccess($username){
         $mt = $this->resolveUserId($username);
-        if (!$mt) {
+        if ($mt === null) {
             return false;
         }
 
-        $query = "SELECT Persona.Livello_Accesso
+        $query = "SELECT Persona.Livello_Permesso
                 FROM Sistema_Universitario
                 JOIN Persona ON Sistema_Universitario.CF = Persona.CF
                 WHERE Matricola = ?";
@@ -95,7 +111,49 @@ class DatabaseHelper
         $row = $result->fetch_assoc();
         $stmt->close();
 
-        return $row ? (int)$row['Livello_Accesso'] : false;
+        return $row ? (int)$row['Livello_Permesso'] : false;
+    }
+
+    public function getUserJob($username){
+        $mt = $this->resolveUserId($username);
+        if ($mt === null) {
+            return false;
+        }
+
+        // Studente
+        $stmt = $this->db->prepare("SELECT Matricola FROM Studente WHERE Matricola = ?");
+        $stmt->bind_param("i", $mt);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $stmt->close();
+            return 'studente';
+        }
+        $stmt->close();
+
+        // Professore
+        $stmt = $this->db->prepare("SELECT Matricola FROM Professore WHERE Matricola = ?");
+        $stmt->bind_param("i", $mt);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $stmt->close();
+            return 'professore';
+        }
+        $stmt->close();
+
+        // Segreteria
+        $stmt = $this->db->prepare("SELECT Matricola FROM Segreteria WHERE Matricola = ?");
+        $stmt->bind_param("i", $mt);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $stmt->close();
+            return 'segreteria';
+        }
+        $stmt->close();
+
+        return false; // non trovato
     }
 
     public function getMostRecentPublicEvents($number = 3)
