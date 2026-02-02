@@ -91,7 +91,7 @@ create table Corso (
 
 create table Elemento (
      Codice numeric(10) not null,
-     Nome varchar(20) not null,
+     Nome varchar(50) not null,
      Voto numeric(10) not null,
      Cod_Unico_Thread numeric(60),
      Cod_Unico_Messaggio numeric(60),
@@ -103,7 +103,8 @@ create table Elim_Collaboratore (
      constraint ID_Elim_Collaboratore_ID primary key (Codice_Richiesta, CF));
 
 create table Elim_Promotore (
-     numeric(10) not null,
+     Codice_Promotore numeric(10) not null,
+     Codice_Richiesta numeric(10) not null,
      constraint ID_Elim_Promotore_ID primary key (Codice_Promotore, Codice_Richiesta));
 
 create table Esterno (
@@ -199,7 +200,7 @@ create table Messaggio (
      Pin TINYINT(1) not null,
      Pin_Speciale TINYINT(1) not null,
      Messaggio_Puntato numeric(60),
-     Matricola numeric(60) not null,
+     Matricola numeric(10),
      constraint ID_Messaggio_ID primary key (Cod_Unico),
      constraint SID_Messaggio_ID unique (Cod_Unico_Thread, Codice));
 
