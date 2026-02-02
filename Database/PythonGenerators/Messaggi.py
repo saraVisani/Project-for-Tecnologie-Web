@@ -624,12 +624,13 @@ def random_date(start_val, end_val="2026-02-01 23:59:59"):
 # Creazione file di output
 output_file = "insert_messaggi.sql"
 with open(output_file, "a") as f:  # 'a' per non sovrascrivere
-    codice_counter = 1000
+    codice_unico_messaggio = 1000
     for th in thread:
         cod_unico_thread = th[0]
         no_reply = th[10]
         cod_forum = th[1]
         cod_canale = th[2]
+        codice_counter = 1
 
         if no_reply == 1:
             continue  # Nessun messaggio
@@ -657,7 +658,8 @@ with open(output_file, "a") as f:  # 'a' per non sovrascrivere
             data_msg = random_date(th[6])
 
             # Scrivi INSERT INTO
-            f.write(f'INSERT INTO Messaggio VALUES ({codice_counter}, {cod_unico_thread}, {cod_unico_thread}, "{testo}", "{data_msg.strftime("%Y-%m-%d %H:%M:%S")}", {likes}, {dislike}, 0, 0, NULL, {matricola_autore});\n')
+            f.write(f'insert Messaggio values ({codice_unico_messaggio}, {codice_counter}, {cod_unico_thread}, "{testo}", "{data_msg.strftime("%Y-%m-%d %H:%M:%S")}", {likes}, {dislike}, 0, 0, NULL, {matricola_autore});\n')
+            codice_unico_messaggio += 1
             codice_counter += 1
 
 print(f"Messaggi generati e salvati in {output_file}")
