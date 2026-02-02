@@ -400,7 +400,6 @@ nomi_evento = [
     "Giornata della Robotica"
 ]
 
-
 descrizioni = [
     "Evento culturale aperto al pubblico",
     "Incontro formativo con esperti del settore",
@@ -686,7 +685,7 @@ rappresentanti_evento = {codice: cf for codice, _, _, _, _, _, cf in eventi}
 
 def genera_richieste_evento(n):
     insert_statements = []
-    codice_richiesta = 1  # codice della richiesta autoincrement simulato
+    codice_richiesta = 11  # codice della richiesta autoincrement simulato
     
     for _ in range(n):
         stmt = ""

@@ -534,7 +534,6 @@ nomi_evento = [
     "Giornata della Robotica"
 ]
 
-
 descrizioni = [
     "Evento culturale aperto al pubblico",
     "Incontro formativo con esperti del settore",
