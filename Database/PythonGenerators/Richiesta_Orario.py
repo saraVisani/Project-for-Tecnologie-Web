@@ -3328,12 +3328,16 @@ def genera_richieste(num=50):
             uni = "NULL"
             stanza = "NULL"
         else:  # modifica
+            
             data_inizio = random.choice([random_date(), "NULL"])
             data_fine = random.choice([random_date(), "NULL"])
             codice_orario = random.choice(orario)[0]
             corso_cod = random.choice([mod[0], "NULL"])
             cod_mat_anno = random.choice([mod[1], "NULL"])
-            modulo_cod = random.choice([mod[2], "NULL"])
+            if(cod_mat_anno == "NULL"):
+                modulo_cod = "NULL"
+            else:
+                modulo_cod = (mod[2])
             uni, stanza, _ = random.choice(classi)
             if random.random() < 0.5:
                 uni = "NULL"

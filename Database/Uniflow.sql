@@ -457,6 +457,21 @@ insert into Ambito values ("Sociologia", "#685bc7");
 insert into Ambito values ("Studi Umanistici", "#363535");
 
 # ---------------------------------------------------------------------- #
+# Add info into "Cambiare_Orario"                                        #
+# ---------------------------------------------------------------------- #
+
+truncate table Cambiare_Orario;
+
+insert into Cambiare_Orario values (1000, 2, NULL, '2026-02-02 06:53:56', NULL);
+insert into Cambiare_Orario values (1001, 7, '2026-02-21 11:14:07', NULL, NULL);
+insert into Cambiare_Orario values (1002, 8, '2026-02-02 11:12:27', '2026-02-02 12:12:27', NULL);
+insert into Cambiare_Orario values (1003, 9, '2026-02-16 14:39:56', '2026-02-16 17:39:56', NULL);
+insert into Cambiare_Orario values (1004, 12, NULL, '2026-02-24 17:04:19', NULL);
+insert into Cambiare_Orario values (1005, 14, NULL, '2026-02-16 22:50:12', 41);
+insert into Cambiare_Orario values (1006, 19, '2026-02-22 16:38:03', '2026-02-22 18:38:03', NULL);
+insert into Cambiare_Orario values (1007, 20, NULL, NULL, 36);
+
+# ---------------------------------------------------------------------- #
 # Add info into "Canale"                                                 #
 # ---------------------------------------------------------------------- #
 
@@ -6863,6 +6878,7 @@ insert into Professore values (257);
 
 truncate table Promotore;
 
+insert into Promotore values (0, "Sara&Ales", "sarandales123@hotmail.com");
 insert into Promotore values (1, "Celestial Minds", "celestialminds32@libero.it");
 insert into Promotore values (2, "Radiant Minds", "radiantminds46@hotmail.com");
 insert into Promotore values (3, "Starbound", "starbound69@gmail.com");
@@ -12370,56 +12386,56 @@ insert into Richiesta_Evento values (20, "Inserimento", "Torneo di Pallavolo Uni
 
 truncate table Richiesta_Orario;
 
-insert into Richiesta_Orario values (1, 'Elimina', NULL, NULL, 959, NULL, NULL, NULL, NULL, NULL, 255);
-insert into Richiesta_Orario values (2, 'Modifica', NULL, '2020-06-29 04:43:39', 1674, NULL, 453, 2, NULL, NULL, 46);
-insert into Richiesta_Orario values (3, 'Modifica', NULL, NULL, 97, 'ING_INF03', NULL, 1, 14, 515, 249);
-insert into Richiesta_Orario values (4, 'Modifica', '2022-01-25 05:33:36', NULL, 1055, NULL, NULL, NULL, NULL, NULL, 119);
-insert into Richiesta_Orario values (5, 'Modifica', '2023-11-15 12:58:15', '2025-07-03 17:16:31', 1357, NULL, NULL, 1, NULL, NULL, 237);
-insert into Richiesta_Orario values (6, 'Modifica', '2025-07-18 15:23:33', '2024-03-12 08:23:19', 1081, 'ING02', 153, 1, 16, 214, 257);
-insert into Richiesta_Orario values (7, 'Modifica', '2024-08-10 02:26:34', NULL, 429, 'ING02', 95, NULL, 3, 410, 106);
-insert into Richiesta_Orario values (8, 'Elimina', NULL, NULL, 887, NULL, NULL, NULL, NULL, NULL, 249);
-insert into Richiesta_Orario values (9, 'Inserisci', '2020-09-15 20:21:09', '2022-05-27 02:57:56', NULL, 'STA01', 403, 1, 0, 508, 252);
-insert into Richiesta_Orario values (10, 'Inserisci', '2020-07-25 16:12:20', '2022-04-03 16:46:13', NULL, 'MAT01', 99, 2, 4, 406, 246);
-insert into Richiesta_Orario values (11, 'Modifica', NULL, '2026-11-10 21:42:03', 1592, 'LIN01', 316, 3, NULL, NULL, 111);
-insert into Richiesta_Orario values (12, 'Modifica', NULL, '2026-08-22 11:21:59', 1566, 'CHI01', 66, 1, NULL, NULL, 65);
-insert into Richiesta_Orario values (13, 'Modifica', '2023-12-16 06:08:03', NULL, 1514, 'POL01', NULL, NULL, 4, 520, 96);
-insert into Richiesta_Orario values (14, 'Modifica', '2024-07-18 23:50:41', '2023-06-17 22:54:55', 1672, NULL, 112, 1, NULL, NULL, 20);
-insert into Richiesta_Orario values (15, 'Modifica', '2021-12-24 16:18:51', NULL, 511, 'ING01', 134, NULL, NULL, NULL, 60);
-insert into Richiesta_Orario values (16, 'Inserisci', '2023-08-11 08:42:24', '2026-01-06 02:39:15', NULL, 'BIOFAR01', 374, 2, 5, 506, 3);
-insert into Richiesta_Orario values (17, 'Elimina', NULL, NULL, 723, NULL, NULL, NULL, NULL, NULL, 230);
-insert into Richiesta_Orario values (18, 'Elimina', NULL, NULL, 1128, NULL, NULL, NULL, NULL, NULL, 113);
-insert into Richiesta_Orario values (19, 'Modifica', '2026-11-01 11:56:36', '2023-12-03 23:15:07', 393, NULL, NULL, 1, NULL, NULL, 5);
-insert into Richiesta_Orario values (20, 'Inserisci', '2023-09-09 11:56:41', '2023-11-05 02:24:18', NULL, 'ARC01', 244, 2, 16, 514, 88);
-insert into Richiesta_Orario values (21, 'Inserisci', '2023-03-12 11:10:14', '2024-01-11 09:06:28', NULL, 'ING_INF01', 118, 1, 15, 209, 106);
-insert into Richiesta_Orario values (22, 'Elimina', NULL, NULL, 1438, NULL, NULL, NULL, NULL, NULL, 231);
-insert into Richiesta_Orario values (23, 'Modifica', '2024-02-11 22:14:18', NULL, 1822, NULL, NULL, NULL, NULL, NULL, 106);
-insert into Richiesta_Orario values (24, 'Elimina', NULL, NULL, 817, NULL, NULL, NULL, NULL, NULL, 231);
-insert into Richiesta_Orario values (25, 'Inserisci', '2023-06-16 11:44:47', '2024-02-11 12:29:09', NULL, 'ING01', 129, 3, 5, 107, 247);
-insert into Richiesta_Orario values (26, 'Elimina', NULL, NULL, 687, NULL, NULL, NULL, NULL, NULL, 225);
-insert into Richiesta_Orario values (27, 'Modifica', '2021-02-17 04:09:41', NULL, 558, 'ARC01', 244, NULL, NULL, NULL, 78);
-insert into Richiesta_Orario values (28, 'Modifica', NULL, NULL, 71, NULL, NULL, 2, NULL, NULL, 20);
-insert into Richiesta_Orario values (29, 'Modifica', '2022-09-15 17:26:41', NULL, 917, 'LET01', 298, 1, NULL, NULL, 246);
-insert into Richiesta_Orario values (30, 'Modifica', NULL, NULL, 822, NULL, 139, 1, NULL, NULL, 60);
-insert into Richiesta_Orario values (31, 'Modifica', '2021-01-27 21:31:09', '2021-02-12 16:36:05', 1686, 'ING_INF02', 166, NULL, 3, 501, 252);
-insert into Richiesta_Orario values (32, 'Elimina', NULL, NULL, 681, NULL, NULL, NULL, NULL, NULL, 242);
-insert into Richiesta_Orario values (33, 'Modifica', '2026-11-05 00:21:41', '2023-08-27 23:43:06', 721, 'STA01', 400, 1, 6, 313, 96);
-insert into Richiesta_Orario values (34, 'Modifica', '2023-05-14 13:53:07', NULL, 802, NULL, NULL, NULL, 13, 514, 247);
-insert into Richiesta_Orario values (35, 'Modifica', '2026-04-21 22:52:43', NULL, 777, 'TUR01', NULL, 1, NULL, NULL, 73);
-insert into Richiesta_Orario values (36, 'Elimina', NULL, NULL, 1529, NULL, NULL, NULL, NULL, NULL, 81);
-insert into Richiesta_Orario values (37, 'Modifica', NULL, NULL, 73, NULL, 364, NULL, NULL, NULL, 253);
-insert into Richiesta_Orario values (38, 'Modifica', NULL, '2026-09-04 09:56:33', 1524, 'SOC01', NULL, NULL, 8, 307, 102);
-insert into Richiesta_Orario values (39, 'Inserisci', '2020-03-09 22:23:53', '2022-12-04 01:05:33', NULL, 'CHI01', 65, 3, 11, 121, 119);
-insert into Richiesta_Orario values (40, 'Modifica', '2024-09-13 21:53:38', NULL, 947, NULL, NULL, 1, 3, 209, 249);
-insert into Richiesta_Orario values (41, 'Modifica', '2025-03-19 09:46:51', '2020-08-06 10:11:23', 293, 'ING02', NULL, NULL, NULL, NULL, 81);
-insert into Richiesta_Orario values (42, 'Elimina', NULL, NULL, 1174, NULL, NULL, NULL, NULL, NULL, 249);
-insert into Richiesta_Orario values (43, 'Inserisci', '2023-05-02 03:47:01', '2025-08-26 03:30:14', NULL, 'URB_CES01', 283, 1, 3, 410, 109);
-insert into Richiesta_Orario values (44, 'Modifica', NULL, '2026-10-15 10:11:15', 1526, NULL, 366, NULL, NULL, NULL, 119);
-insert into Richiesta_Orario values (45, 'Elimina', NULL, NULL, 383, NULL, NULL, NULL, NULL, NULL, 238);
-insert into Richiesta_Orario values (46, 'Modifica', NULL, '2026-12-30 01:05:20', 1017, NULL, 80, 1, 10, 326, 237);
-insert into Richiesta_Orario values (47, 'Modifica', '2023-07-03 07:23:45', NULL, 1210, 'BIO01', 70, NULL, 1, 510, 230);
-insert into Richiesta_Orario values (48, 'Modifica', NULL, '2025-12-27 00:39:55', 117, 'DES01', NULL, 3, 16, 403, 44);
-insert into Richiesta_Orario values (49, 'Elimina', NULL, NULL, 1336, NULL, NULL, NULL, NULL, NULL, 237);
-insert into Richiesta_Orario values (50, 'Modifica', NULL, NULL, 889, 'DES_CES01', 276, NULL, NULL, NULL, 244);
+insert into Richiesta_Orario values (1, 'Modifica', NULL, '2020-03-28 07:49:40', 1007, NULL, NULL, NULL, 16, 214, 62);
+insert into Richiesta_Orario values (2, 'Modifica', '2025-09-13 02:18:56', '2021-06-21 11:48:14', 1651, NULL, 206, 1, 15, 209, 229);
+insert into Richiesta_Orario values (3, 'Modifica', NULL, '2022-07-13 10:10:26', 4, NULL, NULL, NULL, 7, 302, 100);
+insert into Richiesta_Orario values (4, 'Inserisci', '2025-07-02 01:14:46', '2026-11-28 01:14:10', NULL, 'POL01', 443, 1, 13, 222, 62);
+insert into Richiesta_Orario values (5, 'Elimina', NULL, NULL, 1270, NULL, NULL, NULL, NULL, NULL, 46);
+insert into Richiesta_Orario values (6, 'Modifica', NULL, '2024-04-27 00:14:26', 1549, NULL, 320, 2, 3, 203, 20);
+insert into Richiesta_Orario values (7, 'Modifica', NULL, NULL, 768, 'ING02', 93, 1, 16, 403, 247);
+insert into Richiesta_Orario values (8, 'Modifica', NULL, NULL, 474, 'ECO01', NULL, NULL, 1, 324, 235);
+insert into Richiesta_Orario values (9, 'Modifica', NULL, '2024-05-03 18:15:58', 49, NULL, 325, 2, NULL, NULL, 245);
+insert into Richiesta_Orario values (10, 'Modifica', NULL, NULL, 952, 'ING_INF03', NULL, NULL, 14, 205, 104);
+insert into Richiesta_Orario values (11, 'Inserisci', '2022-03-14 14:00:09', '2022-05-22 14:41:56', NULL, 'DES_CES01', 276, 2, 15, 209, 230);
+insert into Richiesta_Orario values (12, 'Inserisci', '2020-04-13 11:03:56', '2025-03-17 13:21:20', NULL, 'DIR01', 357, 1, 16, 403, 80);
+insert into Richiesta_Orario values (13, 'Modifica', NULL, '2020-11-12 19:26:49', 789, NULL, NULL, NULL, NULL, NULL, 245);
+insert into Richiesta_Orario values (14, 'Elimina', NULL, NULL, 1456, NULL, NULL, NULL, NULL, NULL, 106);
+insert into Richiesta_Orario values (15, 'Modifica', '2024-02-20 10:04:59', '2025-03-21 12:54:51', 320, NULL, NULL, NULL, 16, 214, 41);
+insert into Richiesta_Orario values (16, 'Elimina', NULL, NULL, 1624, NULL, NULL, NULL, NULL, NULL, 84);
+insert into Richiesta_Orario values (17, 'Modifica', '2021-07-12 02:28:23', '2023-03-10 01:34:46', 1477, NULL, NULL, NULL, NULL, NULL, 80);
+insert into Richiesta_Orario values (18, 'Elimina', NULL, NULL, 635, NULL, NULL, NULL, NULL, NULL, 243);
+insert into Richiesta_Orario values (19, 'Elimina', NULL, NULL, 513, NULL, NULL, NULL, NULL, NULL, 38);
+insert into Richiesta_Orario values (20, 'Elimina', NULL, NULL, 1183, NULL, NULL, NULL, NULL, NULL, 244);
+insert into Richiesta_Orario values (21, 'Modifica', '2026-06-03 07:01:53', '2025-05-22 01:17:49', 627, 'STO01', NULL, NULL, NULL, NULL, 100);
+insert into Richiesta_Orario values (22, 'Inserisci', '2025-07-09 23:50:07', '2026-03-01 10:40:00', NULL, 'LET01', 300, 1, 16, 426, 95);
+insert into Richiesta_Orario values (23, 'Elimina', NULL, NULL, 1590, NULL, NULL, NULL, NULL, NULL, 116);
+insert into Richiesta_Orario values (24, 'Modifica', NULL, NULL, 1759, 'PSI01', 456, 3, 12, 428, 255);
+insert into Richiesta_Orario values (25, 'Modifica', '2022-05-10 06:50:30', NULL, 327, 'ING_INF02', NULL, NULL, 11, 218, 230);
+insert into Richiesta_Orario values (26, 'Modifica', '2025-12-05 14:29:37', NULL, 1643, 'ING_INF02', 165, 1, NULL, NULL, 119);
+insert into Richiesta_Orario values (27, 'Elimina', NULL, NULL, 270, NULL, NULL, NULL, NULL, NULL, 58);
+insert into Richiesta_Orario values (28, 'Inserisci', '2022-02-11 12:14:14', '2024-02-20 01:47:14', NULL, 'ING02', 157, 1, 1, 216, 80);
+insert into Richiesta_Orario values (29, 'Modifica', NULL, NULL, 1512, NULL, 246, 1, NULL, NULL, 256);
+insert into Richiesta_Orario values (30, 'Elimina', NULL, NULL, 1435, NULL, NULL, NULL, NULL, NULL, 103);
+insert into Richiesta_Orario values (31, 'Modifica', '2023-10-20 08:40:53', NULL, 1111, 'ING01', 90, 2, 7, 101, 228);
+insert into Richiesta_Orario values (32, 'Modifica', '2022-11-05 03:37:37', NULL, 503, 'ECO01', NULL, NULL, 5, 506, 8);
+insert into Richiesta_Orario values (33, 'Modifica', '2026-05-11 02:00:25', '2021-08-01 00:05:47', 399, NULL, 109, 1, 5, 302, 111);
+insert into Richiesta_Orario values (34, 'Inserisci', '2023-05-08 03:10:15', '2025-09-16 17:56:46', NULL, 'ARC01', 240, 1, 13, 517, 252);
+insert into Richiesta_Orario values (35, 'Modifica', '2020-06-10 01:24:54', NULL, 1769, NULL, NULL, NULL, NULL, NULL, 104);
+insert into Richiesta_Orario values (36, 'Inserisci', '2025-12-19 07:45:24', '2026-11-19 03:14:23', NULL, 'GIU01', 356, 2, 16, 514, 226);
+insert into Richiesta_Orario values (37, 'Modifica', '2021-10-17 17:55:26', '2024-05-01 09:47:48', 1062, 'FIS01', NULL, NULL, NULL, NULL, 60);
+insert into Richiesta_Orario values (38, 'Modifica', NULL, '2024-08-01 05:17:36', 1750, NULL, NULL, NULL, 3, 410, 233);
+insert into Richiesta_Orario values (39, 'Modifica', '2022-01-22 06:17:42', NULL, 1633, NULL, NULL, NULL, NULL, NULL, 255);
+insert into Richiesta_Orario values (40, 'Elimina', NULL, NULL, 1702, NULL, NULL, NULL, NULL, NULL, 235);
+insert into Richiesta_Orario values (41, 'Elimina', NULL, NULL, 872, NULL, NULL, NULL, NULL, NULL, 81);
+insert into Richiesta_Orario values (42, 'Elimina', NULL, NULL, 1733, NULL, NULL, NULL, NULL, NULL, 88);
+insert into Richiesta_Orario values (43, 'Modifica', '2024-12-09 14:37:19', NULL, 1061, 'INF01', NULL, NULL, NULL, NULL, 46);
+insert into Richiesta_Orario values (44, 'Elimina', NULL, NULL, 1500, NULL, NULL, NULL, NULL, NULL, 249);
+insert into Richiesta_Orario values (45, 'Inserisci', '2023-01-18 01:17:13', '2024-12-05 16:33:52', NULL, 'ING_INF03', 223, 1, 4, 318, 98);
+insert into Richiesta_Orario values (46, 'Elimina', NULL, NULL, 745, NULL, NULL, NULL, NULL, NULL, 95);
+insert into Richiesta_Orario values (47, 'Modifica', NULL, NULL, 148, NULL, 186, 1, NULL, NULL, 101);
+insert into Richiesta_Orario values (48, 'Modifica', NULL, '2022-05-27 14:47:10', 1727, NULL, 2, 3, 16, 403, 113);
+insert into Richiesta_Orario values (49, 'Elimina', NULL, NULL, 861, NULL, NULL, NULL, NULL, NULL, 123);
+insert into Richiesta_Orario values (50, 'Inserisci', '2025-04-27 01:41:10', '2026-02-08 07:34:03', NULL, 'ECO01', 10, 1, 7, 109, 235);
 
 # ---------------------------------------------------------------------- #
 # Add info into "Richiesta_Ricevimento"                                  #
@@ -35770,7 +35786,7 @@ insert into Thread values
  50, 0, 1, 1, 1, null, 1);
 insert into Thread values
 (8, 2, 4, 0, 
-"Aggiornamenti sull'orario settimanale"
+"Aggiornamenti sull'orario settimanale",
 "In questo thread trovate tutte le modifiche e gli aggiornamenti agli orari delle lezioni di questa settimana.", 
 "2026-02-01 10:00:00", 
 100, 20, 0, 0, 0, null, null);
