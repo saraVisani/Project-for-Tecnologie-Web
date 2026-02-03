@@ -273,7 +273,7 @@ class DatabaseHelper
     public function getTimesStudent($idUtente, $range, $date)
     {
         $cf = $this->resolveUserId($idUtente);
-        if ($cf === 0) {
+        if ($cf === null) {
             return []; // nessun evento se utente non trovato
         }
         $when = $this->buildDateRangeWhere($range, $date, "O.Orario_inizio");
@@ -344,7 +344,7 @@ class DatabaseHelper
     public function getReunionStudent($idUtente, $range, $date)
     {
         $matricolaStud = $this->resolveUserId($idUtente);
-        if ($matricolaStud === 0 ) {
+        if ($matricolaStud === null ) {
             return [];
         }
 
@@ -623,7 +623,28 @@ class DatabaseHelper
         return $eventi;
     }
 
-    public function getNotifications($idUtente)
+    public function getOpenNotifications($idUtente)
+    {
+        $matricola = $this->resolveUserId($idUtente);
+        if ($matricola === null) {
+            return []; // nessuna notifica se utente non trovato
+        }
+
+        $stmt = $this->db->prepare("SELECT Codice as codice, Descrizione as descrizione, Chiusa as chiusa
+            FROM Notifica
+            WHERE Matricola = ?
+            AND Notifica.Chiusa = 0
+            ORDER BY Codice ASC");
+
+        $stmt->bind_param("i", $matricola);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $notifiche = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
+        return $notifiche;
+    }
+    public function getAllNotifications($idUtente)
     {
         $matricola = $this->resolveUserId($idUtente);
         if ($matricola === null) {
@@ -642,6 +663,18 @@ class DatabaseHelper
         $stmt->close();
 
         return $notifiche;
+    }
+
+    public function closeNotification($cod){
+        $sql = "UPDATE Notifica
+                SET Chiusa = 1
+                WHERE Codice = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $cod);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result;
     }
 
     public function getCampusById($id){

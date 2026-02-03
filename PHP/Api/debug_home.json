@@ -82,16 +82,6 @@
         "eventi_iscritto": [],
         "notifiche": [
             {
-                "codice": "1",
-                "descrizione": "Sospensione ricevimento docente per imprevisto.",
-                "chiusa": 1
-            },
-            {
-                "codice": "2",
-                "descrizione": "Sospensione ricevimento docente per imprevisto.",
-                "chiusa": 1
-            },
-            {
                 "codice": "3",
                 "descrizione": "Aggiornamento orario lezioni settimanale disponibile.",
                 "chiusa": 0

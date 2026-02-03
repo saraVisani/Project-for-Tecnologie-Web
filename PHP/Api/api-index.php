@@ -17,8 +17,8 @@ $response = [
         "asideInnerTitleOne" => "Hai una domanda?",
         "asideInnerTitleTwo" => "Domande Frequenti"
     ],
-    "data" => [
-        "campus" => $dbh->getAllCampuses(),
+    "data" => ["campus" => $dbh->getAllCampuses(),
+
         "eventi" => $dbh->getMostRecentPublicEvents(),
         "faq" => $dbh->getMostPopularFAQsByLevel()
     ]
@@ -84,7 +84,7 @@ if(isUserLoggedIn()) {
     $canali_Seguiti = $dbh->getSignInChannals($userLevel) ?: [];
     $eventi_staff = $dbh->getStaffEvents($userId, $range, $date) ?: [];
     $eventi_iscritto = $dbh->getSignInEvents($userId, $range, $date) ?: [];
-    $notifiche = $dbh->getNotifications($userId) ?: [];
+    $notifiche = $dbh->getOpenNotifications($userId) ?: [];
 
     $response["data"] = [
         "orario" => $orario,

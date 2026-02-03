@@ -166,16 +166,10 @@ function renderAsideHomeLogged(titles, data) {
         html += `</li>`;
     }
 
-    // --- Notifiche ---
-    if(data.notifiche && data.notifiche.length > 0){
-        html += `<li>
-            <h2>${titles.asideTitleTwo}</h2>
-            <ul>`;
-        data.notifiche.forEach(notifica => {
-            html += `<li>${notifica.testo || notifica.messaggio || JSON.stringify(notifica)}</li>`;
-        });
-        html += `</ul></li>`;
-    }
+    // Notifiche - PUNTO DI AGGANCIO
+    html += `<li class="notify">
+        <h2>${titles.asideTitleTwo}</h2>
+    </li>`;
 
     html += `</ul>`;
     return html;
@@ -186,6 +180,7 @@ let selectedDate = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
 
 function renderMainHomeLogged(titles, data) {
     // Selettori range + data
+    let empty = true;
     let html = `
     <div class="time-filter">
         <label>
@@ -208,12 +203,13 @@ function renderMainHomeLogged(titles, data) {
 
     // --- ORARI ---
     if(data.orario && data.orario.length > 0){
+        empty = false;
         html += `<article>
             <header><h2>${titles.mainTitleOne}</h2></header>
             <ul>`;
         data.orario.forEach(item => {
             html += `<li>
-                <strong>${new Date(item.orario_inizio).toLocaleString()} - ${new Date(item.orario_fine).toLocaleTimeString()}</strong>
+                <strong>${new Date(item.Orario_inizio).toLocaleString()} - ${new Date(item.Orario_fine).toLocaleTimeString()}</strong>
                 <p>${item.nome_materia} - ${item.nome_modulo}</p>
                 <p>Prof: ${item.prof_titolare}</p>
                 <p>Aula: ${item.nome_aula} (${item.codice_aula}) ${item.laboratorio ? "Lab" : ""}</p>
@@ -225,13 +221,14 @@ function renderMainHomeLogged(titles, data) {
 
     // --- RICEVIMENTI ---
     if(data.ricevimenti && data.ricevimenti.length > 0){
+        empty = false;
         html += `<article>
             <header><h2>${titles.mainTitleTwo}</h2></header>
             <ul>`;
         data.ricevimenti.forEach(item => {
             html += `<li>
-                <strong>${new Date(item.orario_inizio).toLocaleString()} - ${new Date(item.orario_fine).toLocaleTimeString()}</strong>
-                <p>Prof: ${item.professore}</p>
+                <strong>${new Date(item.Data_Inizio).toLocaleString()} - ${new Date(item.Data_Fine).toLocaleTimeString()}</strong>
+                <p>Prof: ${item.nome_prof} ${item.cognome_prof}</p>
                 <p>${item.online ? "Online" : `Ufficio: ${item.nome_ufficio} (${item.codice_ufficio})`}</p>
             </li>`;
         });
@@ -240,6 +237,7 @@ function renderMainHomeLogged(titles, data) {
 
     // --- EVENTI ---
     if((data.eventi_staff && data.eventi_staff.length > 0) || (data.eventi_iscritto && data.eventi_iscritto.length > 0)){
+        empty = false;
         html += `<article>
             <header><h2>${titles.mainTitleThree}</h2></header>`;
 
@@ -259,6 +257,7 @@ function renderMainHomeLogged(titles, data) {
 
         // Eventi iscritti
         if(data.eventi_iscritto && data.eventi_iscritto.length > 0){
+            empty = false;
             html += `<h3>${titles.mainTitleTwoS2}</h3><ul>`;
             data.eventi_iscritto.forEach(item => {
                 html += `<li>
@@ -272,6 +271,12 @@ function renderMainHomeLogged(titles, data) {
         }
 
         html += `</article>`;
+    }
+
+    if(empty){
+        html += `<div class="easteregg">
+        <img src="../Img/easteregg.png" alt="Sei Fortunato Nessun Impegno Oggi!"/>
+        </div>`;
     }
 
     return html;
@@ -362,6 +367,16 @@ async function loadHome(){
 
     if(typeof sedi !== "undefined" && Array.isArray(sedi)){
         renderMap(sedi);
+    }
+
+    if (typeof window.notificationManager === 'undefined') {
+        window.notificationManager = new NotificationManager(
+            json.data.notifiche,
+            json.titles.asideTitleTwo  // ← PASSA IL TITOLO!
+        );
+        window.notificationManager.init();
+    } else {
+        window.notificationManager.updateNotifications(json.data.notifiche);
     }
 
     initTimeFilters();

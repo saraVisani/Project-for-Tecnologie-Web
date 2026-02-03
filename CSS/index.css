@@ -95,3 +95,15 @@ aside > ul > li > ul {
 aside ul li ul ul {
     padding-left: 20px;
 }
+
+/* per immagine easteregg */
+.easteregg {
+    max-width: 100%;
+    overflow: hidden;   /* impedisce di uscire */
+}
+
+.easteregg img {
+    max-width: 100%;    /* non supera il div */
+    height: auto;       /* mantiene proporzioni */
+    display: block;     /* elimina spazi strani sotto l’immagine */
+}
