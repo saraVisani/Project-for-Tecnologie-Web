@@ -11,7 +11,15 @@
             echo '<link rel="stylesheet" href="'.$cssFile.'">' . PHP_EOL;
         }
     }
-
+    ?>
+    <?php
+        if (isset($templateParams["js"])) {
+            foreach ($templateParams["js"] as $script) {
+                echo '<script src="' . $script . '" defer></script>';
+            }
+        }
+    ?>
+    <?php
     if(isset($templateParams["stylesheet"])) {
         echo $templateParams["stylesheet"];
     }
@@ -60,14 +68,7 @@
         echo "</script>\n";
     }
     ?>
-
     <?php
-    if(isset($templateParams["js"])) {
-        foreach($templateParams["js"] as $script) {
-            echo '<script src="' . $script . '" defer></script>' . PHP_EOL;
-        }
-    }
-
     if(isset($templateParams["scripts"])) {
         echo $templateParams["scripts"];
     }

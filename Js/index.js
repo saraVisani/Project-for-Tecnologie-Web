@@ -23,6 +23,20 @@ function renderHome(template, titles, data){
     }
 }
 
+function chooseHomeTemplate(user){
+    if(user.role == "studente"){
+        if(user.level == 2){
+            return "studentRep";
+        }
+        return "student";
+    }else if(user.role == "professore"){
+        return "professor";
+    }else if(user.role == "segreteria"){
+        return "segretary";
+    }
+    return "base";
+}
+
 function renderMainHomeBase(titles){
     return `
     <article>

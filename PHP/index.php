@@ -1,6 +1,7 @@
 <?php
 require_once("Bootstrap.php");
 
+
 $sedi = [
     ["id" => 0,"regione" => "BO","citta" => "BO","civico" => 33,"nome" => "Palazzo Poggi","lat" => 44.49695468205003,"long" => 11.352428097135476,"descrizione" => "Cuore storico dell'Università di Bologna, ospita uffici, aule e spazi per eventi culturali."],
     ["id" => 1,"regione" => "BO","citta" => "BO","civico" => 38,"nome" => "Palazzo Riario","lat" => 44.49714545398557,"long" => 11.351777685593056,"descrizione" => "Elegante edificio dove si svolgono corsi e seminari per diverse facoltà."],
@@ -24,30 +25,21 @@ $sedi = [
 $templateParams["titolo"] = "Home | UniFlow";
 $templateParams["name"] = "Home";
 
-$templateParams["css"] = [
-    "../CSS/base.css",
-    "../CSS/navbar.css",
-    "../CSS/index.css",
-    "../CSS/Cartina.css"
-];
+$templateParams["css"][] = "../CSS/index.css";
+$templateParams["css"][] = "../CSS/Cartina.css";
 
-$templateParams["js"] = [
-    "../Js/utilities.js",
-    "../Js/dropdownManager.js",
-    "../Js/navbar.js",
-    "../Js/campusSlider.js",
-    "../Js/index.js"
-];
+$templateParams["js"][] = "../Js/campusSlider.js";
+$templateParams["js"][] = "../Js/index.js";
 
 $templateParams["stylesheet"] = '
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
       crossorigin=""/>
 ';
 
 $templateParams["scripts"] = '
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
 ';
 
