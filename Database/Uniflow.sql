@@ -342,6 +342,8 @@ create table Sede (
      N_Civico numeric(6) not null,
      Nome varchar(30) not null,
      Descrizione varchar(225) not null,
+     `Path` varchar(255) not null,
+     Descrizione_Img varchar(225) not null,
      constraint SID_Sede_Indir_ID unique (Codice_Prov, Codice_Citta, N_Civico),
      constraint ID_Sede_ID primary key (Codice));
 
