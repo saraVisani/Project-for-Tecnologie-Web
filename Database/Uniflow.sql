@@ -42,12 +42,13 @@ create table Ambito (
      constraint ID_Ambito_ID primary key (Nome));
 
 create table Cambiare_Orario (
-     Codice_Orario numeric(10) not null,
+     Codice numeric(10) not null,
      Codice_Ric numeric(10) not null,
+     Codice_Orario numeric(10),
      Nuovo_Inizio datetime,
      Nuovo_Fine datetime,
      Codice_Luogo numeric(10),
-     constraint ID_Cambiare_Orario_ID primary key (Codice_Orario, Codice_Ric));
+     constraint ID_Cambiare_Orario_ID primary key (Codice, Codice_Ric));
 
 create table Canale (
      Cod_Forum numeric(1) not null,
@@ -462,14 +463,14 @@ insert into Ambito values ("Studi Umanistici", "#363535");
 
 truncate table Cambiare_Orario;
 
-insert into Cambiare_Orario values (1000, 2, NULL, '2026-02-02 06:53:56', NULL);
-insert into Cambiare_Orario values (1001, 7, '2026-02-21 11:14:07', NULL, NULL);
-insert into Cambiare_Orario values (1002, 8, '2026-02-02 11:12:27', '2026-02-02 12:12:27', NULL);
-insert into Cambiare_Orario values (1003, 9, '2026-02-16 14:39:56', '2026-02-16 17:39:56', NULL);
-insert into Cambiare_Orario values (1004, 12, NULL, '2026-02-24 17:04:19', NULL);
-insert into Cambiare_Orario values (1005, 14, NULL, '2026-02-16 22:50:12', 41);
-insert into Cambiare_Orario values (1006, 19, '2026-02-22 16:38:03', '2026-02-22 18:38:03', NULL);
-insert into Cambiare_Orario values (1007, 20, NULL, NULL, 36);
+insert into Cambiare_Orario values (1000, 2, 4, NULL, '2026-02-02 06:53:56', NULL);
+insert into Cambiare_Orario values (1001, 7, NULL, '2026-02-21 11:14:07', NULL, NULL);
+insert into Cambiare_Orario values (1002, 8, NULL, '2026-02-02 11:12:27', '2026-02-02 12:12:27', NULL);
+insert into Cambiare_Orario values (1003, 9, NULL, '2026-02-16 14:39:56', '2026-02-16 17:39:56', NULL);
+insert into Cambiare_Orario values (1004, 12, NULL, NULL, '2026-02-24 17:04:19', NULL);
+insert into Cambiare_Orario values (1005, 14, NULL, NULL, '2026-02-16 22:50:12', 41);
+insert into Cambiare_Orario values (1006, 19, 24, '2026-02-22 16:38:03', '2026-02-22 18:38:03', NULL);
+insert into Cambiare_Orario values (1007, 20, NULL, NULL, NULL, 36);
 
 # ---------------------------------------------------------------------- #
 # Add info into "Canale"                                                 #
@@ -36554,7 +36555,7 @@ create unique index ID_Ambito_IND
      on Ambito (Nome);
 
 create unique index ID_Cambiare_Orario_IND
-     on Cambiare_Orario (Codice_Orario, Codice_Ric);
+     on Cambiare_Orario (Codice, Codice_Ric);
 
 create index REF_Cambi_Luogo_IND
      on Cambiare_Orario (Codice_Luogo);

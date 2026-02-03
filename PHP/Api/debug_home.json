@@ -1,0 +1,101 @@
+{
+    "user": {
+        "logged": true,
+        "role": "studente",
+        "level": 1
+    },
+    "titles": {
+        "mainTitleOne": "Orari",
+        "mainTitleTwo": "Ricevimenti",
+        "mainTitleTwoS1": "Parte dello Staff",
+        "mainTitleTwoS2": "Iscritto",
+        "asideTitleOne": "Canali Seguiti",
+        "mainTitleThree": "Eventi",
+        "asideTitleTwo": "Notifiche"
+    },
+    "data": {
+        "orario": [],
+        "ricevimenti": [],
+        "canali_Seguiti": [
+            {
+                "Cod_Forum": "2",
+                "nome_forum": "Forum Generale",
+                "canali": [
+                    {
+                        "Codice": "3",
+                        "nome_canale": "Comunicazioni Ufficiali Generali",
+                        "Grado": "3",
+                        "Visualizzare": 1,
+                        "Visualizzare_Tutti": 1
+                    },
+                    {
+                        "Codice": "4",
+                        "nome_canale": "Informazioni e Risposte",
+                        "Grado": "0",
+                        "Visualizzare": 1,
+                        "Visualizzare_Tutti": 1
+                    }
+                ]
+            },
+            {
+                "Cod_Forum": "0",
+                "nome_forum": "Forum Professori",
+                "canali": [
+                    {
+                        "Codice": "2",
+                        "nome_canale": "Avvisi Docenti e Rappresentanti",
+                        "Grado": "2",
+                        "Visualizzare": 1,
+                        "Visualizzare_Tutti": 1
+                    },
+                    {
+                        "Codice": "3",
+                        "nome_canale": "Avvisi Ufficiali ai Rappresentanti e Studenti",
+                        "Grado": "3",
+                        "Visualizzare": 1,
+                        "Visualizzare_Tutti": 1
+                    }
+                ]
+            },
+            {
+                "Cod_Forum": "1",
+                "nome_forum": "Forum Studenti",
+                "canali": [
+                    {
+                        "Codice": "1",
+                        "nome_canale": "Comunicazioni dei Rappresentanti",
+                        "Grado": "2",
+                        "Visualizzare": 1,
+                        "Visualizzare_Tutti": 1
+                    },
+                    {
+                        "Codice": "2",
+                        "nome_canale": "Discussioni Studentesche",
+                        "Grado": "1",
+                        "Visualizzare": 0,
+                        "Visualizzare_Tutti": 0
+                    }
+                ]
+            }
+        ],
+        "eventi_staff": [],
+        "eventi_iscritto": [],
+        "notifiche": [
+            {
+                "codice": "1",
+                "descrizione": "Sospensione ricevimento docente per imprevisto.",
+                "chiusa": 1
+            },
+            {
+                "codice": "2",
+                "descrizione": "Sospensione ricevimento docente per imprevisto.",
+                "chiusa": 1
+            },
+            {
+                "codice": "3",
+                "descrizione": "Aggiornamento orario lezioni settimanale disponibile.",
+                "chiusa": 0
+            }
+        ]
+    }
+}

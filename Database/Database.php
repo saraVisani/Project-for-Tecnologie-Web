@@ -31,6 +31,74 @@ class DatabaseHelper
         return $row ? (int)$row['Matricola'] : null; // ritorna null se non trovato
     }
 
+    private function buildDateRangeWhere(string $range, $date, string $field = "data"): string
+    {
+        switch ($range) {
+            case "day":
+                return "$field >= '$date 00:00:00'
+                        AND $field <= '$date 23:59:59'";
+
+            case "week":
+                return "$field >= '$date'
+                        AND $field < DATE_ADD('$date', INTERVAL 7 DAY)";
+
+            case "month":
+                return "$field >= '$date'
+                        AND $field < DATE_ADD('$date', INTERVAL 1 MONTH)";
+
+            default:
+                return "$field >= CURDATE()
+                        AND $field < DATE_ADD(CURDATE(), INTERVAL 7 DAY)";
+        }
+    }
+
+    private function baseReunionQuery(): string
+    {
+        return "
+            SELECT
+                R.Data_Inizio,
+                R.Data_Fine,
+                R.Online,
+                P.Nome        AS nome_prof,
+                P.Cognome     AS cognome_prof,
+                R.Codice_Stanza AS codice_ufficio,
+                L.Nome          AS nome_ufficio,
+                Sd.Nome         AS nome_sede
+            FROM Ricevimento R
+            JOIN Sistema_Universitario SU
+                ON SU.Matricola = R.Matricola
+            JOIN Persona P
+                ON P.CF = SU.CF
+            LEFT JOIN Universitario UN
+                ON UN.Codice_Uni = R.Codice_Uni
+                AND UN.Codice = R.Codice_Stanza
+            LEFT JOIN Luogo L
+                ON L.Codice = UN.Cod_Luogo
+            LEFT JOIN Sede Sd
+                ON Sd.Codice = L.Codice
+        ";
+    }
+
+    private function getCFfromMat($mt){
+        $query = "
+            SELECT CF
+            FROM Sistema_Universitario
+            WHERE Matricola = ?
+            LIMIT 1
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $mt);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        $stmt->close();
+
+        return $row ? $row["CF"] : null;
+    }
+
     public function usernameOk($username)
     {
         // ottieni la matricola (da email o direttamente)
@@ -202,93 +270,370 @@ class DatabaseHelper
         return $campuses;
     }
 
-    public function getTimesStudent($idUtente)
+    public function getTimesStudent($idUtente, $range, $date)
     {
         $cf = $this->resolveUserId($idUtente);
-        if (!$cf) {
+        if ($cf === 0) {
             return []; // nessun evento se utente non trovato
         }
+        $when = $this->buildDateRangeWhere($range, $date, "O.Orario_inizio");
 
+        $sql = "SELECT
+                O.Orario_inizio,
+                O.Orario_fine,
 
+                M.Nome              AS nome_materia,
+                MO.Descrizione      AS nome_modulo,
+
+                MO.Matricola_Tit    AS prof_titolare,
+
+                C.Codice_Stanza     AS codice_aula,
+                L.Nome              AS nome_aula,
+                C.Lab               AS laboratorio,
+
+                S.Nome              AS nome_sede
+            FROM Orario O
+
+            -- Filtra lezioni dello studente
+            JOIN Composto_Da CD
+                ON CD.Cod_Mat_Anno = O.Cod_Mat_Anno
+            JOIN Piano_Didattico PD
+                ON PD.Codice_PianoDid = CD.Codice_PianoDid
+                AND PD.Matricola = ?
+
+            -- Modulo / Materia
+            JOIN Modulo MO
+                ON MO.Codice_Corso = O.Codice_Corso
+                AND MO.Cod_Mat_Anno = O.Cod_Mat_Anno
+                AND MO.Codice = O.Codice_Modulo
+
+            JOIN Materia_Anno MA
+                ON MA.Cod_Mat_Anno = MO.Cod_Mat_Anno
+            JOIN Materia M
+                ON M.Codice = MA.Codice_Mat
+
+            -- Aula / sede
+            JOIN Classe C
+                ON C.Codice_Uni = O.Codice_Uni
+                AND C.Codice_Stanza = O.Codice_Stanza
+
+            JOIN Universitario U
+                ON U.Codice_Uni = C.Codice_Uni
+                AND U.Codice = C.Codice_Stanza
+
+            JOIN Luogo L
+                ON L.Codice = U.Cod_Luogo
+
+            JOIN Sede S
+                ON S.Codice = U.Codice_Uni
+
+            WHERE $when
+            ORDER BY O.Orario_inizio ASC
+        ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $cf);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
+        return $row;
     }
 
-    public function getReunionStudent($idUtente)
+    public function getReunionStudent($idUtente, $range, $date)
     {
-        $cf = $this->resolveUserId($idUtente);
-        if (!$cf) {
-            return []; // nessun evento se utente non trovato
+        $matricolaStud = $this->resolveUserId($idUtente);
+        if ($matricolaStud === 0 ) {
+            return [];
         }
+
+        $when = $this->buildDateRangeWhere($range, $date, "R.Data_Inizio");
+
+        $sql = $this->baseReunionQuery() . "
+            JOIN Slot S
+                ON S.Codice_Ric = R.Codice
+            WHERE S.Matricola = ?
+            AND $when
+            ORDER BY R.Data_Inizio ASC
+        ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $matricolaStud);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        return $rows;
     }
 
-    public function getTimesProfessor($idUtente)
+
+    public function getTimesProfessor($idUtente, $range, $date)
     {
         $cf = $this->resolveUserId($idUtente);
-        if (!$cf) {
+        if ($cf === null) {
             return []; // nessun evento se utente non trovato
         }
+        $when = $this->buildDateRangeWhere($range, $date,"O.Orario_inizio");
+
+        $query = "SELECT
+                O.Orario_inizio,
+                O.Orario_fine,
+
+                M.Nome              AS nome_materia,
+                MO.Descrizione      AS nome_modulo,
+
+                MO.Matricola_Tit    AS prof_titolare,
+
+                C.Codice_Stanza     AS codice_aula,
+                L.Nome              AS nome_aula,
+                C.Lab               AS laboratorio,
+
+                S.Nome              AS nome_sede
+            FROM Orario O
+
+            -- filtra lezioni del professore
+            JOIN Insegna I
+                ON I.Cod_Mat_Anno = O.Cod_Mat_Anno
+                AND I.Matricola = ?
+
+            -- Modulo / Materia
+            JOIN Modulo MO
+                ON MO.Codice_Corso = O.Codice_Corso
+                AND MO.Cod_Mat_Anno = O.Cod_Mat_Anno
+                AND MO.Codice = O.Codice_Modulo
+
+            JOIN Materia_Anno MA
+                ON MA.Cod_Mat_Anno = MO.Cod_Mat_Anno
+            JOIN Materia M
+                ON M.Codice = MA.Codice_Mat
+
+            -- Aula / sede
+            JOIN Classe C
+                ON C.Codice_Uni = O.Codice_Uni
+                AND C.Codice_Stanza = O.Codice_Stanza
+
+            JOIN Universitario U
+                ON U.Codice_Uni = C.Codice_Uni
+                AND U.Codice = C.Codice_Stanza
+
+            JOIN Luogo L
+                ON L.Codice = U.Cod_Luogo
+
+            JOIN Sede S
+                ON S.Codice = U.Codice_Uni
+
+            WHERE $when
+            ORDER BY O.Orario_inizio ASC
+        ";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $cf);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
+        return $row;
+    }
+    public function getReunionProfessor($idUtente, $range, $date)
+    {
+        $matricolaProf = $this->resolveUserId($idUtente);
+        if ($matricolaProf === null) {
+            return [];
+        }
+
+        $when = $this->buildDateRangeWhere($range, $date, "R.Data_Inizio");
+
+        $sql = $this->baseReunionQuery() . "
+            WHERE R.Matricola = ?
+            AND $when
+            ORDER BY R.Data_Inizio ASC
+        ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $matricolaProf);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        return $rows;
     }
 
-    public function getReunionProfessor($idUtente)
+    public function getSignInChannals($level)
     {
-        $cf = $this->resolveUserId($idUtente);
-        if (!$cf) {
-            return []; // nessun evento se utente non trovato
+        $sql = "
+            SELECT
+                C.Cod_Forum,
+                C.Codice,
+                C.Nome AS nome_canale,
+                C.Grado,
+                C.Visualizzare,
+                C.Visualizzare_Tutti,
+                F.Nome AS nome_forum
+            FROM Canale C
+            JOIN Forum F
+                ON F.Codice = C.Cod_Forum
+            WHERE
+                C.Grado <= ?  -- livello base
+                OR (C.Grado = ? + 1 AND C.Visualizzare = 1)
+                OR (C.Visualizzare_Tutti = 1)
+            ORDER BY F.Nome, C.Codice
+        ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ii", $level, $level);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
+        // raggruppa per forum
+        $grouped = [];
+        foreach ($rows as $row) {
+            $forumId = $row['Cod_Forum'];
+            if (!isset($grouped[$forumId])) {
+                $grouped[$forumId] = [
+                    'Cod_Forum' => $forumId,
+                    'nome_forum' => $row['nome_forum'],
+                    'canali' => []
+                ];
+            }
+            $grouped[$forumId]['canali'][] = [
+                'Codice' => $row['Codice'],
+                'nome_canale' => $row['nome_canale'],
+                'Grado' => $row['Grado'],
+                'Visualizzare' => $row['Visualizzare'],
+                'Visualizzare_Tutti' => $row['Visualizzare_Tutti']
+            ];
         }
+
+        // ritorna array numerico invece che associativo
+        return array_values($grouped);
     }
 
-    public function getSignInChannals($idUtente)
+    public function getStaffEvents($idUtente, $range, $date)
     {
-        $cf = $this->resolveUserId($idUtente);
-        if (!$cf) {
-            return []; // nessun evento se utente non trovato
-        }
+        $mt = $this->resolveUserId($idUtente);
+        if ($mt === null) return [];
+        $cf = $this->getCFfromMat($mt);
+
+        $when = $this->buildDateRangeWhere($range, $date, "O.Inizio");
+
+        $sql = "
+            SELECT DISTINCT
+                E.Codice,
+                E.Nome,
+                O.Inizio      AS orario_inizio,
+                O.Fine        AS orario_fine,
+                L.Nome        AS nome_luogo,
+                S.Nome        AS nome_sede,
+
+                -- ruolo dinamico
+                CASE
+                    WHEN E.CF = ? THEN 'promotore'
+                    WHEN C.CF IS NOT NULL THEN 'collaboratore'
+                    WHEN R.CF IS NOT NULL THEN 'rappresentante'
+                END AS ruolo
+            FROM Evento E
+            JOIN Orario_Evento O
+                ON O.Codice_Evento = E.Codice
+
+            -- collaboratore
+            LEFT JOIN Collaboratore C
+                ON C.Codice_Evento = E.Codice
+                AND C.CF = ?
+
+            -- rappresentante di promotore
+            LEFT JOIN Propongono P
+                ON P.Codice_Evento = E.Codice
+            LEFT JOIN Rappresentano R
+                ON R.Codice_Promotore = P.Codice
+                AND R.CF = ?
+
+            -- luogo / sede
+            LEFT JOIN Luogo L
+                ON L.Codice = O.Cod_Luogo
+            LEFT JOIN Sede S
+                ON S.Codice = L.Codice
+
+            WHERE (
+                E.CF = ? OR C.CF IS NOT NULL OR R.CF IS NOT NULL
+            )
+            AND $when
+            ORDER BY O.Inizio ASC
+        ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ssss", $cf, $cf, $cf, $cf);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $eventi = $result->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        return $eventi;
     }
 
-    public function getStaffEvents($idUtente)
+    public function getSignInEvents($idUtente, $range, $date)
     {
-        $cf = $this->resolveUserId($idUtente);
-        if (!$cf) {
-            return []; // nessun evento se utente non trovato
-        }
-    }
+        $mt = $this->resolveUserId($idUtente);
+        if ($mt === null) return [];
+        $cf = $this->getCFfromMat($mt);
 
-    public function getSignInEvents($idUtente)
-    {
-        // Risolvi l'utente in CF
-        $cf = $this->resolveUserId($idUtente);
-        if (!$cf) {
-            return []; // nessun evento se utente non trovato
-        }
+        $when = $this->buildDateRangeWhere($range, $date, "O.Inizio");
 
-        $sql = "SELECT e.Nome as nome, e.Inizio as inizio, e.Fine as fine, e.Descrizione as descrizione
-            FROM Evento e
-            INNER JOIN Segna s
-                ON e.Codice = s.Codice_Evento
-            WHERE s.CF = ?
-            AND e.Fine > NOW()
-            ORDER BY e.Inizio ASC";
+        $sql = "
+            SELECT
+                E.Codice,
+                E.Nome,
+                O.Inizio      AS orario_inizio,
+                O.Fine        AS orario_fine,
+                L.Nome        AS nome_luogo,
+                S.Nome        AS nome_sede,
+                'partecipante' AS ruolo
+            FROM Evento E
+            JOIN Segna Sg
+                ON Sg.Codice_Evento = E.Codice
+                AND Sg.CF = ?
+            JOIN Orario_Evento O
+                ON O.Codice_Evento = E.Codice
+            LEFT JOIN Luogo L
+                ON L.Codice = O.Cod_Luogo
+            LEFT JOIN Universitario U
+                ON U.Cod_Luogo = L.Codice
+            LEFT JOIN Sede S
+                ON S.Codice = U.Codice_Uni
+            WHERE $when
+            ORDER BY O.Inizio ASC;
+        ";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("s", $cf);
         $stmt->execute();
+
         $result = $stmt->get_result();
         $eventi = $result->fetch_all(MYSQLI_ASSOC);
-        $stmt->close();
 
+        $stmt->close();
         return $eventi;
     }
 
     public function getNotifications($idUtente)
     {
         $matricola = $this->resolveUserId($idUtente);
-        if (!$matricola) {
+        if ($matricola === null) {
             return []; // nessuna notifica se utente non trovato
         }
 
-        $stmt = $this->db->prepare("SELECT Codice as codice, Descizione as descrizione, Chiusa as chiusa
+        $stmt = $this->db->prepare("SELECT Codice as codice, Descrizione as descrizione, Chiusa as chiusa
             FROM Notifica
             WHERE Matricola = ?
-            ORDER BY Codice DESC");
+            ORDER BY Codice ASC");
 
         $stmt->bind_param("i", $matricola);
         $stmt->execute();

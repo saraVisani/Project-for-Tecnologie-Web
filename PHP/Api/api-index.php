@@ -2,6 +2,7 @@
 require_once(__DIR__ . "/../Bootstrap.php");
 header('Content-Type: application/json');
 
+// --- Risposta base ---
 $response = [
     "user" => [
         "logged" => false,
@@ -23,11 +24,30 @@ $response = [
     ]
 ];
 
-if(isUserLoggedIn()){
-    $response["user"]["logged"] = true;
-    $response["user"]["role"] = $_SESSION["user"]["lavoro"];
-    $response["user"]["level"] = $_SESSION["user"]["livello_accesso"];
+// --- Utente loggato ---
+if(isUserLoggedIn()) {
+    $userId = $_SESSION["user"]["username"] ?? null;
+    $userLevel = $_SESSION["user"]["livello_accesso"] ?? 0;
+    $userRole = $_SESSION["user"]["lavoro"] ?? null;
 
+    $response["user"] = [
+        "logged" => true,
+        "role" => $userRole,
+        "level" => $userLevel
+    ];
+
+    // --- Range e Data ---
+    $range = $_GET["range"] ?? "week";
+    $allowedRanges = ["day", "week", "month"];
+    if(!in_array($range, $allowedRanges)) $range = "week";
+
+    $date = $_GET["date"] ?? date("Y-m-d");
+    if(!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) $date = date("Y-m-d");
+
+    // --- Debug temporaneo ---
+    file_put_contents(__DIR__ . "/debug_home_params.txt", "range=$range, date=$date, role=$userRole, userId=$userId\n");
+
+    // --- Titoli ---
     $response["titles"] = [
         "mainTitleOne" => "Orari",
         "mainTitleTwo" => "Eventi",
@@ -36,38 +56,49 @@ if(isUserLoggedIn()){
         "asideTitleOne" => "Canali Seguiti",
     ];
 
-    if(isUserStudent()){
-        if(userLevelForAccess(2)){
-            // studentRep
-        } else {
-            // student normale
-        }
-        $orario = $dbh->getTimesStudent($_SESSION["user"]["id"]);
-        $ricevimenti = $dbh->getReunionStudent($_SESSION["user"]["id"]);
-        $response["titles"]["mainTitleThree"] = "Ricevimenti";
+    // --- Dati principali ---
+    $orario = [];
+    $ricevimenti = [];
+    $eventi_staff = [];
+    $eventi_iscritto = [];
+
+    if($userRole === "studente") {
+        $orario = $dbh->getTimesStudent($userId, $range, $date) ?: [];
+        $ricevimenti = $dbh->getReunionStudent($userId, $range, $date) ?: [];
+        $response["titles"]["mainTitleTwo"] = "Ricevimenti";
+        $response["titles"]["mainTitleThree"] = "Eventi";
         $response["titles"]["asideTitleTwo"] = "Notifiche";
-    } else if (isUserProfessor()){
-        $orario = $dbh->getTimesProfessor($_SESSION["user"]["id"]);
-        $ricevimenti = $dbh->getReunionProfessor($_SESSION["user"]["id"]);
-        $response["titles"]["mainTitleThree"] = "Ricevimenti";
+    } elseif($userRole === "professor") {
+        $orario = $dbh->getTimesProfessor($userId, $range, $date) ?: [];
+        $ricevimenti = $dbh->getReunionProfessor($userId, $range, $date) ?: [];
+        $response["titles"]["mainTitleTwo"] = "Ricevimenti";
+        $response["titles"]["mainTitleThree"] = "Eventi";
         $response["titles"]["asideTitleTwo"] = "Notifiche";
-    } else { // segreteria
+    } else {
         $orario = [];
         $ricevimenti = [];
         $response["titles"]["mainTitleOne"] = "Notifiche";
         $response["titles"]["mainTitleThree"] = "Cartine Aule";
     }
 
+    $canali_Seguiti = $dbh->getSignInChannals($userLevel) ?: [];
+    $eventi_staff = $dbh->getStaffEvents($userId, $range, $date) ?: [];
+    $eventi_iscritto = $dbh->getSignInEvents($userId, $range, $date) ?: [];
+    $notifiche = $dbh->getNotifications($userId) ?: [];
+
     $response["data"] = [
         "orario" => $orario,
         "ricevimenti" => $ricevimenti,
-        "canali_Seguiti" => $dbh->getSignInChannals($_SESSION["user"]["id"]),
-        "eventi_staff" => $dbh->getStaffEvents($_SESSION["user"]["id"]),
-        "eventi_iscritto" => $dbh->getSignInEvents($_SESSION["user"]["id"]),
-        "notifiche" => $dbh->getNotifications($_SESSION["user"]["id"])
+        "canali_Seguiti" => $canali_Seguiti,
+        "eventi_staff" => $eventi_staff,
+        "eventi_iscritto" => $eventi_iscritto,
+        "notifiche" => $notifiche
     ];
+
+    // --- Salva JSON per debug ---
+    file_put_contents(__DIR__ . "/debug_home.json", json_encode($response, JSON_PRETTY_PRINT));
 }
 
+// --- Output JSON ---
 echo json_encode($response);
 exit;
-?>

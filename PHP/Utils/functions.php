@@ -32,4 +32,20 @@ function userLevelForAccess($levelToCompare)
     return $_SESSION["user"]["livello_accesso"] >= $levelToCompare;
 }
 
+function userRole()
+{
+    if(isUserLoggedIn()) {
+        return false;
+    }
+    if(isUserStudent()){
+        return "Studente";
+    }
+    if(isUserProfessor()){
+        return "Prof";
+    }
+    if(isUserSegretary()){
+        return "Segretario";
+    }
+}
+
 ?>

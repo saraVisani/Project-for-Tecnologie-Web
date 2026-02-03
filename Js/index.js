@@ -134,11 +134,9 @@ function renderMap(sedi){
         });
     });
 
-    // forza ridisegno
     setTimeout(()=> map.invalidateSize(), 0);
 }
 
-// --- Carica la Home ---
 async function loadHome(){
     const res = await fetch("./Api/api-index.php");
     const json = await res.json();
@@ -147,7 +145,6 @@ async function loadHome(){
 
     renderHome(template, json.titles, json.data);
 
-    // Slider
     if(Array.isArray(json.data.campus) && json.data.campus.length > 0){
         const slider = new CampusSlider(json.data.campus, {
             container: "#campus-container",
@@ -156,7 +153,6 @@ async function loadHome(){
         slider.init();
     }
 
-    // Mappa con tutte le sedi
     if(typeof sedi !== "undefined" && Array.isArray(sedi)){
         renderMap(sedi);
     }
