@@ -1,24 +1,22 @@
 function renderHome(template, titles, data){
+
     const main = document.querySelector("main");
     const aside = document.querySelector("aside");
 
     switch(template){
+
         case "student":
-            main.innerHTML = renderStudentHome(titles);
-            aside.innerHTML = renderStudentHomeAside(titles, data);
-            break;
         case "studentRep":
-            main.innerHTML = renderStudentRepHome(data);
-            aside.innerHTML = renderStudentRepHomeAside(data);
-            break;
         case "professor":
-            main.innerHTML = renderProfessorHome(data);
-            aside.innerHTML = renderProfessorHomeAside(data);
+            main.innerHTML = renderMainHomeLogged(titles, data);
+            aside.innerHTML = renderAsideHomeLogged(titles, data);
             break;
+
         case "segretary":
             main.innerHTML = renderSegretaryHome(data);
             aside.innerHTML = renderSegretaryHomeAside(data);
             break;
+
         default:
             main.innerHTML = renderMainHomeBase(titles);
             aside.innerHTML = renderAsideHomeBase(titles, data);
@@ -137,8 +135,203 @@ function renderMap(sedi){
     setTimeout(()=> map.invalidateSize(), 0);
 }
 
+function renderAsideHomeLogged(titles, data) {
+    let html = `<ul>`;
+
+    // --- Canali Seguiti ---
+    if(data.canali_Seguiti && data.canali_Seguiti.length > 0){
+        html += `<li>
+            <h2>${titles.asideTitleOne}</h2>`;
+        data.canali_Seguiti.forEach(forum => {
+            html += `<h3>${forum.nome_forum}</h3><ul>`;
+            forum.canali.forEach(canale => {
+                html += `<li>${canale.nome_canale}</li>`;
+            });
+            html += `</ul>`;
+        });
+        html += `</li>`;
+    }
+
+    // --- Notifiche ---
+    if(data.notifiche && data.notifiche.length > 0){
+        html += `<li>
+            <h2>${titles.asideTitleTwo}</h2>
+            <ul>`;
+        data.notifiche.forEach(notifica => {
+            html += `<li>${notifica.testo || notifica.messaggio || JSON.stringify(notifica)}</li>`;
+        });
+        html += `</ul></li>`;
+    }
+
+    html += `</ul>`;
+    return html;
+}
+
+let timeRange = "week";
+let selectedDate = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+
+function renderMainHomeLogged(titles, data) {
+    // Selettori range + data
+    let html = `
+    <div class="time-filter">
+        <label>
+            Visualizza:
+            <select id="time-range">
+                <option value="day">Giorno</option>
+                <option value="week">Settimana</option>
+                <option value="month">Mese</option>
+            </select>
+        </label>
+
+        <label>
+            Data:
+            <select id="date-day"></select>
+            <select id="date-month"></select>
+            <select id="date-year"></select>
+        </label>
+    </div>
+    `;
+
+    // --- ORARI ---
+    if(data.orario && data.orario.length > 0){
+        html += `<article>
+            <header><h2>${titles.mainTitleOne}</h2></header>
+            <ul>`;
+        data.orario.forEach(item => {
+            html += `<li>
+                <strong>${new Date(item.orario_inizio).toLocaleString()} - ${new Date(item.orario_fine).toLocaleTimeString()}</strong>
+                <p>${item.nome_materia} - ${item.nome_modulo}</p>
+                <p>Prof: ${item.prof_titolare}</p>
+                <p>Aula: ${item.nome_aula} (${item.codice_aula}) ${item.laboratorio ? "Lab" : ""}</p>
+                <p>Sede: ${item.nome_sede}</p>
+            </li>`;
+        });
+        html += `</ul></article>`;
+    }
+
+    // --- RICEVIMENTI ---
+    if(data.ricevimenti && data.ricevimenti.length > 0){
+        html += `<article>
+            <header><h2>${titles.mainTitleTwo}</h2></header>
+            <ul>`;
+        data.ricevimenti.forEach(item => {
+            html += `<li>
+                <strong>${new Date(item.orario_inizio).toLocaleString()} - ${new Date(item.orario_fine).toLocaleTimeString()}</strong>
+                <p>Prof: ${item.professore}</p>
+                <p>${item.online ? "Online" : `Ufficio: ${item.nome_ufficio} (${item.codice_ufficio})`}</p>
+            </li>`;
+        });
+        html += `</ul></article>`;
+    }
+
+    // --- EVENTI ---
+    if((data.eventi_staff && data.eventi_staff.length > 0) || (data.eventi_iscritto && data.eventi_iscritto.length > 0)){
+        html += `<article>
+            <header><h2>${titles.mainTitleThree}</h2></header>`;
+
+        // Eventi staff
+        if(data.eventi_staff && data.eventi_staff.length > 0){
+            html += `<h3>${titles.mainTitleTwoS1}</h3><ul>`;
+            data.eventi_staff.forEach(item => {
+                html += `<li>
+                    <strong>${new Date(item.orario_inizio).toLocaleString()} - ${new Date(item.orario_fine).toLocaleTimeString()}</strong>
+                    <p>${item.Nome}</p>
+                    <p>Luogo: ${item.nome_luogo || "Online"} / Sede: ${item.nome_sede || "-"}</p>
+                    <p>Ruolo: ${item.ruolo}</p>
+                </li>`;
+            });
+            html += `</ul>`;
+        }
+
+        // Eventi iscritti
+        if(data.eventi_iscritto && data.eventi_iscritto.length > 0){
+            html += `<h3>${titles.mainTitleTwoS2}</h3><ul>`;
+            data.eventi_iscritto.forEach(item => {
+                html += `<li>
+                    <strong>${new Date(item.orario_inizio).toLocaleString()} - ${new Date(item.orario_fine).toLocaleTimeString()}</strong>
+                    <p>${item.Nome}</p>
+                    <p>Luogo: ${item.nome_luogo || "Online"} / Sede: ${item.nome_sede || "-"}</p>
+                    <p>Ruolo: ${item.ruolo}</p>
+                </li>`;
+            });
+            html += `</ul>`;
+        }
+
+        html += `</article>`;
+    }
+
+    return html;
+}
+
+// ------------------- INIT DATE + RANGE SELECTORS -------------------
+function initTimeFilters() {
+    const rangeSelect = document.querySelector("#time-range");
+    const daySelect = document.querySelector("#date-day");
+    const monthSelect = document.querySelector("#date-month");
+    const yearSelect = document.querySelector("#date-year");
+
+    if(!rangeSelect || !daySelect || !monthSelect || !yearSelect) return;
+
+    rangeSelect.value = timeRange;
+    const date = new Date(selectedDate);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    // --- Anni 2000-2030 ---
+    yearSelect.innerHTML = "";
+    for(let y = 2000; y <= 2030; y++){
+        yearSelect.innerHTML += `<option value="${y}" ${y===year?"selected":""}>${y}</option>`;
+    }
+
+    // --- Mesi 1-12 ---
+    monthSelect.innerHTML = "";
+    for(let m=1; m<=12; m++){
+        monthSelect.innerHTML += `<option value="${m}" ${m===month?"selected":""}>${m.toString().padStart(2,"0")}</option>`;
+    }
+
+    // --- Giorni corretti per il mese ---
+    const daysInMonth = new Date(year, month, 0).getDate(); // numero giorni mese
+    daySelect.innerHTML = "";
+    for(let d=1; d<=daysInMonth; d++){
+        daySelect.innerHTML += `<option value="${d}" ${d===day?"selected":""}>${d.toString().padStart(2,"0")}</option>`;
+    }
+
+    // --- EVENT LISTENERS ---
+    const updateSelectedDate = () => {
+        // Aggiorna giorni se mese/anno cambia
+        const newYear = parseInt(yearSelect.value);
+        const newMonth = parseInt(monthSelect.value);
+        const newDaysInMonth = new Date(newYear, newMonth, 0).getDate();
+        if(daySelect.options.length !== newDaysInMonth){
+            const currentDay = Math.min(parseInt(daySelect.value), newDaysInMonth);
+            daySelect.innerHTML = "";
+            for(let d=1; d<=newDaysInMonth; d++){
+                daySelect.innerHTML += `<option value="${d}" ${d===currentDay?"selected":""}>${d.toString().padStart(2,"0")}</option>`;
+            }
+        }
+
+        selectedDate = `${yearSelect.value}-${monthSelect.value.padStart(2,"0")}-${daySelect.value.padStart(2,"0")}`;
+        loadHome();
+    };
+
+    rangeSelect.addEventListener("change", () => {
+        timeRange = rangeSelect.value;
+        loadHome();
+    });
+
+    daySelect.addEventListener("change", updateSelectedDate);
+    monthSelect.addEventListener("change", updateSelectedDate);
+    yearSelect.addEventListener("change", updateSelectedDate);
+}
+
 async function loadHome(){
-    const res = await fetch("./Api/api-index.php");
+    const params = new URLSearchParams({
+        range: timeRange,
+        date: selectedDate
+    });
+
+    const res = await fetch(`./Api/api-index.php?${params.toString()}`);
     const json = await res.json();
 
     const template = chooseHomeTemplate(json.user);
@@ -156,6 +349,8 @@ async function loadHome(){
     if(typeof sedi !== "undefined" && Array.isArray(sedi)){
         renderMap(sedi);
     }
+
+    initTimeFilters();
 }
 
 loadHome();
