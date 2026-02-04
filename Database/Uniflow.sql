@@ -12483,23 +12483,23 @@ insert into Richiesta_Ricevimento values (30, 0, 208, 166, 4, NULL);
 
 truncate table Sede;
 
-insert into Sede values (0, "BO", "BO", 33, "Palazzo Poggi", "Cuore storico dell'Università di Bologna, ospita uffici, aule e spazi per eventi culturali.");
-insert into Sede values (1, "BO", "BO", 38, "Palazzo Riario", "Elegante edificio dove si svolgono corsi e seminari per diverse facoltà.");
-insert into Sede values (2, "BO", "BO", 2, "San Giovanni in Monte", "Ex chiesa trasformata in spazio universitario per conferenze e attività culturali.");
-insert into Sede values (3, "BO", "BO", 20, "Collegio dei Fiamminghi", "Residenza e centro culturale per studenti internazionali e progetti artistici.");
-insert into Sede values (4, "BO", "BO", 45, "Palazzo Hercolani", "Sede di uffici e aule per corsi accademici e attività amministrative.");
-insert into Sede values (5, "BO", "BO", 28, "Complesso Terracini", "Struttura moderna con laboratori e aule per studi scientifici e tecnologici.");
-insert into Sede values (6, "BO", "BO", 9, "Policlinico Sant'Orsola-Malpighi", "Centro medico universitario, con cliniche, laboratori e corsi di Medicina e Chirurgia.");
-insert into Sede values (7, "FC", "CE", 50, "Campus universitario di Cesena", "Campus completo con aule, laboratori, biblioteche e residenze per studenti.");
-insert into Sede values (8, "FC", "FO", 1, "Polo universitario di Forlì", "Sede moderna per corsi, laboratori e attività didattiche a Forlì.");
-insert into Sede values (9, "RA", "RA", 27, "Direzione e servizi studenti", "Punto di riferimento per informazioni, servizi e supporto agli studenti.");
-insert into Sede values (10, "RA", "RA", 1, "Dipartimento Beni Culturali", "Sede accademica per studi storici, artistici e archeologici, con aule e laboratori.");
-insert into Sede values (11, "RA", "RA", 6, "Palazzo Corradini", "Edificio storico utilizzato per corsi, conferenze ed eventi culturali.");
-insert into Sede values (12, "RA", "RA", 23, "Palazzo Verdi", "Sede universitaria per discipline umanistiche e sociali, con spazi per studenti e docenti.");
-insert into Sede values (13, "RA", "RA", 163, "Laboratori Scientifici", "Strutture all'avanguardia per ricerca e attività scientifiche sperimentali.");
-insert into Sede values (14, "RA", "RA", 55, "Ingegneria e Architettura", "Sede dei dipartimenti di Ingegneria e Architettura, con laboratori, aule e spazi per progetti.");
-insert into Sede values (15, "RA", "RA", 5, "Ospedale S.Maria delle Croci", "Centro clinico e sede universitaria per corsi e tirocinio in Medicina.");
-insert into Sede values (16, "RN", "RN", 22, "Complesso Valgimigli", "Sede universitaria con laboratori e aule moderne per corsi scientifici e tecnologici.");
+insert into Sede values (0, "BO", "BO", 33, "Palazzo Poggi", "Cuore storico dell'Università di Bologna, ospita uffici, aule e spazi per eventi culturali.", "0.jpeg", "");
+insert into Sede values (1, "BO", "BO", 38, "Palazzo Riario", "Elegante edificio dove si svolgono corsi e seminari per diverse facoltà.", "1.jpg", "");
+insert into Sede values (2, "BO", "BO", 2, "San Giovanni in Monte", "Ex chiesa trasformata in spazio universitario per conferenze e attività culturali.", "2.jpg", "");
+insert into Sede values (3, "BO", "BO", 20, "Collegio dei Fiamminghi", "Residenza e centro culturale per studenti internazionali e progetti artistici.", "3.jpg", "");
+insert into Sede values (4, "BO", "BO", 45, "Palazzo Hercolani", "Sede di uffici e aule per corsi accademici e attività amministrative.", "4.jpeg", "");
+insert into Sede values (5, "BO", "BO", 28, "Complesso Terracini", "Struttura moderna con laboratori e aule per studi scientifici e tecnologici.", "5.jpeg", "");
+insert into Sede values (6, "BO", "BO", 9, "Policlinico Sant'Orsola-Malpighi", "Centro medico universitario, con cliniche, laboratori e corsi di Medicina e Chirurgia.", "6.jpeg", "");
+insert into Sede values (7, "FC", "CE", 50, "Campus universitario di Cesena", "Campus completo con aule, laboratori, biblioteche e residenze per studenti.", "7.jpg", "");
+insert into Sede values (8, "FC", "FO", 1, "Polo universitario di Forlì", "Sede moderna per corsi, laboratori e attività didattiche a Forlì.", "8.jpeg", "");
+insert into Sede values (9, "RA", "RA", 27, "Direzione e servizi studenti", "Punto di riferimento per informazioni, servizi e supporto agli studenti.", "9.jpg", "");
+insert into Sede values (10, "RA", "RA", 1, "Dipartimento Beni Culturali", "Sede accademica per studi storici, artistici e archeologici, con aule e laboratori.", "10.jpg", "");
+insert into Sede values (11, "RA", "RA", 6, "Palazzo Corradini", "Edificio storico utilizzato per corsi, conferenze ed eventi culturali.", "11.jpeg", "");
+insert into Sede values (12, "RA", "RA", 23, "Palazzo Verdi", "Sede universitaria per discipline umanistiche e sociali, con spazi per studenti e docenti.", "12.jpg", "");
+insert into Sede values (13, "RA", "RA", 163, "Laboratori Scientifici", "Strutture all'avanguardia per ricerca e attività scientifiche sperimentali.", "13.jpeg", "");
+insert into Sede values (14, "RA", "RA", 55, "Ingegneria e Architettura", "Sede dei dipartimenti di Ingegneria e Architettura, con laboratori, aule e spazi per progetti.", "14.jpg", "");
+insert into Sede values (15, "RA", "RA", 5, "Ospedale S.Maria delle Croci", "Centro clinico e sede universitaria per corsi e tirocinio in Medicina.", "15.jpg", "");
+insert into Sede values (16, "RN", "RN", 22, "Complesso Valgimigli", "Sede universitaria con laboratori e aule moderne per corsi scientifici e tecnologici.", "16.jpg", "");
 
 # ---------------------------------------------------------------------- #
 # Add info into "Segna"                                             #
