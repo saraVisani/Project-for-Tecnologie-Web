@@ -36,8 +36,8 @@ $response = [
         ],
         "Studiare" => [
             ["label" => "Virtuale", "link" => "https://virtuale.unibo.it/my/"],
-            ["label" => "Orari", "link" => "#"],
-            ["label" => "Ricevimenti", "link" => "#"]
+            ["label" => "Orari", "link" => "../PHP/orari.php"],
+            ["label" => "Ricevimenti", "link" => "../PHP/ricevimento.php"]
         ],
         "UniFlow" => [
             ["label" => "Eventi", "link" => "#"],
