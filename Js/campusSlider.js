@@ -62,8 +62,14 @@ class CampusSlider {
         this.container.innerHTML = `
             <h3>Campus di ${campus.nome}</h3>
             <p>${campus.descrizione ?? ""}</p>
-            <button class="read-more" data-campus-id="${campus.id ?? ''}">Leggi di più</button>
-            <img src="${UPLOAD_DIR}${campus.Path}" alt="${campus.Descrizione_Img}"/>
+            <div class="campus-img-wrapper">
+                <button class="read-more" data-campus-id="${campus.id ?? ''}">
+                    Leggi di più
+                </button>
+                <img class="campus-img"
+                    src="${UPLOAD_DIR}${campus.Path}"
+                    alt="${campus.Descrizione_Img}"/>
+            </div>
         `;
 
         // Aggiorna variabile globale

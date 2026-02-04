@@ -1,13 +1,14 @@
 /* Layout generale per spingere il footer in basso */
 main {
     flex: 1;
+    overflow: hidden;
     /* spinge il footer in basso */
 }
 
 /* Sezione Campus */
 #campus-container {
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     gap: 20px;
     align-items: center;
     min-height: 120px;
@@ -33,6 +34,47 @@ main {
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
+.campus-img {
+    max-width: 100%;
+    max-height: 280px;      /* limite dimensione */
+    object-fit: cover;     /* riempie senza deformare */
+    border-radius: 10px;
+    display: block;
+}
+
+.campus-img-wrapper {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.campus-img-wrapper img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Bottone overlay */
+.campus-img-wrapper .read-more {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+
+    background: rgba(0, 0, 0, 0.65);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.campus-img-wrapper .read-more:hover {
+    background: rgba(0, 0, 0, 0.85);
+}
 
 .slide-right {
     animation: slideRight 0.4s ease;
@@ -130,4 +172,24 @@ aside ul li ul ul {
     max-width: 100%;    /* non supera il div */
     height: auto;       /* mantiene proporzioni */
     display: block;     /* elimina spazi strani sotto l’immagine */
+}
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .content main,
+    .content aside {
+        width: 100%;
+        min-width: unset;
+    }
+
+    aside {
+        order: 2;   /* va sotto */
+    }
+
+    main {
+        order: 1;
+    }
 }
