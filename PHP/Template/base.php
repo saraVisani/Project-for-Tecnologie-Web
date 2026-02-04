@@ -43,23 +43,31 @@
 
         </aside>
     </div>
-
     <footer class="footer">
-        <nav class="footer-nav">
-            <a href="#">Privacy</a>
-            <a href="#">Termini</a>
-            <a href="#">Contatti</a>
+        <div class="footer-top">
+            <h2 class="site-name">UniFlow</h2>
+            <p class="site-subtitle">Progetto di Tecoologie WEB A.A. 2025/2026 a cura di:</p>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-cell">
+                <p class="footer-name">Alessia Marzano</p>
+                <a href="mailto:alessia@email.com">alessia.marzano@studio.unibo.it</a>
+            </div>
 
-            <a href="#">Supporto</a>
-            <a href="#">FAQ</a>
-            <a href="#">Lavora con noi</a>
+            <div class="footer-cell footer-logo">
+                <img src="../Img/Logo.png" alt="UniFlow logo">
+            </div>
 
-            <a href="#">Blog</a>
-            <a href="#">Cookie</a>
-            <a href="#">Sitemap</a>
-        </nav>
+            <div class="footer-cell">
+                <p class="footer-name">Sara Visani</p>
+                <a href="mailto:sara@email.com">sara.visani7@studio.unibo.it</a>
+            </div>
+        </div>
+
+        <p class="footer-copyright">
+            © 2026 UniFlow – Tutti i diritti riservati
+        </p>
     </footer>
-
 
     <?php
     if(isset($sedi)) {

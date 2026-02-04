@@ -44,29 +44,77 @@ header {
     font-size: 32px;
 }
 
-/* Footer */
+
+/*Footer*/
 .footer {
     background: #222;
-    padding: 40px 0;
-    flex-shrink: 0;
+    padding: 20px 24px;
+    color: #fff;
 }
 
-.footer-nav {
+.footer-top {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.site-name {
+    font-size: 28px;
+    margin: 0;
+}
+
+.site-subtitle {
+    font-size: 14px;
+    color: #bbb;
+    margin-top: 6px;
+}
+
+.footer-bottom {
     display: grid;
-    grid-template-columns: repeat(3, max-content);
-    gap: 12px 60px;
-    justify-content: center;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 32px;
+}
+
+.footer-cell {
     text-align: center;
 }
 
-.footer-nav a {
-    color: white;
-    text-decoration: none;
+.footer-name {
     font-size: 15px;
+    margin-bottom: 6px;
 }
 
-.footer-nav a:hover {
+.footer-cell a {
+    color: #ddd;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-cell a:hover {
     text-decoration: underline;
+}
+
+.footer-logo img {
+    max-width: 120px; 
+    height: auto;     
+}
+
+.footer-copyright {
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .footer-bottom {
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: center;
+        gap: 0;
+    }
+
+    .footer-cell {
+        padding: 0 40px;
+    }
 }
 
 /* Main prende lo spazio rimanente */

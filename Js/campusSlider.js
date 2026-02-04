@@ -1,7 +1,6 @@
 class CampusSlider {
 
     constructor(campusList, config = {}) {
-
         // Lista campus
         this.campusList = Array.isArray(campusList) ? campusList : [];
         this.index = 0;
@@ -10,14 +9,32 @@ class CampusSlider {
         this.container = document.querySelector(config.container || "#campus-container");
         this.dotsContainer = document.querySelector(config.dots || "#campus-dots");
 
+        // Swipe mobile
         this.touchStartX = 0;
         this.touchEndX = 0;
+
+        // Icone per mappa
+        this.redIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        this.blueIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
     }
 
     /* ================= INIT ================= */
-
     init() {
-
         if (!this.campusList.length) {
             if(this.container) this.container.innerHTML = "<p>Nessun campus disponibile</p>";
             return;
@@ -30,9 +47,7 @@ class CampusSlider {
     }
 
     /* ================= RENDER ================= */
-
     render(direction = "right") {
-
         if(!this.container) return;
 
         this.container.classList.remove("slide-left", "slide-right");
@@ -50,21 +65,32 @@ class CampusSlider {
             <button class="read-more" data-campus-id="${campus.id ?? ''}">Leggi di più</button>
         `;
 
+        // Aggiorna variabile globale
+        window.selectedCampusIndex = this.index;
+
         // Listener sul read-more
         const readMoreBtn = this.container.querySelector(".read-more");
         if(readMoreBtn) {
             readMoreBtn.addEventListener("click", () => {
                 const id = campus.id;
-                // Cambia link come vuoi
                 window.location.href = `campus.php?id=${id}`;
             });
         }
 
         this.updateDots();
+
+        // Aggiorna marker sulla mappa
+        if(window.campusMapMarkers && window.campusMapMarkers.length) {
+            window.campusMapMarkers.forEach(marker => marker.setIcon(this.redIcon));
+            if(window.campusMapMarkers[this.index]){
+                window.campusMapMarkers[this.index].setIcon(this.blueIcon);
+                window.campusMap.panTo(window.campusMapMarkers[this.index].getLatLng());
+                window.campusMapMarkers[this.index].openPopup();
+            }
+        }
     }
 
     /* ================= NAVIGATION ================= */
-
     next() {
         this.index = (this.index + 1) % this.campusList.length;
         this.render("right");
@@ -76,14 +102,12 @@ class CampusSlider {
     }
 
     /* ================= BUTTONS ================= */
-
     bindButtons() {
         document.querySelector(".next-campus")?.addEventListener("click", () => this.next());
         document.querySelector(".prev-campus")?.addEventListener("click", () => this.prev());
     }
 
     /* ================= DOTS ================= */
-
     createDots() {
         if (!this.dotsContainer) return;
 
@@ -113,7 +137,6 @@ class CampusSlider {
     }
 
     /* ================= SWIPE MOBILE ================= */
-
     bindSwipe() {
         this.container.addEventListener("touchstart", e => {
             this.touchStartX = e.changedTouches[0].screenX;
@@ -128,5 +151,12 @@ class CampusSlider {
     handleSwipe() {
         if (this.touchEndX < this.touchStartX - 50) this.next();
         if (this.touchEndX > this.touchStartX + 50) this.prev();
+    }
+
+    /* ================= SELEZIONE DAL MARKER ================= */
+    selectCampusByIndex(index) {
+        if (index < 0 || index >= this.campusList.length) return;
+        this.index = index;
+        this.render();
     }
 }

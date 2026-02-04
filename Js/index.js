@@ -25,18 +25,22 @@ function renderHome(template, titles, data){
 
 function renderMainHomeBase(titles){
     return `
-    <article>
-        <header>
-            <h2>${titles.mainTitleOne}</h2>
-        </header>
-        <div id="campus-container"></div>
-        <div class="campus-controls">
-            <button class="prev-campus">←</button>
-            <button class="next-campus">→</button>
+    <article class="campus-wrapper">
+        <div>
+            <header>
+                <h2>${titles.mainTitleOne}</h2>
+            </header>
+            <div id="campus-container"></div>
+            <div class="campus-controls">
+                <button class="prev-campus">←</button>
+                <button class="next-campus">→</button>
+            </div>
+            <div id="campus-dots"></div>
         </div>
-        <div id="campus-dots"></div>
+        <div id="campus-image">
+        
+        </div>
     </article>
-
     <article>
         <header>
             <h2>${titles.mainTitleTwo}</h2>
@@ -89,11 +93,17 @@ function renderAsideHomeBase(titles, data){
     `;
 }
 
-function renderMap(sedi){
+window.selectedCampusIndex = null;
+window.campusSlider = null; 
+window.campusMapMarkers = [];
+window.campusMap = null;
+
+function renderMap(campusList){
     const mapDiv = document.getElementById("map");
     if(!mapDiv) return;
 
     const map = L.map('map').setView([44.2875081,11.8752501], 9);
+    window.campusMap = map;
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -119,17 +129,25 @@ function renderMap(sedi){
     });
 
     let selectedMarker = null;
+    window.campusMapMarkers = [];
 
-    sedi.forEach(item => {
-        const marker = L.marker([item.lat, item.long], {icon: redIcon})
+    campusList.forEach((campus, index) => {
+        const marker = L.marker([campus.lat, campus.long], {icon: redIcon})
             .addTo(map)
-            .bindPopup(`<b>${item.nome}</b>`);
+            .bindPopup(`<b>${campus.nome}</b>`);
 
         marker.on('click', () => {
             if(selectedMarker) selectedMarker.setIcon(redIcon);
             marker.setIcon(blueIcon);
             selectedMarker = marker;
+            window.selectedCampusIndex = index;
+            if(window.campusSlider){
+                window.campusSlider.index = index;
+                window.campusSlider.render();
+            }
         });
+
+        window.campusMapMarkers.push(marker);
     });
 
     setTimeout(()=> map.invalidateSize(), 0);
@@ -270,7 +288,7 @@ function renderAsideHomeLogged(titles, data) {
 }
 
 let timeRange = "week";
-let selectedDate = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+let selectedDate = new Date().toISOString().split("T")[0]; 
 
 function renderMainHomeLogged(titles, data) {
     // Selettori range + data
@@ -376,7 +394,6 @@ function renderMainHomeLogged(titles, data) {
     return html;
 }
 
-// ------------------- INIT DATE + RANGE SELECTORS -------------------
 function initTimeFilters() {
     const rangeSelect = document.querySelector("#time-range");
     const daySelect = document.querySelector("#date-day");
@@ -525,6 +542,7 @@ async function loadHome(){
             dots: "#campus-dots"
         });
         slider.init();
+        window.campusSlider = slider;
     }
 
     if(typeof sedi !== "undefined" && Array.isArray(sedi)){
@@ -534,7 +552,7 @@ async function loadHome(){
     if (typeof window.notificationManager === 'undefined') {
         window.notificationManager = new NotificationManager(
             json.data.notifiche,
-            json.titles.asideTitleTwo  // ← PASSA IL TITOLO!
+            json.titles.asideTitleTwo
         );
         window.notificationManager.init();
     } else {
@@ -542,7 +560,6 @@ async function loadHome(){
     }
 
     initTimeFilters();
-
     setTimeout(initRefreshButtons, 100);
 }
 
