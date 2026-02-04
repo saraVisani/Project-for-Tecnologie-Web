@@ -19,7 +19,7 @@ $response = [
         "right" => [
             [
                 "label" => "Rubrica",
-                "link" => "../PHP/contatti.php"
+                "link" => "../PHP/rubrica.php"
             ],
             [
                 "label" => "Login",
@@ -59,7 +59,7 @@ if(isUserLoggedIn()){
         ],
         [
             "label" => "Rubrica",
-            "link" => "../PHP/contatti.php"
+            "link" => "../PHP/rubrica.php"
         ],
         [
             "label" => "Logout",
