@@ -35,7 +35,7 @@ $response = [
             ["label" => "Corsi", "link" => "#"]
         ],
         "Studiare" => [
-            ["label" => "Virtuale", "link" => "#"],
+            ["label" => "Virtuale", "link" => "https://virtuale.unibo.it/my/"],
             ["label" => "Orari", "link" => "#"],
             ["label" => "Ricevimenti", "link" => "#"]
         ],
@@ -54,6 +54,10 @@ if(isUserLoggedIn()){
 
     $response["buttons"]["right"] = [
         [
+            "label" => "Notifiche",
+            "link" => "../PHP/notifiche.php"
+        ],
+        [
             "label" => "Rubrica",
             "link" => "../PHP/contatti.php"
         ],
@@ -64,16 +68,85 @@ if(isUserLoggedIn()){
     ];
 
     if(isUserStudent()){
-        if(userLevelForAccess(2)){
-            // studentRep
-        } else {
-            // student normale
-        }
-
+        $response["items"] = [
+            "Ateneo" => [
+                ["label" => "Sedi", "link" => "#"],
+                ["label" => "Ambiti", "link" => "#"],
+                ["label" => "Corsi", "link" => "#"]
+            ],
+            "Studiare" => [
+                ["label" => "Virtuale", "link" => "https://virtuale.unibo.it/my/"],
+                ["label" => "EOL", "link" => "https://studenti.unibo.it/sol/studenti/home.htm"],
+                ["label" => "Studenti Online", "link" => "https://eol.unibo.it/login/index.php"]
+            ],
+            "Forum" => [
+                ["label" => "Professori", "link" => "#"],
+                ["label" => "Studenti", "link" => "#"],
+                ["label" => "Generali", "link" => "#"]
+            ],
+            "Richieste" => [
+                ["label" => "Ricevimento", "link" => "#"],
+                ["label" => "Evento", "link" => "#"]
+            ],
+            "UniFlow" => [
+                ["label" => "Eventi", "link" => "#"],
+                ["label" => "Lezioni", "link" => "#"],
+                ["label" => "Ricevimenti", "link" => "#"],
+                ["label" => "Classi Vuote", "link" => "#"]
+            ]
+        ];
     } else if (isUserProfessor()){
-
+        $response["items"] = [
+            "Ateneo" => [
+                ["label" => "Sedi", "link" => "#"],
+                ["label" => "Ambiti", "link" => "#"],
+                ["label" => "Corsi", "link" => "#"]
+            ],
+            "Studiare" => [
+                ["label" => "Virtuale", "link" => "https://virtuale.unibo.it/my/"],
+                ["label" => "EOL", "link" => "https://studenti.unibo.it/sol/studenti/home.htm"],
+                ["label" => "Studenti Online", "link" => "https://eol.unibo.it/login/index.php"]
+            ],
+            "Forum" => [
+                ["label" => "Professori", "link" => "#"],
+                ["label" => "Studenti", "link" => "#"],
+                ["label" => "Generali", "link" => "#"]
+            ],
+            "Richieste" => [
+                ["label" => "Orario", "link" => "#"],
+                ["label" => "Evento", "link" => "#"]
+            ],
+            "UniFlow" => [
+                ["label" => "Eventi", "link" => "#"],
+                ["label" => "Lezioni", "link" => "#"],
+                ["label" => "Ricevimenti", "link" => "#"],
+                ["label" => "Classi Vuote", "link" => "#"]
+            ]
+        ];
     } else { // segreteria
-
+        $response["items"] = [
+            "Ateneo" => [
+                ["label" => "Sedi", "link" => "#"],
+                ["label" => "Ambiti", "link" => "#"],
+                ["label" => "Corsi", "link" => "#"],
+                ["label" => "Uffici", "link" => "#"]
+            ],
+            "Forum" => [
+                ["label" => "Professori", "link" => "#"],
+                ["label" => "Studenti", "link" => "#"],
+                ["label" => "Generali", "link" => "#"]
+            ],
+            "Richieste" => [
+                ["label" => "Lezioni", "link" => "#"],
+                ["label" => "Ricevimenti", "link" => "#"],
+                ["label" => "Eventi", "link" => "#"]
+            ],
+            "UniFlow" => [
+                ["label" => "Eventi", "link" => "#"],
+                ["label" => "Lezioni", "link" => "#"],
+                ["label" => "Classi Vuote", "link" => "#"]
+            ]
+        ];
     }
 }
 

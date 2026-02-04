@@ -273,7 +273,7 @@ class DatabaseHelper
     public function getTimesStudent($idUtente, $range, $date)
     {
         $cf = $this->resolveUserId($idUtente);
-        if ($cf === 0) {
+        if ($cf === null) {
             return []; // nessun evento se utente non trovato
         }
         $when = $this->buildDateRangeWhere($range, $date, "O.Orario_inizio");
@@ -344,7 +344,7 @@ class DatabaseHelper
     public function getReunionStudent($idUtente, $range, $date)
     {
         $matricolaStud = $this->resolveUserId($idUtente);
-        if ($matricolaStud === 0 ) {
+        if ($matricolaStud === null ) {
             return [];
         }
 
@@ -623,7 +623,28 @@ class DatabaseHelper
         return $eventi;
     }
 
-    public function getNotifications($idUtente)
+    public function getOpenNotifications($idUtente)
+    {
+        $matricola = $this->resolveUserId($idUtente);
+        if ($matricola === null) {
+            return []; // nessuna notifica se utente non trovato
+        }
+
+        $stmt = $this->db->prepare("SELECT Codice as codice, Descrizione as descrizione, Chiusa as chiusa
+            FROM Notifica
+            WHERE Matricola = ?
+            AND Notifica.Chiusa = 0
+            ORDER BY Codice ASC");
+
+        $stmt->bind_param("i", $matricola);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $notifiche = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
+        return $notifiche;
+    }
+    public function getAllNotifications($idUtente)
     {
         $matricola = $this->resolveUserId($idUtente);
         if ($matricola === null) {
@@ -642,6 +663,71 @@ class DatabaseHelper
         $stmt->close();
 
         return $notifiche;
+    }
+
+    public function closeNotification($cod){
+        $sql = "UPDATE Notifica
+                SET Chiusa = 1
+                WHERE Codice = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $cod);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result;
+    }
+
+    public function freeClassrooms($idUtente){
+        $matricola = $this->resolveUserId($idUtente);
+        if ($matricola === null) {
+            return []; // nessuna notifica se utente non trovato
+        }
+
+        // Data/ora corrente per "in quel momento"
+        $now = date('Y-m-d H:i:s');
+
+        $sql = "SELECT DISTINCT
+                c.Codice_Stanza,
+                l.Nome,
+                c.Lab
+            FROM Classe c
+            JOIN Universitario u ON c.Codice_Uni = u.Codice_Uni
+            JOIN Luogo l ON u.Cod_Luogo = l.Codice
+            JOIN Segreteria s ON s.Codice_Uni = c.Codice_Uni
+            WHERE s.Matricola = ?
+                -- Aula della segreteria
+                AND NOT EXISTS (
+                    -- Occupata da lezioni?
+                    SELECT 1 FROM Orario o
+                    WHERE o.Codice_Uni = c.Codice_Uni
+                        AND o.Codice_Stanza = c.Codice_Stanza
+                        AND o.Orario_inizio <= ?
+                        AND o.Orario_fine > ?
+                )
+                AND NOT EXISTS (
+                    -- Occupata da eventi?
+                    SELECT 1 FROM Orario_Evento oe
+                    JOIN Universitario ue ON oe.Cod_Luogo = ue.Cod_Luogo
+                    WHERE ue.Codice_Uni = c.Codice_Uni
+                        AND c.Codice_Stanza = (
+                            SELECT cc.Codice_Stanza
+                            FROM Classe cc
+                            WHERE cc.Codice_Uni = ue.Codice_Uni
+                                AND cc.Codice_Stanza = ue.Codice
+                            LIMIT 1
+                        )
+                        AND oe.Inizio <= ?
+                        AND oe.Fine > ?
+                )
+            ORDER BY l.Nome
+        ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("issss", $idUtente, $now, $now, $now, $now);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $classi = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $classi;
     }
 
     public function getCampusById($id){

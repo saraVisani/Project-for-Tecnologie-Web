@@ -1,17 +1,16 @@
 {
     "user": {
         "logged": true,
-        "role": "studente",
-        "level": 1
+        "role": "segreteria",
+        "level": 4
     },
     "titles": {
-        "mainTitleOne": "Orari",
-        "mainTitleTwo": "Ricevimenti",
+        "mainTitleOne": "Notifiche",
+        "mainTitleTwo": "Eventi",
         "mainTitleTwoS1": "Parte dello Staff",
         "mainTitleTwoS2": "Iscritto",
         "asideTitleOne": "Canali Seguiti",
-        "mainTitleThree": "Eventi",
-        "asideTitleTwo": "Notifiche"
+        "mainTitleThree": "Classi Libere"
     },
     "data": {
         "orario": [],
@@ -21,6 +20,27 @@
                 "Cod_Forum": "2",
                 "nome_forum": "Forum Generale",
                 "canali": [
+                    {
+                        "Codice": "0",
+                        "nome_canale": "Comunicazioni Interne Segreteria",
+                        "Grado": "4",
+                        "Visualizzare": 0,
+                        "Visualizzare_Tutti": 0
+                    },
+                    {
+                        "Codice": "1",
+                        "nome_canale": "Avvisi Segreteria ai Docenti",
+                        "Grado": "4",
+                        "Visualizzare": 1,
+                        "Visualizzare_Tutti": 0
+                    },
+                    {
+                        "Codice": "2",
+                        "nome_canale": "Coordinamento Segreteria\u2013Docenti",
+                        "Grado": "3",
+                        "Visualizzare": 1,
+                        "Visualizzare_Tutti": 0
+                    },
                     {
                         "Codice": "3",
                         "nome_canale": "Comunicazioni Ufficiali Generali",
@@ -42,6 +62,20 @@
                 "nome_forum": "Forum Professori",
                 "canali": [
                     {
+                        "Codice": "0",
+                        "nome_canale": "Comunicazioni Interne Docenti",
+                        "Grado": "3",
+                        "Visualizzare": 0,
+                        "Visualizzare_Tutti": 0
+                    },
+                    {
+                        "Codice": "1",
+                        "nome_canale": "Coordinamento Docenti\u2013Rappresentanti",
+                        "Grado": "2",
+                        "Visualizzare": 0,
+                        "Visualizzare_Tutti": 0
+                    },
+                    {
                         "Codice": "2",
                         "nome_canale": "Avvisi Docenti e Rappresentanti",
                         "Grado": "2",
@@ -61,6 +95,13 @@
                 "Cod_Forum": "1",
                 "nome_forum": "Forum Studenti",
                 "canali": [
+                    {
+                        "Codice": "0",
+                        "nome_canale": "Chat Rappresentanti Studenti",
+                        "Grado": "2",
+                        "Visualizzare": 0,
+                        "Visualizzare_Tutti": 0
+                    },
                     {
                         "Codice": "1",
                         "nome_canale": "Comunicazioni dei Rappresentanti",
@@ -82,19 +123,466 @@
         "eventi_iscritto": [],
         "notifiche": [
             {
-                "codice": "1",
-                "descrizione": "Sospensione ricevimento docente per imprevisto.",
-                "chiusa": 1
-            },
-            {
-                "codice": "2",
-                "descrizione": "Sospensione ricevimento docente per imprevisto.",
-                "chiusa": 1
-            },
-            {
-                "codice": "3",
-                "descrizione": "Aggiornamento orario lezioni settimanale disponibile.",
+                "codice": "4",
+                "descrizione": "Aggiornamento calendario appelli d'esame.",
                 "chiusa": 0
+            }
+        ],
+        "classiLibere": [
+            {
+                "Codice_Stanza": "123",
+                "Nome": "Aula Conferenze",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "520",
+                "Nome": "Aula Conferenze",
+                "Lab": 0
+            },
+            {
+                "Codice_Stanza": "115",
+                "Nome": "Aula Conferenze",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "406",
+                "Nome": "Aula Conferenze",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "323",
+                "Nome": "Aula Conferenze",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "318",
+                "Nome": "Aula Conferenze",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "313",
+                "Nome": "Aula Conferenze",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "313",
+                "Nome": "Aula Informatica 2",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "123",
+                "Nome": "Aula Informatica 2",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "520",
+                "Nome": "Aula Informatica 2",
+                "Lab": 0
+            },
+            {
+                "Codice_Stanza": "115",
+                "Nome": "Aula Informatica 2",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "406",
+                "Nome": "Aula Informatica 2",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "323",
+                "Nome": "Aula Informatica 2",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "318",
+                "Nome": "Aula Informatica 2",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "406",
+                "Nome": "Aula Progetti",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "323",
+                "Nome": "Aula Progetti",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "318",
+                "Nome": "Aula Progetti",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "313",
+                "Nome": "Aula Progetti",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "123",
+                "Nome": "Aula Progetti",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "520",
+                "Nome": "Aula Progetti",
+                "Lab": 0
+            },
+            {
+                "Codice_Stanza": "115",
+                "Nome": "Aula Progetti",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "318",
+                "Nome": "Aula Seminari",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "313",
+                "Nome": "Aula Seminari",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "123",
+                "Nome": "Aula Seminari",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "520",
+                "Nome": "Aula Seminari",
+                "Lab": 0
+            },
+            {
+                "Codice_Stanza": "115",
+                "Nome": "Aula Seminari",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "406",
+                "Nome": "Aula Seminari",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "323",
+                "Nome": "Aula Seminari",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "123",
+                "Nome": "Aula Studio B",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "520",
+                "Nome": "Aula Studio B",
+                "Lab": 0
+            },
+            {
+                "Codice_Stanza": "115",
+                "Nome": "Aula Studio B",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "406",
+                "Nome": "Aula Studio B",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "323",
+                "Nome": "Aula Studio B",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "318",
+                "Nome": "Aula Studio B",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "313",
+                "Nome": "Aula Studio B",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "313",
+                "Nome": "Aula Studio C",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "123",
+                "Nome": "Aula Studio C",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "520",
+                "Nome": "Aula Studio C",
+                "Lab": 0
+            },
+            {
+                "Codice_Stanza": "115",
+                "Nome": "Aula Studio C",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "406",
+                "Nome": "Aula Studio C",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "323",
+                "Nome": "Aula Studio C",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "318",
+                "Nome": "Aula Studio C",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "123",
+                "Nome": "Giardino degli Studenti",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "520",
+                "Nome": "Giardino degli Studenti",
+                "Lab": 0
+            },
+            {
+                "Codice_Stanza": "115",
+                "Nome": "Giardino degli Studenti",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "406",
+                "Nome": "Giardino degli Studenti",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "323",
+                "Nome": "Giardino degli Studenti",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "318",
+                "Nome": "Giardino degli Studenti",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "313",
+                "Nome": "Giardino degli Studenti",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "115",
+                "Nome": "Giardino della Conoscenza",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "406",
+                "Nome": "Giardino della Conoscenza",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "323",
+                "Nome": "Giardino della Conoscenza",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "318",
+                "Nome": "Giardino della Conoscenza",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "313",
+                "Nome": "Giardino della Conoscenza",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "123",
+                "Nome": "Giardino della Conoscenza",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "520",
+                "Nome": "Giardino della Conoscenza",
+                "Lab": 0
+            },
+            {
+                "Codice_Stanza": "323",
+                "Nome": "Polo Didattico Informatica",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "318",
+                "Nome": "Polo Didattico Informatica",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "313",
+                "Nome": "Polo Didattico Informatica",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "123",
+                "Nome": "Polo Didattico Informatica",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "520",
+                "Nome": "Polo Didattico Informatica",
+                "Lab": 0
+            },
+            {
+                "Codice_Stanza": "115",
+                "Nome": "Polo Didattico Informatica",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "406",
+                "Nome": "Polo Didattico Informatica",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "318",
+                "Nome": "Ufficio Amministrativo",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "313",
+                "Nome": "Ufficio Amministrativo",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "123",
+                "Nome": "Ufficio Amministrativo",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "520",
+                "Nome": "Ufficio Amministrativo",
+                "Lab": 0
+            },
+            {
+                "Codice_Stanza": "115",
+                "Nome": "Ufficio Amministrativo",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "406",
+                "Nome": "Ufficio Amministrativo",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "323",
+                "Nome": "Ufficio Amministrativo",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "323",
+                "Nome": "Ufficio Placement",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "318",
+                "Nome": "Ufficio Placement",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "313",
+                "Nome": "Ufficio Placement",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "123",
+                "Nome": "Ufficio Placement",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "520",
+                "Nome": "Ufficio Placement",
+                "Lab": 0
+            },
+            {
+                "Codice_Stanza": "115",
+                "Nome": "Ufficio Placement",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "406",
+                "Nome": "Ufficio Placement",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "115",
+                "Nome": "Ufficio Risorse Umane",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "406",
+                "Nome": "Ufficio Risorse Umane",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "323",
+                "Nome": "Ufficio Risorse Umane",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "318",
+                "Nome": "Ufficio Risorse Umane",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "313",
+                "Nome": "Ufficio Risorse Umane",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "123",
+                "Nome": "Ufficio Risorse Umane",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "520",
+                "Nome": "Ufficio Risorse Umane",
+                "Lab": 0
+            },
+            {
+                "Codice_Stanza": "318",
+                "Nome": "Ufficio Servizi Informatici",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "313",
+                "Nome": "Ufficio Servizi Informatici",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "123",
+                "Nome": "Ufficio Servizi Informatici",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "520",
+                "Nome": "Ufficio Servizi Informatici",
+                "Lab": 0
+            },
+            {
+                "Codice_Stanza": "115",
+                "Nome": "Ufficio Servizi Informatici",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "406",
+                "Nome": "Ufficio Servizi Informatici",
+                "Lab": 1
+            },
+            {
+                "Codice_Stanza": "323",
+                "Nome": "Ufficio Servizi Informatici",
+                "Lab": 1
             }
         ]
     }

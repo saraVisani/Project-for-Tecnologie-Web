@@ -1,32 +1,29 @@
 <?php
 require_once(__DIR__ . "/../Bootstrap.php");
-header("Content-Type: application/json");
-
-$id = isset($_GET["id"]) ? intval($_GET["id"]) : null;
-
-if ($id === null) {
-    echo json_encode(["error" => "ID mancante"]);
-    exit;
-}
-
-$sede = $dbh->getCampusById($id);
-
-if (!$sede) {
-    echo json_encode(["error" => "Sede non trovata"]);
-    exit;
-}
+header('Content-Type: application/json');
 
 $response = [
-    "sede" => $sede,
-    "spazzi" => $dbh->getSpacesbyCampus($id),
-    "segreteria" => $dbh->getSecretariatByCampusId($id),
-    "professori" => $dbh->getProfessorsByCampusId($id),
-    "corsi" => $dbh->getCoursesByCampusId($id),
-    "eventi" => $dbh->getEventsByCampusId($id),
     "titles" => [
-        "mainTitle" => "Dettagli Sede",
-        "coursesTitle" => "Corsi Disponibili",
-        "eventsTitle" => "Eventi in Sede"
+        "one" => "I Nostri Campus",
+        "ambiti" => "Mappa Interattiva",
+        "corso" => "Eventi Recenti",
+        "materie" => "Domande",
+        "luoghi" => "Hai una domanda?",
+        "classi" => "Domande Frequenti",
+        "uffici" => "Domande",
+        "professor" => "Hai una domanda?",
+        "segreteria" => "Domande Frequenti",
+    ],
+    "data" => [
+        "campus" => $dbh->getAllCampuses(),
+        "ambiti" => "Mappa Interattiva",
+        "corso" => "Eventi Recenti",
+        "materie" => "Domande",
+        "luoghi" => "Hai una domanda?",
+        "classi" => "Domande Frequenti",
+        "uffici" => "Domande",
+        "professor" => "Hai una domanda?",
+        "segreteria" => "Domande Frequenti",
     ]
 ];
 

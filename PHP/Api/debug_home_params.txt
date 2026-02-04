@@ -1,1 +1,1 @@
-range=week, date=2026-02-03, role=studente, userId=0
+range=week, date=2026-02-03, role=segreteria, userId=1

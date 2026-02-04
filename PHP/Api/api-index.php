@@ -17,8 +17,8 @@ $response = [
         "asideInnerTitleOne" => "Hai una domanda?",
         "asideInnerTitleTwo" => "Domande Frequenti"
     ],
-    "data" => [
-        "campus" => $dbh->getAllCampuses(),
+    "data" => ["campus" => $dbh->getAllCampuses(),
+
         "eventi" => $dbh->getMostRecentPublicEvents(),
         "faq" => $dbh->getMostPopularFAQsByLevel()
     ]
@@ -61,6 +61,7 @@ if(isUserLoggedIn()) {
     $ricevimenti = [];
     $eventi_staff = [];
     $eventi_iscritto = [];
+    $classi_libere = [];
 
     if($userRole === "studente") {
         $orario = $dbh->getTimesStudent($userId, $range, $date) ?: [];
@@ -77,14 +78,15 @@ if(isUserLoggedIn()) {
     } else {
         $orario = [];
         $ricevimenti = [];
+        $classi_libere = $dbh->freeClassrooms($userId) ?: [];
         $response["titles"]["mainTitleOne"] = "Notifiche";
-        $response["titles"]["mainTitleThree"] = "Cartine Aule";
+        $response["titles"]["mainTitleThree"] = "Classi Libere";
     }
 
     $canali_Seguiti = $dbh->getSignInChannals($userLevel) ?: [];
     $eventi_staff = $dbh->getStaffEvents($userId, $range, $date) ?: [];
     $eventi_iscritto = $dbh->getSignInEvents($userId, $range, $date) ?: [];
-    $notifiche = $dbh->getNotifications($userId) ?: [];
+    $notifiche = $dbh->getOpenNotifications($userId) ?: [];
 
     $response["data"] = [
         "orario" => $orario,
@@ -92,11 +94,19 @@ if(isUserLoggedIn()) {
         "canali_Seguiti" => $canali_Seguiti,
         "eventi_staff" => $eventi_staff,
         "eventi_iscritto" => $eventi_iscritto,
-        "notifiche" => $notifiche
+        "notifiche" => $notifiche,
+        "classiLibere" => $classi_libere
     ];
 
     // --- Salva JSON per debug ---
     file_put_contents(__DIR__ . "/debug_home.json", json_encode($response, JSON_PRETTY_PRINT));
+}
+
+if (isset($_GET['refresh'])) {
+    $refresh = $_GET['refresh'];
+    if ($refresh === 'classiLibere' && isUserLoggedIn()) {
+        $response['data']['classiLibere'] = $dbh->freeClassrooms($userId);
+    }
 }
 
 // --- Output JSON ---
