@@ -19,7 +19,7 @@ $response = [
         "right" => [
             [
                 "label" => "Rubrica",
-                "link" => "../PHP/contatti.php"
+                "link" => "../PHP/rubrica.php"
             ],
             [
                 "label" => "Login",
@@ -36,13 +36,13 @@ $response = [
         ],
         "Studiare" => [
             ["label" => "Virtuale", "link" => "https://virtuale.unibo.it/my/"],
-            ["label" => "Orari", "link" => "#"],
-            ["label" => "Ricevimenti", "link" => "#"]
+            ["label" => "Orari", "link" => "../PHP/orari.php"],
+            ["label" => "Ricevimenti", "link" => "../PHP/ricevimento.php"]
         ],
         "UniFlow" => [
-            ["label" => "Eventi", "link" => "#"],
+            ["label" => "Eventi", "link" => "../PHP/eventi.php"],
             ["label" => "Forum", "link" => "#"],
-            ["label" => "Classi Vuote", "link" => "#"]
+            ["label" => "Classi Vuote", "link" => "../PHP/classi-vuote.php"]
         ]
     ]
 ];
@@ -59,7 +59,7 @@ if(isUserLoggedIn()){
         ],
         [
             "label" => "Rubrica",
-            "link" => "../PHP/contatti.php"
+            "link" => "../PHP/rubrica.php"
         ],
         [
             "label" => "Logout",
@@ -92,7 +92,7 @@ if(isUserLoggedIn()){
                 ["label" => "Eventi", "link" => "#"],
                 ["label" => "Lezioni", "link" => "#"],
                 ["label" => "Ricevimenti", "link" => "#"],
-                ["label" => "Classi Vuote", "link" => "#"]
+                ["label" => "Classi Vuote", "link" => "../PHP/classi-vuote.php"]
             ]
         ];
     } else if (isUserProfessor()){
@@ -120,7 +120,7 @@ if(isUserLoggedIn()){
                 ["label" => "Eventi", "link" => "#"],
                 ["label" => "Lezioni", "link" => "#"],
                 ["label" => "Ricevimenti", "link" => "#"],
-                ["label" => "Classi Vuote", "link" => "#"]
+                ["label" => "Classi Vuote", "link" => "../PHP/classi-vuote.php"]
             ]
         ];
     } else { // segreteria
@@ -144,7 +144,7 @@ if(isUserLoggedIn()){
             "UniFlow" => [
                 ["label" => "Eventi", "link" => "#"],
                 ["label" => "Lezioni", "link" => "#"],
-                ["label" => "Classi Vuote", "link" => "#"]
+                ["label" => "Classi Vuote", "link" => "../PHP/classi-vuote.php"]
             ]
         ];
     }

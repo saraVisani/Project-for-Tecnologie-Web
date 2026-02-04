@@ -936,5 +936,234 @@ class DatabaseHelper
         $stmt->close();
         return $cal;
     }
+
+    public function AllCourses(){
+        $sql = "SELECT c.Codice AS corso_codice, c.Nome AS corso_nome, c.Descrizione AS corso_descrizione
+                FROM Corso c";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $cal = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $cal;
+    }
+
+    public function getCourseByCode($code){
+        $sql = "SELECT c.Nome AS corso_nome
+                FROM Corso c
+                WHERE c.Codice = ?
+                LIMIT 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $code);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        $stmt->close();
+        return $row;
+    }
+
+    public function getLessionsByCourse($corso, $grado, $anno) {
+
+        $sql = "SELECT
+                    o.Codice AS orario_codice,
+                    o.Orario_inizio,
+                    o.Orario_fine,
+
+                    m.Nome AS materia_nome,
+                    ma.Anno,
+
+                    mo.Codice AS modulo_codice,
+                    mo.Descrizione AS modulo_descrizione,
+
+                    l.Nome AS nome_stanza,
+                    o.Codice_Stanza AS codice_stanza,
+                    l.Capienza,
+                    c.Lab,
+                    s.Nome AS nome_sede
+                FROM Orario o
+                JOIN Materia_Anno ma
+                    ON ma.Cod_Mat_Anno = o.Cod_Mat_Anno
+                JOIN Materia m
+                    ON m.Codice = ma.Codice_Mat
+                JOIN Modulo mo
+                    ON mo.Codice_Corso = o.Codice_Corso
+                AND mo.Cod_Mat_Anno = o.Cod_Mat_Anno
+                AND mo.Codice = o.Codice_Modulo
+                JOIN Formato_Da f
+                    ON f.Codice_Mat = m.Codice
+                AND f.Codice_Corso = o.Codice_Corso
+                JOIN Classe c
+                    ON o.Codice_Uni = c.Codice_Uni
+                    AND o.Codice_Stanza = c.Codice_Stanza
+                JOIN Universitario u
+                    ON o.Codice_Uni = u.Codice_Uni
+                    AND o.Codice_Stanza = u.Codice
+                JOIN Luogo l
+                    ON u.Cod_Luogo  = l.Codice
+                JOIN Sede s
+                    ON o.Codice_Uni = s.Codice
+                WHERE o.Codice_Corso = ?
+                AND f.Grado = ?
+                AND ma.Anno = ?
+                ORDER BY o.Orario_inizio
+            ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("sii", $corso, $grado, $anno);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        return $rows;
+    }
+
+    public function getCampusNameByCode($sede) {
+        $sql = "SELECT s.Nome
+                FROM Sede s
+                WHERE s.Codice = ?
+                LIMIT 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $sede);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $stmt->close();
+        return $row;
+    }
+
+    public function getReunionsByCampus($sede, $date){
+        $sql = "SELECT DISTINCT
+                    r.Codice            AS ricevimento_codice,
+                    r.Online,
+                    r.Data_Inizio,
+                    r.Data_Fine,
+                    r.N_Slot,
+
+                    p.Matricola,
+                    pe.Nome,
+                    pe.Cognome,
+
+                    s.Nome              AS nome_sede
+                FROM Ricevimento r
+                JOIN Professore p
+                    ON p.Matricola = r.Matricola
+                JOIN Sistema_Universitario su
+                    ON su.Matricola = p.Matricola
+                JOIN Persona pe
+                    ON pe.CF = su.CF
+                LEFT JOIN Ufficio u
+                    ON u.Matricola = p.Matricola
+                AND u.Codice_Uni = ?
+                LEFT JOIN Sede s
+                    ON s.Codice = r.Codice_Uni
+                WHERE r.Data_Inizio >= ?
+                AND (
+                        -- ricevimenti in presenza nella sede
+                        (r.Online = 0 AND r.Codice_Uni = ?)
+                        OR
+                        -- ricevimenti online se il prof ha ufficio nella sede
+                        (r.Online = 1 AND u.Codice_Uni IS NOT NULL)
+                    )
+                ORDER BY r.Data_Inizio";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("iss", $sede, $date, $sede);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $row;
+    }
+
+    public function getAllCampusesWithCode()
+    {
+        $sql = "SELECT sede.Codice as codice, sede.Nome as nome, sede.Codice_Prov, sede.Codice_Citta, sede.N_Civico, indirizzo.Via, indirizzo.Nome as nome_indirizzo, sede.descrizione
+                FROM sede, indirizzo
+                WHERE sede.Codice_Prov = indirizzo.Codice_Prov
+                    AND sede.Codice_Citta = indirizzo.Codice_Citta
+                    AND sede.N_Civico = indirizzo.N_Civico";
+        $result = $this->db->query($sql);
+        $campuses = $result->fetch_all(MYSQLI_ASSOC);
+        return $campuses;
+    }
+
+    public function getEventsByCampusIdInYear($sede, $date){
+        $sql = "SELECT
+                e.Codice AS id,
+                e.Nome AS nome,
+                e.Descrizione AS descrizione,
+                e.Posti AS posti,
+                e.Pubblico AS pubblico,
+                le.Nome AS luogo,
+                oe.Inizio AS inizio,
+                oe.Fine AS fine
+            FROM Universitario u
+            JOIN Orario_Evento oe
+                ON oe.Cod_Luogo = u.Cod_Luogo
+            JOIN Evento e
+                ON e.Codice = oe.Codice_Evento
+            JOIN Luogo le
+                ON le.Codice = u.Cod_Luogo
+            WHERE u.Codice_Uni = ?
+            AND YEAR(oe.Fine) = ?
+            ORDER BY oe.Inizio ASC";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ii", $sede, $date);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $row;
+    }
+
+    public function getFreeClassroomsByCampus($sede){
+        $now = date('Y-m-d H:i:s');
+
+        $sql = "SELECT DISTINCT
+                    c.Codice_Stanza,
+                    l.Nome,
+                    c.Lab
+                FROM Classe c
+                JOIN Universitario u ON c.Codice_Uni = u.Codice_Uni
+                JOIN Luogo l ON u.Cod_Luogo = l.Codice
+                WHERE c.Codice_Uni = ?
+                    -- Aula libera da lezioni
+                    AND NOT EXISTS (
+                        SELECT 1 FROM Orario o
+                        WHERE o.Codice_Uni = c.Codice_Uni
+                            AND o.Codice_Stanza = c.Codice_Stanza
+                            AND o.Orario_inizio <= ?
+                            AND o.Orario_fine > ?
+                    )
+                    -- Aula libera da eventi
+                    AND NOT EXISTS (
+                        SELECT 1 FROM Orario_Evento oe
+                        JOIN Universitario ue ON oe.Cod_Luogo = ue.Cod_Luogo
+                        WHERE ue.Codice_Uni = c.Codice_Uni
+                            AND c.Codice_Stanza = (
+                                SELECT cc.Codice_Stanza
+                                FROM Classe cc
+                                WHERE cc.Codice_Uni = ue.Codice_Uni
+                                    AND cc.Codice_Stanza = ue.Codice
+                                LIMIT 1
+                            )
+                            AND oe.Inizio <= ?
+                            AND oe.Fine > ?
+                    )
+                ORDER BY l.Nome
+        ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("issss", $sede, $now, $now, $now, $now);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $classi = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
+        return $classi;
+    }
 }
 ?>
