@@ -31,8 +31,8 @@ $response = [
     "items" => [
         "Ateneo" => [
             ["label" => "Sedi", "link" => "#"],
-            ["label" => "Ambiti", "link" => "#"],
-            ["label" => "Corsi", "link" => "#"]
+            ["label" => "Ambiti", "link" => "../PHP/ambiti.php"],
+            ["label" => "Corsi", "link" => "../PHP/corsi.php"]
         ],
         "Studiare" => [
             ["label" => "Virtuale", "link" => "https://virtuale.unibo.it/my/"],
@@ -71,8 +71,8 @@ if(isUserLoggedIn()){
         $response["items"] = [
             "Ateneo" => [
                 ["label" => "Sedi", "link" => "#"],
-                ["label" => "Ambiti", "link" => "#"],
-                ["label" => "Corsi", "link" => "#"]
+                ["label" => "Ambiti", "link" => "../PHP/ambiti.php"],
+                ["label" => "Corsi", "link" => "../PHP/corsi.php"]
             ],
             "Studiare" => [
                 ["label" => "Virtuale", "link" => "https://virtuale.unibo.it/my/"],
@@ -99,8 +99,8 @@ if(isUserLoggedIn()){
         $response["items"] = [
             "Ateneo" => [
                 ["label" => "Sedi", "link" => "#"],
-                ["label" => "Ambiti", "link" => "#"],
-                ["label" => "Corsi", "link" => "#"]
+                ["label" => "Ambiti", "link" => "../PHP/ambiti.php"],
+                ["label" => "Corsi", "link" => "../PHP/corsi.php"]
             ],
             "Studiare" => [
                 ["label" => "Virtuale", "link" => "https://virtuale.unibo.it/my/"],
@@ -127,8 +127,8 @@ if(isUserLoggedIn()){
         $response["items"] = [
             "Ateneo" => [
                 ["label" => "Sedi", "link" => "#"],
-                ["label" => "Ambiti", "link" => "#"],
-                ["label" => "Corsi", "link" => "#"],
+                ["label" => "Ambiti", "link" => "../PHP/ambiti.php"],
+                ["label" => "Corsi", "link" => "../PHP/corsi.php"],
                 ["label" => "Uffici", "link" => "#"]
             ],
             "Forum" => [

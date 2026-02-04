@@ -885,5 +885,56 @@ class DatabaseHelper
 
         return $cal;
     }
+
+    public function getAmbitiForPage(){
+        $sql = "SELECT
+                    a.Nome        AS ambito_nome,
+                    a.Colore      AS ambito_colore,
+                    c.Codice      AS corso_codice,
+                    c.Nome        AS corso_nome,
+                    c.Descrizione AS corso_descrizione,
+                    c.Colore      AS corso_colore
+                FROM Ambito a
+                LEFT JOIN Corso c ON c.Ambito = a.Nome
+                ORDER BY a.Nome, c.Nome;";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $cal = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $cal;
+    }
+
+    public function corsesForPage(){
+        $sql = "SELECT
+                    c.Codice AS corso_codice,
+                    c.Nome AS corso_nome,
+                    c.Descrizione AS corso_descrizione,
+                    c.Colore AS corso_colore,
+
+                    s.Codice AS sede_codice,
+                    s.Nome AS sede_nome,
+                    s.Descrizione AS sede_descrizione,
+
+                    m.Codice AS materia_codice,
+                    m.Nome AS materia_nome,
+
+                    f.Obbligatorio,
+                    f.Grado,
+                    f.Periodo,
+                    f.CFU
+                FROM Corso c
+                LEFT JOIN Seguito_In si ON si.Codice_Corso = c.Codice
+                LEFT JOIN Sede s ON s.Codice = si.Codice_Uni
+                LEFT JOIN Formato_Da f ON f.Codice_Corso = c.Codice
+                LEFT JOIN Materia m ON m.Codice = f.Codice_Mat
+                ORDER BY c.Codice;";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $cal = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $cal;
+    }
 }
 ?>
